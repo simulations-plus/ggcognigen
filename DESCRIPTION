@@ -4,10 +4,14 @@ Title: Cognigen Corporation ggplot2 Functions
 Version: 0.1.0
 Author: Sebastien Bihorel for Cognigen Corporation
 Maintainer: Sebastien Bihorel <sebastien.bihorel@cognigencorp.com>
-Description: Themes, Styles, and Helpers for ggplot2 at Cognigen Corporation
-License: Cognigen
+Description: Themes, Styles, and Helpers for ggplot2 at Cognigen Corporation.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    ggplot2
+    ggplot2,
+    rlang,
+    grid,
+    jsonlite,
+    quantreg
 RoxygenNote: 7.1.0
