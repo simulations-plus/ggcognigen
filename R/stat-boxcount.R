@@ -1,39 +1,18 @@
-#' @rdname geom_cognigenBoxplot
-#'
-#' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a
-#' confidence interval (if greater than or equal to 0). Defaults to 1.5.
-#'
-#' @inheritParams ggplot2::stat_identity
-#'
-#' @section Computed variables:
-#' \describe{
-#'   \item{width}{width of boxplot}
-#'   \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR or lower limit of the confidence interval}
-#'   \item{lower}{lower hinge, 25\% quantile}
-#'   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-#'   \item{middle}{median, 50\% quantile}
-#'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-#'   \item{upper}{upper hinge, 75\% quantile}
-#'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR  or upper limit of the confidence interval}
-#' }
-#'
-#' @export
-stat_cognigenBoxplot <- function(
+stat_boxcount <- function(
   mapping = NULL,
   data = NULL,
-  geom = "cognigenBoxplot",
+  geom = "boxcount",
   position = "dodge2",
   ...,
   coef = 1.5,
   na.rm = FALSE,
   orientation = NA,
-  show.legend = NA,
+  show.legend = FALSE,
   inherit.aes = TRUE) {
-
-  ggplot2::layer(
+  layer(
     data = data,
     mapping = mapping,
-    stat = StatCognigenBoxplot,
+    stat = StatBoxcount,
     geom = geom,
     position = position,
     show.legend = show.legend,
@@ -51,21 +30,22 @@ stat_cognigenBoxplot <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-StatCognigenBoxplot <- ggplot2::ggproto(
-  "StatCognigenBoxplot",
+StatBoxcount <- ggproto(
+  "StatBoxcount",
   ggplot2::Stat,
   required_aes = c("y|x"),
-  non_missing_aes = "weight",
 
   setup_data = function(data, params) {
+    library(rlang, include.only = '%||%')
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
     data <- remove_missing(
       data,
       na.rm = params$na.rm,
       vars = "x",
-      name = "stat_cognigenBoxplot"
+      name = "stat_boxcount"
     )
+    data$y <- data$y + 0.05 * diff(range(data$y, na.rm = TRUE))
     flip_data(data, params$flipped_aes)
   },
 
@@ -78,22 +58,21 @@ StatCognigenBoxplot <- ggplot2::ggproto(
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      rlang::abort("stat_boxplot() requires an x or y aesthetic.")
+      abort("stat_boxcount() requires an x or y aesthetic.")
     }
 
-    params$width <- params$width %||% (ggplot2::resolution(data$x %||% 0) * 0.75)
-
     if (is.double(data$x) && !ggplot2::has_groups(data) && any(data$x != data$x[1L])) {
-      rlang::warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
+      warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
     }
 
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "coef"),
 
   compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
+
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
     if (!is.null(data$weight)) {
@@ -105,7 +84,6 @@ StatCognigenBoxplot <- ggplot2::ggproto(
     names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
     iqr <- diff(stats[c(2, 4)])
 
-    ### Start of modified code
     ci <- stats::quantile(
       data$y,
       probs = c((100-coef)/200, 1-((100-coef)/200)),
@@ -119,29 +97,14 @@ StatCognigenBoxplot <- ggplot2::ggproto(
       }
     } else {
       stats[c(1,5)] <- ci
-      outliers <- data$y < stats[1] | data$y > stats[5]
     }
-    ### End of modified code
+    df <- data.frame(
+      x = if (is.factor(data$x)) data$x[1] else mean(range(data$x)),
+      y = max(data$y, na.rm = TRUE),
+      ymax = stats[5],
+      label = nrow(data[which(!is.na(data$x) & !is.na(data$y)), ])
+    )
 
-    if (length(unique(data$x)) > 1)
-      width <- diff(range(data$x)) * 0.9
-
-    df <- ggplot2:::new_data_frame(as.list(stats))
-    df$outliers <- list(data$y[outliers])
-
-    if (is.null(data$weight)) {
-      n <- sum(!is.na(data$y))
-    } else {
-      # Sum up weights for non-NA positions of y and weight
-      n <- sum(data$weight[!is.na(data$y) & !is.na(data$weight)])
-    }
-
-    df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
-    df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
-
-    df$x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
-    df$width <- width
-    df$relvarwidth <- sqrt(n)
     df$flipped_aes <- flipped_aes
     flip_data(df, flipped_aes)
   }

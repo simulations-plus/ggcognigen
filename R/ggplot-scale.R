@@ -89,6 +89,7 @@
 #' )
 #' histdata$GROUP <- as.factor(histdata$GROUP)
 #' }
+
 scale_discrete_cognigen <- function(
   n = 10,
   geom = 'point',
@@ -101,7 +102,7 @@ scale_discrete_cognigen <- function(
     n <- 10
   }
 
-  if ( ! (geom %in% c('point', 'line', 'bar'))){
+  if ( ! (geom %in% c('point', 'line', 'bar', 'boxplot'))){
     stop('Invalid geom argument')
   }
 
@@ -124,15 +125,31 @@ scale_discrete_cognigen <- function(
 
     grayscale <- ifelse(grayscale, 'grayscale', 'color')
 
+    aes_setting <- switch(
+      geom,
+      'point' = 'col',
+      'line' = 'col',
+      'bar' = 'col',
+      'boxplot' = 'bwdotcol'
+    )
+    aes_value <- switch(
+      geom,
+      'point' = -1,
+      'line' = -1,
+      'bar' = -1,
+      'boxplot' = -1
+    )
     geom <- switch(
       geom,
       'point' = 'scatter',
       'line' = 'scatter',
-      'bar' = 'bar'
+      'bar' = 'bar',
+      'boxplot' = 'box.sym'
     )
 
+
     if ( n != 1 ){
-      cols <- style[[geom]][[grayscale]]$col[-1]
+      cols <- style[[geom]][[grayscale]][, aes_setting][aes_value]
     }
 
     rep(
@@ -147,15 +164,30 @@ scale_discrete_cognigen <- function(
 
     grayscale <- ifelse(grayscale, 'grayscale', 'color')
 
+    aes_setting <- switch(
+      geom,
+      'point' = 'fill',
+      'line' = 'fill',
+      'bar' = 'fill',
+      'boxplot' = 'bwdotfill'
+    )
+    aes_value <- switch(
+      geom,
+      'point' = -1,
+      'line' = -1,
+      'bar' = -1,
+      'boxplot' = -1
+    )
     geom <- switch(
       geom,
       'point' = 'scatter',
       'line' = 'scatter',
-      'bar' = 'bar'
+      'bar' = 'bar',
+      'boxplot' = 'box.sym'
     )
 
     if ( n != 1 ){
-      fills <- style[[geom]][[grayscale]]$fill[-1]
+      fills <- style[[geom]][[grayscale]][, aes_setting][aes_value]
     }
 
     rep(
@@ -170,15 +202,27 @@ scale_discrete_cognigen <- function(
 
     grayscale <- ifelse(grayscale, 'grayscale', 'color')
 
+    aes_setting <- switch(
+      geom,
+      'point' = 'pch',
+      'line' = 'pch',
+      'boxplot' = 'bwdotpch'
+    )
+    aes_value <- switch(
+      geom,
+      'point' = -1,
+      'line' = -1,
+      'boxplot' = -1
+    )
     geom <- switch(
       geom,
       'point' = 'scatter',
       'line' = 'scatter',
-      'bar' = 'bar'
+      'boxplot' = 'box.sym'
     )
 
     if ( n != 1 ){
-      pchs <- style[[geom]][[grayscale]]$pch[-1]
+      pchs <- as.integer(style[[geom]][[grayscale]][, aes_setting][aes_value])
     }
 
     if ( n > 10 ) {
@@ -197,15 +241,28 @@ scale_discrete_cognigen <- function(
 
     grayscale <- ifelse(grayscale, 'grayscale', 'color')
 
+    aes_setting <- switch(
+      geom,
+      'point' = 'pch',
+      'line' = 'pch',
+      'boxplot' = 'value'
+    )
+    aes_value <- switch(
+      geom,
+      'point' = -1,
+      'line' = -1,
+      'boxplot' = 6
+    )
     geom <- switch(
       geom,
       'point' = 'scatter',
       'line' = 'scatter',
-      'bar' = 'bar'
+      'bar' = 'bar',
+      'boxplot' = 'box.rec'
     )
 
     if ( n != 1 ){
-      ltys <- style[[geom]][[grayscale]]$lty[-1]
+      ltys <- style[[geom]][[grayscale]][, aes_setting][aes_value]
     }
 
     if ( n > 10 ){
@@ -223,15 +280,22 @@ scale_discrete_cognigen <- function(
   # Function body
   if ( geom %in% c('point', 'line') ){
     list(
-      ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
-      ggplot2::scale_fill_manual(values = scales_fill(n, geom, style, grayscale)),
-      ggplot2::scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
-      ggplot2::scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
+      scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
+      scale_fill_manual(values = scales_fill(n, geom, style, grayscale)),
+      scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
+      scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
     )
   } else if ( geom %in% 'bar') {
     list(
-      ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
-      ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale))
+      scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
+      scale_fill_manual(values = scales_col(n, geom, style, grayscale))
+    )
+  } else if ( geom %in% 'boxplot') {
+    list(
+      scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
+      scale_fill_manual(values = scales_col(n, geom, style, grayscale)),
+      scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
+      scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
     )
   }
 
