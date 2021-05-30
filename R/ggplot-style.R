@@ -1,4 +1,4 @@
-
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
 # get.structure
 # utility function for style checks

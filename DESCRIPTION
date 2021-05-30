@@ -1,11 +1,13 @@
 Package: ggcognigen
 Type: Package
 Title: Cognigen Corporation ggplot2 Functions
-Version: 0.1.0
-Author: Sebastien Bihorel for Cognigen Corporation
-Maintainer: Sebastien Bihorel <sebastien.bihorel@cognigencorp.com>
-Description: Themes, Styles, and Helpers for ggplot2 at Cognigen Corporation.
-License: MIT + file LICENSE
+Version: $version$
+Date: $date$
+Authors@R: c(person("Sebastien","Bihorel",role=c("aut","cre"),email="sebastien.bihorel@cognigencorp.com"),
+             person("Nash","Delcamp",role=c("aut"),email="nash.delcamp@cognigencorp.com")
+             person("Cognigen Corporation",role="cph"))
+Description: Geom, themes, styles, and helper functions for ggplot2 at Cognigen Corporation.
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 

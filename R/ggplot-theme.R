@@ -1,3 +1,5 @@
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
+
 #' Cognigen ggplot2 themes
 #'
 #' @param ... additional theme elements to override defaults. See \link[ggplot2]{theme}.

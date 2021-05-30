@@ -1,3 +1,5 @@
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
+
 stat_boxcount <- function(
   mapping = NULL,
   data = NULL,

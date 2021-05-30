@@ -1,3 +1,4 @@
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
 geom_boxcount <- function(
   mapping = NULL,

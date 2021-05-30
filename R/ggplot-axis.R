@@ -1,3 +1,5 @@
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
+
 #' Format continuous values
 #'
 #' @param x breaks

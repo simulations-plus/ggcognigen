@@ -1,3 +1,5 @@
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
+
 #' @export
 #' @rdname geom_linerange
 geom_crossbar2 <- function(

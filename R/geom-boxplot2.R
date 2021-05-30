@@ -1,3 +1,5 @@
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
+
 #' A box and whiskers plot (in the style of Tukey, or not...)
 #'
 #' The boxplot compactly displays the distribution of a continuous variable.

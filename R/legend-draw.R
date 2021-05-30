@@ -1,9 +1,11 @@
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
+
 #' @export
 #' @rdname draw_key
 draw_key_boxplot2 <- function(data, params, size) {
 
   library(rlang, include.only = '%||%')
-  
+
   # Copy of draw_key_point
   if (is.null(data$shape)) {
     data$shape <- 19

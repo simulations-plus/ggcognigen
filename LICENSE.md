@@ -1,21 +1,56 @@
-# MIT License
 
-Copyright (c) 2021 Cognigen Corporation
+END-USER SOFTWARE LICENSE AGREEMENT
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This End-User Software License Agreement ("Agreement") is a legal agreement between you (as Licensee) and Cognigen Corporation and its Affiliates ("Cognigen") for the version of the ggcognigen package accompanying this Agreement including computer software (including any component parts thereof, and any licensing compliance and management tools), and may include associated source code and documentation made available to you ("SOFTWARE"). By exercising your rights to install the SOFTWARE, Licensee agrees to be bound by the terms of this Agreement, including the limitations and warranty disclaimers. IF YOU DO NOT AGREE TO THE TERMS OF THIS EULA DO NOT INSTALL, COPY, TRANSFER, OR USE THE SOFTWARE.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. GRANT OF LICENSE.
+This is a license agreement, and NOT an agreement for sale. Cognigen retains ownership of the copy of the SOFTWARE in your possession, and all copies you may be licensed to make. Cognigen retains all rights not expressly granted to you in this Agreement. Cognigen hereby grants to you, and you accept, a non-exclusive license to use the SOFTWARE. 
+In consideration of your agreeing to abide by the terms of this Agreement, and subject to your compliance with the terms of this Agreement, Cognigen grants you, and you hereby accept, under the terms and conditions of this Agreement a worldwide, non-exclusive, limited term, revocable, royalty-free right and license to the SOFTWARE to install and execute that SOFTWARE on your computer(s) (defined in the request for a license):
+(i) Solely for use in your business (rerunning/checking of programs that Cognigen shared with you during or upon completion of a project between you and Cognigen, or rerunning/checking of such programs shared with a governmental regulatory authority/agency in association with such project in the context of regulatory submissions; "Your Business");
+(ii) Solely for use in Your Business, the right to use and copy the SOFTWARE;
+(iii) Solely for use in Your Business, the right to make a reasonable number of backup and archival copies of SOFTWARE;
+(iv) Solely for use in Your Business, the right to sublicense any of the rights set forth in (i)-(iii) above only to an Authorized User (as defined below), provided:
+(a) your grant to an authorized user (your employees, your Affiliate's employees and their Agents, a governmental authority/agency); and a  sub-licensee who is granted a sublicense by you, each of whom is made subject to the terms and conditions of this Agreement as they apply to you ("Authorized User");
+(b) you shall remain responsible for the operations of each Authorized User that are relevant to this Agreement as if such operations were carried out by you, including breach of any terms and conditions of this Agreement;
+(c) upon the reasonable request of Cognigen, you shall provide Cognigen with at least the following information with respect to each Authorized User: (i) the identity of such Authorized User; and (ii) the rights to be granted to such Authorized User, including a description of such Authorized User's purpose or use of the rights granted under the sublicense in sufficient detail for Cognigen to enforce its rights under this Agreement. 
+1.2 As a condition to exercising the rights and licenses granted hereunder, you hereby assume sole responsibility to secure any other intellectual property rights needed with respect to your use of the SOFTWARE.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. OWNERSHIP
+2.1 Nothing in this Agreement shall be construed to convey title or ownership rights in the SOFTWARE and its source code to you. 
+
+3. RESTRICTIONS
+3.1 No rights or license are granted by Cognigen to you or your Authorized Users for versions of the SOFTWARE, or improvements thereto made by Cognigen subsequent to the version accompanying this Agreement.
+3.2 You and your Authorized User shall not transfer or have transferred, the SOFTWARE, source code, and/or derivative works to a third party in the business of offering software and/or software-related services to others. Your Authorized User cannot be an entity in the business of licensing, selling, or otherwise transferring software to others.
+3.3 You and your Authorized User 
+(a) are prohibited from, and shall not permit others to do, any of the following: (i) modify, adapt, alter, translate, or create derivative works of the SOFTWARE except as necessary for you to use the SOFTWARE for Your Business; (ii) transfer the source code or any portion thereof of the SOFTWARE, other than for Your Business; (iii) use the SOFTWARE, or any portion thereof, for creating a comparable or competing software product, or software product for a different application, in the same or in another programming language, that could compete with Cognigen's business, services, and products; (iv) transmit, download or copy all or a portion of the SOFTWARE to a computer, server, or storage medium, other than that owned or controlled by you or your Authorized User; (v) transmit, download or copy all or a portion of the SOFTWARE to a computer, storage medium, or server owned or controlled by you or your Authorized User that does not apply adequate and commercially reasonable electronic, physical, and other safeguards appropriate to prevent unauthorized or unlawful use of SOFTWARE, or portion thereof; (vi) publish the source code, SOFTWARE, or any other portion of thereof; (vii) rent, lease, charge, loan, distribute, lend, sublicense, redistribute or re-license the SOFTWARE, or any portion thereof, to a third party; (viii) use the SOFTWARE, or any portion thereof, to engage in, or allow others to engage in, any illegal activity; (ix) authorize all or any part of the SOFTWARE to be copied on to a computer or computer media for or of a third party; and (xi) remove or cover Cognigen's name, proprietary notices, copyright notices, and trademarks from SOFTWARE, source code, derivative works, or any portion thereof;
+(b) shall (i) monitor and keep accurate records of your activities utilizing the SOFTWARE or related documentation; (ii) notify Cognigen immediately if you become aware of unauthorized possession, use or transfer of the SOFTWARE or portion thereof, and assist in the investigation of the same by Cognigen in efforts to remedy the same; (iii) ensure that an employee of yours or your Authorized User who becomes no longer employed by, or whose contracted services expire or are terminated by, you or your Authorized User (as the case may be) shall not have in their possession and shall no longer have access to SOFTWARE or portion thereof; (iv) keep the SOFTWARE and portions thereof in strict confidence, as SOFTWARE and portions thereof are confidential in nature and not in the public domain.
+
+4. TERMINATION
+The rights and license granted under this Agreement may be terminated without notice in the following circumstances: if you or your Authorized User breaches any terms of this Agreement, unless such breach is curable and is cured by you within thirty (30) days after notice of such breach is provided by Cognigen; if you become the subject of insolvency proceedings; or if you destroy the SOFTWARE for any reason.
+
+5. THIRD PARTY SOFTWARE 
+The SOFTWARE may need third party software programs for installation and/or operation of the whole or portions of the SOFTWARE, and you are responsible for obtaining a license and permission to use such third party software, and subject to the terms and conditions of any license agreement with such third parties.
+
+6. COPYRIGHT, TRADEMARKS, LAWS.
+KIWI(TM), and all other titles, trademarks, logos, and copyrights in and to the SOFTWARE including but not limited to any images and formats incorporated into the SOFTWARE), the accompanying printed materials, and any copies of the SOFTWARE are owned by Cognigen. The SOFTWARE is protected by copyright laws, trademark laws, intellectual property laws, and international treaty provisions. The trademarks associated with the SOFTWARE cannot be used by you without prior written consent of Cognigen. You acknowledge that all intellectual property rights in the SOFTWARE anywhere in the world belong to Cognigen, that rights in the SOFTWARE are licensed (not sold) to you, and that you have no rights in, or to, the SOFTWARE other than the right to use it in accordance with the terms of this Agreement.
+
+7. WARRANTY DISCLAIMER 
+THERE IS NO WARRANTY FOR THE OPERATION OF THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. COGNIGEN EXPRESSLY DISCLAIMS ANY WARRANTY FOR THE SOFTWARE. THE SOFTWARE IS DELIVERED TO YOU 'AS IS' AND WITH ALL FAULTS. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, COGNIGEN DOES NOT WARRANT THE PERFORMANCE OR RESULTS YOU MAY OBTAIN BY USING THIE SOFTWARE EXCEPT TO THE EXTENT THAT ANY WARRANTY, CONDITION, REPRESENTATION OR TERM CANNOT BE EXCLUDED OR LIMITED BY APPLICABLE LAW, COGNIGEN MAKES NO WARRANTIES, CONDITIONS, REPRESENTATIONS OR OTHER TERMS (EXPRESS OR IMPLIED WHETHER BY STATUTE, COMMON LAW, CUSTOM, USAGE OR OTHERWISE) AS TO ANY MATTER INCLUDING, WITHOUT LIMITATION, MERCHANTABILITY, NON-INFRINGEMENT OF THIRD PARTY RIGHTS, SATISFACTORY QUALITY, SUITABILITY FOR YOUR PURPOSES, SAFETY, UTILITY, ACCURACY OF THE RESULTS, AND FITNESS FOR PURPOSE. THE PROVISIONS OF THIS SECTION 8 SHALL SURVIVE THE TERMINATION OF THIS AGREEMENT HOWSOEVER CAUSED. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF, AND YOUR USE OF, SOFTWARE IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+
+8. LIMITATION OF LIABILITY.
+You acknowledge that the SOFTWARE is a tool for research purposes. Thus, in no event shall Cognigen or its Affiliates be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or any other pecuniary loss) arising out of the use of or inability to use SOFTWARE and related materials, even if Cognigen has been advised of the possibility of such damages. Because some states do not allow the exclusion or limitation of liability for consequential or incidental damages, the above limitation may not apply to you.
+
+9. COMPLIANCE WITH APPLICABLE LAW
+You are solely responsible for your compliance with, and you agree to comply with, all applicable laws, rules, and regulations in connection with your use of the SOFTWARE. You acknowledge that the SOFTWARE may be subject to the import and export laws of the United States, specifically the U.S. Export Administration Regulations, and the laws of any country where software is imported or re-exported. You agree to comply with all relevant laws and will not to export any SOFTWARE in contravention to U.S. law nor to any prohibited country, entity, or person for which an export license or other governmental approval is required.
+
+10. LAW AND JURISDICTION 
+This Agreement and any dispute or claim arising out of or in connection with it or its subject matter or its operation or interpretation or formation (including non-contractual disputes or claims) shall be governed by and construed in accordance with the laws of the State of New York, USA, without reference to its conflicts of laws principles, and the courts of which shall have exclusive jurisdiction over any disputes arising hereunder. The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded. 
+
+11. US GOVERNMENT CONTRACTS 
+If the SOFTWARE is accessed or acquired by or on behalf of a unit or agency of the United States Government, the Government hereby agrees that the SOFTWARE is provided with restricted rights and is a "commercial item," as that term is defined in 48 C.F.R. 2.101, consisting of "commercial computer software" and "commercial computer software documentation," as such terms are used in 48 C.F.R. 12.212. Use, duplication, or disclosure by U.S. Government agencies or contractors is subject to the restrictions as set forth in 48 C.F.R. 12.212 and 48 C.F.R. 227.7202-1 through 227.7202-4, and other applicable provisions, or in successor provisions, as well as the limitations set forth in this Agreement.
+
+12. GENERAL 
+12.1 If any part of this Agreement is found to be void and unenforceable, it will not affect the validity of the remainder of this Agreement, which shall remain valid and enforceable according to its terms. This Agreement may only be varied in writing and signed by an authorized representative of Cognigen. Updates may be licensed to you by Cognigen with additional or different terms, but Cognigen has no obligation to provide any updates. Cognigen is entitled to transfer or assign any of its rights or obligations under this Agreement.
+
+12.2 For purposes of this Agreement, the term "Affiliate" shall mean, with respect to Cognigen or Licensee, any other entity that controls, or is controlled by, or is under common control with such party as of any point in time and for so long as such relationship continues to exist. An entity will be regarded as in "control" of another entity if it owns or controls at least 50% of the equity securities of the subject entity entitled to vote in an election of directors (or in the case of an entity that is not a corporation, for the election of the corresponding managing authority). 
+
