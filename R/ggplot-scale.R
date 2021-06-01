@@ -282,22 +282,22 @@ scale_discrete_cognigen <- function(
   # Function body
   if ( geom %in% c('point', 'line') ){
     list(
-      scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
-      scale_fill_manual(values = scales_fill(n, geom, style, grayscale)),
-      scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
-      scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
+      ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
+      ggplot2::scale_fill_manual(values = scales_fill(n, geom, style, grayscale)),
+      ggplot2::scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
+      ggplot2::scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
     )
   } else if ( geom %in% 'bar') {
     list(
-      scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
-      scale_fill_manual(values = scales_col(n, geom, style, grayscale))
+      ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
+      ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale))
     )
   } else if ( geom %in% 'boxplot') {
     list(
-      scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
-      scale_fill_manual(values = scales_col(n, geom, style, grayscale)),
-      scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
-      scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
+      ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
+      ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale)),
+      ggplot2::scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
+      ggplot2::scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
     )
   }
 

@@ -6,7 +6,7 @@
 #' It visualises five summary statistics (the median, two hinges
 #' and two whiskers), and all "outlying" points individually.
 #'
-#' @eval rd_orientation()
+#' @eval ggplot2:::rd_orientation()
 #'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
@@ -30,13 +30,13 @@
 #' This gives a roughly 95% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
-#' @eval rd_aesthetics("geom", "boxplot2")
+#' @eval ggplot2:::rd_aesthetics("geom", "boxplot2")
 #'
 #' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams ggplot2::layer
+#' @inheritParams ggplot2::geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_boxplot2` and `stat_boxplot2`.
 #' @param outlier.position,outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
@@ -65,10 +65,12 @@
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
 #'   weighted, using the `weight` aesthetic).
+#' @importFrom rlang `%||%`
 #' @export
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 #'     box plots. The American Statistician 32, 12-16.
 #' @examples
+#' \dontrun{
 #' p <- ggplot(mpg, aes(class, hwy))
 #' p + geom_boxplot2()
 #' p + geom_boxplot2(outlier.position = 'identity', coef = 90)
@@ -110,6 +112,7 @@
 #'    stat = "identity"
 #'  )
 #' }
+#' }
 geom_boxplot2 <- function(
   mapping = NULL,
   data = NULL,
@@ -132,19 +135,17 @@ geom_boxplot2 <- function(
   show.legend = NA,
   inherit.aes = TRUE) {
 
-  library(rlang, include.only = '%||%')
-
   # varwidth = TRUE is not compatible with preserve = "total"
   if (is.character(position)) {
-    if (varwidth == TRUE) position <- position_dodge2(preserve = "single")
+    if (varwidth == TRUE) position <- ggplot2::position_dodge2(preserve = "single")
   } else {
     if (identical(position$preserve, "total") & varwidth == TRUE) {
-      warn("Can't preserve total widths when varwidth = TRUE.")
+      rlang::warn("Can't preserve total widths when varwidth = TRUE.")
       position$preserve <- "single"
     }
   }
 
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -174,12 +175,12 @@ geom_boxplot2 <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomBoxplot2 <- ggproto(
+GeomBoxplot2 <- ggplot2::ggproto(
   "GeomBoxplot2",
   ggplot2::Geom,
   required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),
   non_missing_aes = c("size", "shape", "colour"),
-  default_aes = aes(
+  default_aes = ggplot2::aes(
     weight = 1, colour = "grey20", fill = "white", size = 0.5,
     alpha = NA, shape = 19, linetype = "solid", stroke = 0.5
   ),
@@ -189,7 +190,7 @@ GeomBoxplot2 <- ggproto(
   extra_params = c("na.rm", "width", "orientation"),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params)
+    params$flipped_aes <- ggplot2::has_flipped_aes(data, params)
 
     show_warning <- !is.null(params$outlier.colour) |
       !is.null(params$outlier.color) |
@@ -214,11 +215,11 @@ GeomBoxplot2 <- ggproto(
   },
 
   setup_data = function(data, params) {
-    library(rlang, include.only = '%||%')
+
     data$flipped_aes <- params$flipped_aes
     data <- ggplot2::flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+      params$width %||% (ggplot2::resolution(data$x, FALSE) * 0.9)
 
     if (!is.null(data$outliers)) {
       suppressWarnings({
@@ -254,11 +255,11 @@ GeomBoxplot2 <- ggproto(
     outlier.alpha = NULL,
     notch = FALSE, notchwidth = 0.5, varwidth = FALSE, flipped_aes = FALSE
   ) {
-    library(rlang, include.only = '%||%')
+
     data <- ggplot2::flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot2(stat = "identity")
     if (nrow(data) != 1) {
-      abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
+      rlang::abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
     }
 
     common <- list(
@@ -349,8 +350,8 @@ GeomBoxplot2 <- ggproto(
         ),
         n = length(data$outliers[[1]])
       )
-      outliers <- flip_data(outliers, flipped_aes)
-      outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
+      outliers <- ggplot2::flip_data(outliers, flipped_aes)
+      outliers_grob <- ggplot2::GeomPoint$draw_panel(outliers, panel_params, coord)
     } else {
       outliers_grob <- NULL
     }
@@ -360,8 +361,8 @@ GeomBoxplot2 <- ggproto(
         "geom_boxplot2",
         grid::grobTree(
           outliers_grob,
-          GeomSegment$draw_panel(whiskers, panel_params, coord),
-          GeomCrossbar2$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
+          ggplot2::GeomSegment$draw_panel(whiskers, panel_params, coord),
+          ggplot2::GeomCrossbar2$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
         )
       )
     } else {
@@ -369,13 +370,32 @@ GeomBoxplot2 <- ggproto(
         "geom_boxplot2",
         grid::grobTree(
           outliers_grob,
-          GeomSegment$draw_panel(whiskers, panel_params, coord),
-          GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
+          ggplot2::GeomSegment$draw_panel(whiskers, panel_params, coord),
+          ggplot2::GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
         )
       )
     }
   },
 
-  draw_key = draw_key_boxplot2
+  draw_key = function(data, params, size) {
+
+    # Copy of draw_key_point
+    if (is.null(data$shape)) {
+      data$shape <- 19
+    } else if (is.character(data$shape)) {
+      data$shape <- ggplot2::translate_shape_string(data$shape)
+    }
+
+    grid::pointsGrob(
+      0.5, 0.5,
+      pch = data$shape,
+      gp = grid::gpar(
+        col = alpha(data$colour %||% "black", data$alpha),
+        fill = alpha(data$fill %||% "black", data$alpha),
+        fontsize = 2.5 * (data$size %||% 1.5) * .pt + (data$stroke %||% 0.5) * .stroke / 2,
+        lwd = (data$stroke %||% 0.5) * .stroke / 2
+      )
+    )
+  }
 
 )

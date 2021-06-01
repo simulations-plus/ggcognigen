@@ -12,7 +12,7 @@ geom_boxcount <- function(
   show.legend = FALSE,
   inherit.aes = TRUE) {
 
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -33,11 +33,11 @@ geom_boxcount <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomBoxcount <- ggproto(
+GeomBoxcount <- ggplot2::ggproto(
   "GeomBoxcount",
   ggplot2::Geom,
   required_aes = c("x|y"),
-  default_aes = aes(
+  default_aes = ggplot2::aes(
     colour = "black", size = 3.88, angle = 0, hjust = 0.5,
     vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
   ),

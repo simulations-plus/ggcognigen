@@ -1,7 +1,37 @@
 # Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
+#' Vertical intervals: crossbars
+#'
+#' Represent a vertical interval defined by `x`,
+#' `ymin` and `ymax`. Each case draws a single graphical object.
+#'
+#' @eval ggplot2:::rd_orientation()
+#'
+#' @eval ggplot2:::rd_aesthetics("geom", "crossbar2")
+#' @param fatten A multiplicative factor used to increase the size of the
+#'   middle bar in `geom_crossbar()` and the middle point in
+#'   `geom_pointrange()`.
+#' @seealso
+#'  \link[ggplot2]{stat_summary} for examples of these guys in use,
+#'  \link[ggplot2]{geom_smooth} for continuous analogue,
+#'  \link[ggplot2]{geom_errorbarh} for a horizontal error bar.
 #' @export
-#' @rdname geom_linerange
+#' @inheritParams ggplot2::layer
+#' @inheritParams ggplot2::geom_bar
+#' @examples
+#' \dontrun{
+#' # Create a simple example dataset
+#' df <- data.frame(
+#'   trt = factor(c(1, 1, 2, 2)),
+#'   resp = c(1, 5, 3, 4),
+#'   group = factor(c(1, 2, 1, 2)),
+#'   upper = c(1.1, 5.3, 3.3, 4.2),
+#'   lower = c(0.8, 4.6, 2.4, 3.6)
+#' )
+#'
+#' p <- ggplot(df, aes(trt, resp, colour = group))
+#' p + geom_crossbar2(aes(ymin = lower, ymax = upper), width = 0.2)
+#' }
 geom_crossbar2 <- function(
   mapping = NULL,
   data = NULL,
@@ -13,7 +43,7 @@ geom_crossbar2 <- function(
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -34,24 +64,24 @@ geom_crossbar2 <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomCrossbar2 <- ggproto(
+GeomCrossbar2 <- ggplot2::ggproto(
   "GeomCrossbar2",
-  Geom,
+  ggplot2::Geom,
   required_aes = c("x", "y", "ymin|xmin", "ymax|xmax"),
   non_missing_aes = c("size", "shape", "colour"),
-  default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1, shape = 19,
-                    alpha = NA, stroke = 0.5),
+  default_aes = ggplot2::aes(colour = "black", fill = NA, size = 0.5, linetype = 1, shape = 19,
+                             alpha = NA, stroke = 0.5),
   extra_params = c("na.rm", "orientation"),
 
   setup_params = function(data, params) {
-    GeomErrorbar$setup_params(data, params)
+    ggplot2::GeomErrorbar$setup_params(data, params)
   },
   setup_data = function(data, params) {
-    GeomErrorbar$setup_data(data, params)
+    ggplot2::GeomErrorbar$setup_data(data, params)
   },
 
   draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL, flipped_aes = FALSE) {
-    data <- flip_data(data, flipped_aes)
+    data <- ggplot2::flip_data(data, flipped_aes)
 
     middle <- transform(data, x = 0.5*(xmax+xmin), size = size * fatten, alpha = NA)
 
@@ -95,8 +125,8 @@ GeomCrossbar2 <- ggproto(
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
       ))
     }
-    box <- flip_data(box, flipped_aes)
-    middle <- flip_data(middle, flipped_aes)
+    box <- ggplot2::flip_data(box, flipped_aes)
+    middle <- ggplot2::flip_data(middle, flipped_aes)
 
     ggplot2:::ggname(
       "geom_crossbar2",
@@ -109,6 +139,17 @@ GeomCrossbar2 <- ggproto(
     )
   },
 
-  draw_key = draw_key_crossbar2
+  draw_key = function(data, params, size) {
+    grid::grobTree(
+      grid::rectGrob(height = 0.5, width = 0.75),
+      grid::linesGrob(c(0.125, 0.875), 0.5),
+      gp = grid::gpar(
+        col = data$colour %||% "grey20",
+        fill = alpha("white", data$alpha),
+        lwd = (data$size %||% 0.5) * .pt,
+        lty = data$linetype %||% 1
+      )
+    )
+  }
 
 )
