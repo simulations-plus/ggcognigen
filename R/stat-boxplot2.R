@@ -2,16 +2,16 @@
 
 #' @rdname geom_boxplot2
 #' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 0). Defaults to 1.5.
-#' @inheritParams stat_identity
+#' @inheritParams ggplot2::stat_identity
 #' @section Computed variables:
 #' \describe{
 #'   \item{width}{width of boxplot}
 #'   \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR or lower limit of the confidence interval}
-#'   \item{lower}{lower hinge, 25% quantile}
+#'   \item{lower}{lower hinge, 25\% quantile}
 #'   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-#'   \item{middle}{median, 50% quantile}
+#'   \item{middle}{median, 50\% quantile}
 #'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-#'   \item{upper}{upper hinge, 75% quantile}
+#'   \item{upper}{upper hinge, 75\% quantile}
 #'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR  or upper limit of the confidence interval}
 #' }
 #' @export
@@ -27,7 +27,7 @@ stat_boxplot2 <- function(
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = StatBoxplot2,
@@ -48,14 +48,14 @@ stat_boxplot2 <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-StatBoxplot2 <- ggproto(
+StatBoxplot2 <- ggplot2::ggproto(
   "StatBoxplot2",
   ggplot2::Stat,
   required_aes = c("y|x"),
   non_missing_aes = "weight",
 
   setup_data = function(data, params) {
-    library(rlang, include.only = '%||%')
+
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
     data <- ggplot2::remove_missing(
@@ -71,7 +71,7 @@ StatBoxplot2 <- ggproto(
   },
 
   setup_params = function(data, params) {
-    library(rlang, include.only = '%||%')
+
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE,
                                           group_has_equal = TRUE,
                                           main_is_optional = TRUE)

@@ -4,7 +4,7 @@ Title: Cognigen Corporation ggplot2 Functions
 Version: $version$
 Date: $date$
 Authors@R: c(person("Sebastien","Bihorel",role=c("aut","cre"),email="sebastien.bihorel@cognigencorp.com"),
-             person("Nash","Delcamp",role=c("aut"),email="nash.delcamp@cognigencorp.com")
+             person("Nash","Delcamp",role=c("aut"),email="nash.delcamp@cognigencorp.com"),
              person("Cognigen Corporation",role="cph"))
 Description: Geom, themes, styles, and helper functions for ggplot2 at Cognigen Corporation.
 License: file LICENSE

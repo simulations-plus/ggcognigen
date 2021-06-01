@@ -19,7 +19,7 @@
           'terms specified in the license provided in:',
           '  %s',
           'Your use of the kiwiexport ggcognigen is deemed acceptance of such license terms.',
-          'If you do not agree to such license terms, do not load or use the kiwiexport',
+          'If you do not agree to such license terms, do not load or use the ggcognigen',
           'package.',
           '',
           'Copyright 2020-%s Cognigen Corporation. All rights reserved.',
@@ -33,25 +33,5 @@
     )
   }
 
-  # Make R CMD check happier
-  utils::globalVariables(
-    c(
-      'pese',
-      'fpe',
-      'iiv',
-      'corr',
-      'mvof',
-      'odcorr',
-      'resvar',
-      'rv',
-      'othercfg',
-      'errlst',
-      'runinfo',
-      'treegrid_read',
-      'steps',
-      'istep',
-      'itable'
-    )
-  )
 }
 

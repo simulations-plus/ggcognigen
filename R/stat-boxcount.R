@@ -11,7 +11,7 @@ stat_boxcount <- function(
   orientation = NA,
   show.legend = FALSE,
   inherit.aes = TRUE) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = StatBoxcount,
@@ -32,13 +32,13 @@ stat_boxcount <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-StatBoxcount <- ggproto(
+StatBoxcount <- ggplot2::ggproto(
   "StatBoxcount",
   ggplot2::Stat,
   required_aes = c("y|x"),
 
   setup_data = function(data, params) {
-    library(rlang, include.only = '%||%')
+
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
     data <- remove_missing(
@@ -48,7 +48,7 @@ StatBoxcount <- ggproto(
       name = "stat_boxcount"
     )
     data$y <- data$y + 0.05 * diff(range(data$y, na.rm = TRUE))
-    flip_data(data, params$flipped_aes)
+    ggplot2::flip_data(data, params$flipped_aes)
   },
 
   setup_params = function(data, params) {
