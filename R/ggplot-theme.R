@@ -58,7 +58,11 @@ theme_cognigen <- function(...) {
       axis.text = ggplot2::element_text(
         family = font,
         size = 10
-      )
+      ),
+
+      # facet elements
+      strip.background = ggplot2::element_rect()
+
     ) %+replace%
 
     # user defined elements
