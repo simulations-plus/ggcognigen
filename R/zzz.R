@@ -18,7 +18,7 @@
           'The use, copy, and re-distribution of the ggcognigen package are subject to the',
           'terms specified in the license provided in:',
           '  %s',
-          'Your use of the kiwiexport ggcognigen is deemed acceptance of such license terms.',
+          'Your use of the ggcognigen package is deemed acceptance of such license terms.',
           'If you do not agree to such license terms, do not load or use the ggcognigen',
           'package.',
           '',
