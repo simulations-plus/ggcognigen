@@ -362,7 +362,7 @@ GeomBoxplot2 <- ggplot2::ggproto(
         grid::grobTree(
           outliers_grob,
           ggplot2::GeomSegment$draw_panel(whiskers, panel_params, coord),
-          ggplot2::GeomCrossbar2$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
+          GeomCrossbar2$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
         )
       )
     } else {
