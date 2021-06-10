@@ -1,12 +1,16 @@
 # Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
-#' A box and whiskers plot (in the style of Tukey, or not...)
+#' A variant on box and whiskers plot (in the style of Tukey, or not...)
 #'
 #' The boxplot compactly displays the distribution of a continuous variable.
 #' It visualises five summary statistics (the median, two hinges
-#' and two whiskers), and all "outlying" points individually.
+#' and two whiskers), and all "outlying" points individually. [geom_boxplot2()]
+#' is a variant on the [geom_boxplot()] function from the ggplot package.
+#' It allows users to set whiskers limits based upon confidence interval rather
+#' than a multiple of the IQR, allows to display outliers with jitter, and
+#' provides a slightly different graphical styles when grouping/coloring is
+#' used.
 #'
-#' @eval ggplot2:::rd_orientation()
 #'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
@@ -30,31 +34,25 @@
 #' This gives a roughly 95% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
-#' @eval ggplot2:::rd_aesthetics("geom", "boxplot2")
 #'
-#' @seealso [geom_quantile()] for continuous `x`,
-#'   [geom_violin()] for a richer display of the distribution, and
-#'   [geom_jitter()] for a useful technique for small data.
+#' @seealso [geom_boxplot()] for original ggplot2 geom function.
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_boxplot2` and `stat_boxplot2`.
-#' @param outlier.position,outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
-#'   Default aesthetics for outliers. Set to `NULL` to inherit from the
-#'   aesthetics used for the box.
-#'
-#'   outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size,
-#'   outlier.stroke, and outlier.alpha are not used in geom_boxplot2. Outliers
-#'   inherits colors, shapes, sizes from the box aesthetics.
-#'
+#' @param outlier.position
 #'   By default, outliers are displayed with a small degree of jitter. Sometimes
 #'   it can be useful to hide the outliers, for example when overlaying the raw
 #'   data points on top of the boxplot. Hiding the outliers can be achieved by
 #'   setting `outlier.position = NULL`. Importantly, this does not remove the outliers,
 #'   it only hides them, so the range calculated for the y-axis will be the
-#'   same with outliers shown and outliers hidden. If needed, outliers are displayed
-#'   without jitter by setting `outlier.position = 'identity'`.
-#'
+#'   same with outliers shown and outliers hidden. If needed, outliers can be
+#'   displayed without jitter by setting `outlier.position = 'identity'`.
+#' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
+#'   Aesthetics for outliers inherited from the original [geom_boxplot()] function but that are
+#'   not used in geom_boxplot2. Instead, outliers inherits colors, shapes, sizes from the box
+#'   aesthetics. These aesthetics were included to maintain code compatibility with
+#'   call to [geom_boxplot()].
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians

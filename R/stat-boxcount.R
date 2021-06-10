@@ -1,5 +1,10 @@
 # Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
+#' @rdname geom_boxcount
+#' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 50). Defaults to 1.5.
+#' @inheritParams ggplot2::stat_identity
+#' @export
+
 stat_boxcount <- function(
   mapping = NULL,
   data = NULL,
@@ -38,7 +43,6 @@ StatBoxcount <- ggplot2::ggproto(
   required_aes = c("y|x"),
 
   setup_data = function(data, params) {
-
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
     data <- remove_missing(
@@ -72,7 +76,7 @@ StatBoxcount <- ggplot2::ggproto(
 
   extra_params = c("na.rm", "orientation", "coef"),
 
-  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
+  compute_group = function(data, scales, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
 
     qs <- c(0, 0.25, 0.5, 0.75, 1)
@@ -100,6 +104,7 @@ StatBoxcount <- ggplot2::ggproto(
     } else {
       stats[c(1,5)] <- ci
     }
+
     df <- data.frame(
       x = if (is.factor(data$x)) data$x[1] else mean(range(data$x)),
       y = max(data$y, na.rm = TRUE),

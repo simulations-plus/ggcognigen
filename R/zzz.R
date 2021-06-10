@@ -2,7 +2,12 @@
 
 .onLoad <- function(libname, pkgname) {
 
-  packageStartupMessage('Loading ggcognigen Version $version$')
+  packageStartupMessage(
+    sprintf(
+      'Loading ggcognigen Version %s',
+      packageVersion('ggcognigen')
+    )
+  )
   license <- system.file('LICENSE', package='ggcognigen')
   if (length(options()$show_license) > 0){
     show <- options()$show_license
