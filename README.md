@@ -18,13 +18,15 @@ remotes::install_gitlab(repo = "r/ggcognigen", host = "gitlab.cognigencorp.com")
 
 Cognigen themes are based on `ggplot2::theme_bw()`. Additional `theme()` inputs can be passed to `...` for further customization.
 
-- `theme_cognigen()`
-- `theme_cognigen_grid()`
+- `theme_cognigen()`: simple theme for Cognigen plots (without grid lines).
+- `theme_cognigen_grid()`: similar to `theme_cognigen()` but displaying grid lines in the background.
 
 ## Geoms
-- `geom_boxplot2()`
-- `geom_boxcount()`
-- `geom_crossbar2()`
+
+New geom functions for the creation of box-and-whisker plots.
+
+- `geom_boxplot2()`: a variant on `ggplot2::geom_boxplot()` allowing users to set whisker limits based upon a confidence interval rather than a multiple of the IQR, display outliers with jitter, and providing a slightly different graphical styles for grouping/coloring.
+- `geom_boxcount()`: a utility function working in combination with `geom_boxplot2()` allowing the display of the number of data points used for the calculation of statistics which are graphically represented by each box and whiskers
 
 ## Style and scale functions for mapping aesthetics
 
@@ -36,8 +38,7 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
 - `read_style_theme()`
 
 ## Miscellaneous helper functions
-- `format_continuous_cognigen()`
-  - Pass to the `labels` argument of a `scale_` function to take care of formatting
+- `format_continuous_cognigen()`: a utility function be passed to the `labels` argument of a `scale_` function in order to automatically format axis ticks numerical labels in default or scientific notation (beyond pre-defined value limits)
 - `get_device_size_pixel()`
 
 # Pending Discussions
