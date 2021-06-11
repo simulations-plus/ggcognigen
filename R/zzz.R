@@ -1,5 +1,6 @@
 # Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
+#' @importFrom utils packageVersion
 .onLoad <- function(libname, pkgname) {
 
   packageStartupMessage(
