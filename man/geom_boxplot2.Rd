@@ -3,7 +3,7 @@
 \name{geom_boxplot2}
 \alias{geom_boxplot2}
 \alias{stat_boxplot2}
-\title{A box and whiskers plot (in the style of Tukey, or not...)}
+\title{A variant on box and whiskers plot (in the style of Tukey, or not...)}
 \usage{
 geom_boxplot2(
   mapping = NULL,
@@ -70,20 +70,18 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{outlier.position, outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to `NULL` to inherit from the
-  aesthetics used for the box.
+\item{outlier.position}{By default, outliers are displayed with a small degree of jitter. Sometimes
+it can be useful to hide the outliers, for example when overlaying the raw
+data points on top of the boxplot. Hiding the outliers can be achieved by
+setting `outlier.position = NULL`. Importantly, this does not remove the outliers,
+it only hides them, so the range calculated for the y-axis will be the
+same with outliers shown and outliers hidden. If needed, outliers can be
+displayed without jitter by setting `outlier.position = 'identity'`.}
 
-  outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size,
-  outlier.stroke, and outlier.alpha are not used in geom_boxplot2. Outliers
-  inherits colors, shapes, sizes from the box aesthetics.
-
-  By default, outliers are displayed with a small degree of jitter. Sometimes
-  it can be useful to hide the outliers, for example when overlaying the raw
-  data points on top of the boxplot. Hiding the outliers can be achieved by
-  setting `outlier.position = NULL`. Importantly, this does not remove the outliers,
-  it only hides them, so the range calculated for the y-axis will be the
-  same with outliers shown and outliers hidden. If needed, outliers are displayed
-  without jitter by setting `outlier.position = 'identity'`.}
+\item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Aesthetics for outliers inherited from the original [geom_boxplot()] function but that are
+not used in geom_boxplot2. Instead, outliers inherits colors, shapes, sizes from the box
+aesthetics. These aesthetics were included to maintain code compatibility with
+call to [geom_boxplot()].}
 
 \item{notch}{If `FALSE` (default) make a standard box plot. If
 `TRUE`, make a notched box plot. Notches are used to compare groups;
@@ -120,18 +118,18 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 \item{geom, stat}{Use to override the default connection between
 `geom_boxplot2` and `stat_boxplot2`.}
 
-\item{coef}{Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 0). Defaults to 1.5.}
+\item{coef}{Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 50). Defaults to 1.5.}
 }
 \description{
 The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
-and two whiskers), and all "outlying" points individually.
+and two whiskers), and all "outlying" points individually. [geom_boxplot2()]
+is a variant on the [geom_boxplot()] function from the ggplot2 package.
+It allows users to set whisker limits based upon a confidence interval rather
+than a multiple of the IQR, allows to display outliers with jitter, and
+provides a slightly different graphical styles when grouping/coloring is
+used.
 }
-\section{Orientation}{
- 
-This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \section{Summary statistics}{
 
 The lower and upper hinges correspond to the first and third quartiles
@@ -154,29 +152,6 @@ extend to the limit of the `coef` confidence interval.
 In a notched box plot, the notches extend `1.58 * IQR / sqrt(n)`.
 This gives a roughly 95% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.
-}
-
-\section{Aesthetics}{
-
-\code{geom_boxplot2()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-  \item \strong{\code{x} \emph{or} \code{y}}
-  \item \strong{\code{lower} \emph{or} \code{xlower}}
-  \item \strong{\code{upper} \emph{or} \code{xupper}}
-  \item \strong{\code{middle} \emph{or} \code{xmiddle}}
-  \item \strong{\code{ymin} \emph{or} \code{xmin}}
-  \item \strong{\code{ymax} \emph{or} \code{xmax}}
-  \item \code{alpha}
-  \item \code{colour}
-  \item \code{fill}
-  \item \code{group}
-  \item \code{linetype}
-  \item \code{shape}
-  \item \code{size}
-  \item \code{stroke}
-  \item \code{weight}
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
@@ -243,7 +218,5 @@ McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
     box plots. The American Statistician 32, 12-16.
 }
 \seealso{
-[geom_quantile()] for continuous `x`,
-  [geom_violin()] for a richer display of the distribution, and
-  [geom_jitter()] for a useful technique for small data.
+[geom_boxplot()] for original ggplot2 geom function.
 }

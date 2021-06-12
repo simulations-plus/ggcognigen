@@ -1,7 +1,7 @@
 # Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
 #' @rdname geom_boxplot2
-#' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 0). Defaults to 1.5.
+#' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 50). Defaults to 1.5.
 #' @inheritParams ggplot2::stat_identity
 #' @section Computed variables:
 #' \describe{
@@ -55,7 +55,6 @@ StatBoxplot2 <- ggplot2::ggproto(
   non_missing_aes = "weight",
 
   setup_data = function(data, params) {
-
     data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
     data <- ggplot2::remove_missing(
@@ -71,7 +70,6 @@ StatBoxplot2 <- ggplot2::ggproto(
   },
 
   setup_params = function(data, params) {
-
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE,
                                           group_has_equal = TRUE,
                                           main_is_optional = TRUE)
