@@ -7,6 +7,7 @@ all: check
 
 build:
 	mkdir -p builds
+	@rm -rf /tmp/$(PKGNAME)
 	cp -R ./ /tmp/$(PKGNAME)
 	# set tags
 	{ \

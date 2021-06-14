@@ -11,6 +11,7 @@ vignette: >
   %\VignetteIndexEntry{Introduction to ggcognigen}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{ggpubr}
 ---
 
 ```{r, include = FALSE}
