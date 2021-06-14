@@ -455,7 +455,8 @@ set_default_style <- function(style = cognigen_style()){
     'bar',
     list(
       colour = style$bar$color$border[1],
-      fill = style$bar$color$col[1]
+      fill = style$bar$color$col[1],
+      size = 0.25
     )
   )
 

@@ -121,7 +121,7 @@ geom_boxplot2 <- function(
   outlier.colour = NULL,
   outlier.color = NULL,
   outlier.fill = NULL,
-  outlier.shape = 19,
+  outlier.shape = 21,
   outlier.size = 1.5,
   outlier.stroke = 0.5,
   outlier.alpha = NULL,
@@ -179,8 +179,8 @@ GeomBoxplot2 <- ggplot2::ggproto(
   required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = ggplot2::aes(
-    weight = 1, colour = "grey20", fill = "white", size = 0.5,
-    alpha = NA, shape = 19, linetype = "solid", stroke = 0.5
+    weight = 1, colour = "grey20", fill = "transparent", size = 0.5,
+    alpha = NA, shape = 21, linetype = "solid", stroke = 0.5
   ),
 
   # need to declare `width` here in case this geom is used with a stat that
@@ -193,7 +193,7 @@ GeomBoxplot2 <- ggplot2::ggproto(
     show_warning <- !is.null(params$outlier.colour) |
       !is.null(params$outlier.color) |
       !is.null(params$outlier.fill) |
-      params$outlier.shape != 19 |
+      params$outlier.shape != 21 |
       params$outlier.size != 1.5 |
       params$outlier.stroke != 0.5 |
       !is.null(params$outlier.alpha)
@@ -247,8 +247,8 @@ GeomBoxplot2 <- ggplot2::ggproto(
   draw_group = function(
     data, panel_params, coord, fatten = 2.5,
     outlier.position = 'jitter',
-    outlier.colour = 'NULL', outlier.fill = NULL,
-    outlier.shape = 19,
+    outlier.colour = NULL, outlier.fill = NULL,
+    outlier.shape = 21,
     outlier.size = 1.5, outlier.stroke = 0.5,
     outlier.alpha = NULL,
     notch = FALSE, notchwidth = 0.5, varwidth = FALSE, flipped_aes = FALSE

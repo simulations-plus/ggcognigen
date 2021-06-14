@@ -18,6 +18,7 @@
 #'   assumed to be displayed .
 #'
 #' @seealso [geom_boxplot2()]
+#' @export
 #' @examples
 #' \dontrun{
 #' p <- ggplot(mpg, aes(class, hwy))

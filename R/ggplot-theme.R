@@ -61,7 +61,9 @@ theme_cognigen <- function(...) {
       ),
 
       # facet elements
-      strip.background = ggplot2::element_rect()
+      strip.background = ggplot2::element_rect(),
+      strip.background.x = ggplot2::element_rect(),
+      strip.background.y = ggplot2::element_rect()
 
     ) %+replace%
 

@@ -1,0 +1,243 @@
+---
+title: "Introduction to ggcognigen"
+author:
+  - name: "Nash Delcamp, Sebastien Bihorel"
+  - name: "for Cognigen Corporation, a SimulationsPlus Company"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to ggcognigen}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`ggcognigen` is a package intended to provide graphical standards for the creation of plots at Cognigen Corporation using a plotting workflow based upon the `ggplot2` package.
+
+# Installing `ggcognigen`
+
+`ggcognigen` is a proprietary package developed by Cognigen Corporation. Its installation, use, copy, and re-distribution are subject to terms specified in the license file included with this package.
+
+Installation of the `ggcognigen` package can be performed using the source code provided in the compressed .tar.gz file which Cognigen Corporation sent you. For instance: 
+
+```{r, eval = FALSE}
+install.packages('ggcognigen_0.1.0.tar.gz', type = 'source')
+```
+
+Dependencies of the `ggcognigen` package are listed in the package DESCRIPTION file.
+
+Outside of Cognigen, it is the responsibility of the user to test and validate `ggcognigen`.
+
+# Loading `ggcognigen`
+
+After installation, users can load the package using the following command:
+
+```{r setup}
+library(ggcognigen)
+```
+
+# Using the Cognigen themes
+
+For the plain Cognigen theme, use `theme_cognigen()`.
+
+```{r, fig.dim = c(6, 4)}
+library(ggplot2)
+ggplot(data = diamonds) +
+  aes(x = carat, y = price) + 
+  geom_point() +
+  facet_wrap(vars(clarity)) +
+  theme_cognigen()
+```
+
+To display grid lines in the background, use `theme_cognigen_grid()`.
+
+```{r, fig.dim = c(6, 4)}
+ggplot(data = diamonds) +
+  aes(x = carat, y = price) + 
+  geom_point() +
+  facet_wrap(vars(clarity)) +
+  theme_cognigen_grid()
+```
+
+# Using the Cognigen graphical style
+
+When data are not stratified within a panel, `set_default_style()` must be called prior to any `ggplot2` function in order to apply the default Cognigen graphical style. This function will apply the Cognigen styling to all types of geom's (note that outlier styling in `geom_boxplot()` is not controlled by aesthetics and should be changed manually; alternatively, use `geom_boxplot2()`):
+
+```{r, echo = FALSE}
+xydata <- subset(xydata, REP == 1)
+```
+
+```{r, fig.dim = c(8, 3.5)}
+set_default_style()
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION) + 
+    geom_point() +
+    theme_cognigen(),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot() +
+    theme_cognigen(),
+  nrow = 1,
+  ncol = 2
+)
+
+```
+
+When data are stratified within a panel, `scale_discrete_cognigen()` can be added to `ggplot2` object in order to apply the colors, symbols, and line styles from the default Cognigen graphical style. 
+
+```{r, fig.dim = c(8, 3.5)}
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION, colour = DOSE, fill = DOSE, shape = DOSE) +
+    geom_point() +
+    geom_line() +
+    theme_cognigen() +
+    scale_discrete_cognigen(),
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'stack', alpha = 1, stroke = 0.5) +
+    theme_cognigen() +
+    scale_discrete_cognigen(geom = 'bar'),
+  nrow = 1,
+  ncol = 2
+)
+```
+
+**Important notes:**
+
+* `scale_discrete_cognigen()` has multiple arguments:
+    - `n`: defines the number of distinct data groups in the discrete scale. It is only important to set this argument if there are > 10 distinct groups; in this case, graphical elements get recycled.
+    - `geom`: defines the type of geom's on which the scale will apply.
+    - `grayscale`: set this argument to FALSE to apply graphical settings using grayscale colors.
+* for scatter plots, it is important to use both `colour` and `fill` aesthetics so that the different data groups can be distinguishable when the plot is printed in balck and white.
+
+# Using the Cognigen geom's
+
+Custom geom functions have been created to generate alternative versions of `ggplot2` geom's. 
+
+## `geom_boxplot2()`
+
+`geom_boxplot2()` is a variant of `ggplot2::geom_boxplot()`. It allows users to set whisker limits based upon a confidence interval rather than a multiple of the IQR, allows to display outliers with jitter, and
+provides a slightly different graphical styles when grouping/coloring is used.
+
+**Controlling whisker limits**
+
+The whisker limits are controlled by the value of the `coef` argument which can be set to any number between 0 (no whiskers are displayed) to 100 (whiskers extend from minimum to maximum data values). When `coef` is below 50, whisker limits are set based upon `coef` x IQR as in `ggplot2::geom_boxplot()`. When `coef` is above 50, whisker limits are set to the `coef`$^{th}$ confidence interval. By default, `coef` is set to 1.5 as in `ggplot2::geom_boxplot()`.
+
+```{r, fig.dim = c(8, 3.5)}
+ggpubr::ggarrange(
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2(coef = 1.5, outlier.position = 'identity') +
+    ggtitle('coef = 1.5') +
+    theme_cognigen(),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2(coef = 90, outlier.position = 'identity') +
+    ggtitle('coef = 90') +
+    theme_cognigen(),
+  nrow = 1,
+  ncol = 2
+)
+```
+
+**Controlling outlier positioning**
+
+By default, data points located beyond the limits of the whiskers are deemed outliers and are displaying by default with some random jitter. The display and position of the outliers are controlled by the `outlier.position` argument.
+
+```{r, fig.dim = c(8, 3.5)}
+ggpubr::ggarrange(
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2(outlier.position = NULL) +
+    ggtitle('NULL') +
+    theme_cognigen(),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2(outlier.position = 'identity') +
+    ggtitle('\'identity\'') +
+    theme_cognigen(),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2() +
+    ggtitle('default or \'jitter\'') +
+    theme_cognigen(),
+  nrow = 1,
+  ncol = 3
+)
+```
+
+**Differences between `geom_boxplot2()` and `ggplot2::geom_boxplot()` styling**
+
+As described above, `geom_boxplot2()` and `ggplot2::geom_boxplot()` differ by the way they handle whisker limits outliers. Additionally, the two functions differ in how aesthetics and graphical styleing are applied:
+
+* The `outlier.colour`/`outlier.color`, `outlier.fill`, `outlier.shape`, `outlier.size`, `outlier.stroke`, and `outlier.alpha` arguments are ignored in `geom_boxplot2()` and have no impact on the outlier display or design.
+* Medians: with `ggplot2::geom_boxplot()`, medians are always represented by a horizontal line inside the box. This is also true with `geom_boxplot2()` in absence of any aesthetics; otherwise, medians are represented by symbols. Therefore, it is recommended to always set both `color` and `shape` aesthetics with `geom_boxplot2()`.
+* Legend: with `geom_boxplot2()`, the legend will shown the group specific colors and symbols rather than the "mini-box" displayed in the `ggplot2::geom_boxplot()` legend.
+* `colour`/`color`: this aesthetic controls the color of the box borders, whiskers, and outliers in both functions. However, `outlier.color`/``outlier.coulor` will set the border and fill colors of the outliers in `ggplot2::geom_boxplot()` and are ignored in `geom_boxplot2()`
+* `fill`: this aesthetic controls the fill color of the boxes but not the outliers in `ggplot2::geom_boxplot()` while it controls the fill colors of the outliers but not the boxes in `geom_boxplot2()`. Boxes are always filled with white with the later functions.
+* `shape`: this aesthetic has no effect in `ggplot2::geom_boxplot()`, besides hiding the outliers if set to `NA`. In `geom_boxplot2()`, this aesthetic controls the shape of the outliers.
+
+
+```{r, fig.dim = c(8, 7)}
+ggpubr::ggarrange(
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS, color = CATEGORICAL, shape = CATEGORICAL, fill = CATEGORICAL) +
+    geom_boxplot(
+      notch = TRUE,
+      position = position_dodge(width = 0.9)
+    ) +
+    ggtitle('geom_boxplot()') +
+    theme_cognigen() +
+    scale_discrete_cognigen(),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS, color = CATEGORICAL, shape = CATEGORICAL, fill = CATEGORICAL) +
+    geom_boxplot2(
+      notch = TRUE,
+      position = position_dodge(width = 0.9)
+    ) +
+    ggtitle('geom_boxplot2()') +
+    theme_cognigen() +
+    scale_discrete_cognigen(),
+  nrow = 2,
+  ncol = 1
+
+)
+```
+
+## `geom_boxcount()`
+
+This function is intended to work in combination with `geom_boxplot2()` and to display the number of data points used for the calculation of statistics which are graphically represented by each box and whiskers.
+
+```{r, fig.dim = c(8, 3.5)}
+ggplot(data = boxdata) +
+  aes(x = GROUP, y = CONTINUOUS, color = CATEGORICAL, shape = CATEGORICAL, fill = CATEGORICAL) +
+  geom_boxplot2(
+    notch = TRUE,
+    position = position_dodge(width = 0.9)
+  ) +
+  geom_boxcount(
+    position = position_dodge(width = 0.9)
+  ) + 
+  theme_cognigen() +
+  scale_discrete_cognigen()
+```
+
+When `geom_boxcount()` is used, log axis scale display should be implemented using `ggplot2::scale_y_continuous`. Using `coord_trans(y ='log10')` would display the counts at the wrong locations.
+
+```{r, fig.dim = c(6, 4)}
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot2() +
+  geom_boxcount() +
+  scale_y_continuous(trans = 'log10')  + 
+  theme_cognigen()
+```
