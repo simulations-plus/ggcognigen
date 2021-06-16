@@ -39,7 +39,7 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
 
 ## Miscellaneous helper functions
 - `format_continuous_cognigen()`: a utility function be passed to the `labels` argument of a `scale_` function in order to automatically format axis ticks numerical labels in default or scientific notation (beyond pre-defined value limits)
-- `get_device_size_pixel()`
+- `get_device_size()`
 
 
 # TODO
@@ -52,17 +52,16 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
     - Could start with a project containing kiwiExplore plots
       - Added benefits of reference, comparison, training
     - Need to define testing platform
-    - Kevin would need to sign off on any testing
+      - Jira, GitLab, or Word doc
+    - Kevin would need to sign off on testing
 - Vignettes
   - Styles and Scales to display the default mappings
     - Figures like https://portal.kiwipharm.org/kiwiDoc/0721_Exploratory_Display_Styles.html for each style
     - Include directions on accessing elements from styles manually
   - Examples of each custom geom
-  - Example of moving legend
-- Function to split by a grouping variable to create file for each group
-  - Could treat like a `facet_` function
-  - Can `ggsave` save multiple plots with regex like base devices?
-  - {ggforce} has this. Maybe we can just document how to use it in a vignette
+  - Example of moving legend to bottom
+  - Example of splitting a facet by page:
+    - `ggforce::facet_grid_paginate()` & `ggforce::facet_wrap_paginate()` with `ggsave()`
 - Categorical variable formatting. i.e., represent a factor SEXF == 0 as "Male"
 - Experiment with `plot.margin` in themes
 - Experiment with `legend.text` and other text sizes
