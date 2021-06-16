@@ -41,22 +41,38 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
 - `format_continuous_cognigen()`: a utility function be passed to the `labels` argument of a `scale_` function in order to automatically format axis ticks numerical labels in default or scientific notation (beyond pre-defined value limits)
 - `get_device_size_pixel()`
 
-# Pending Discussions
-- How should versioning and licensing be organized/automated?
-- Should we use custom names for internal geoms/functions or use the same names as {ggplot2} to override defaults?
 
 # TODO
+- Release date scheduled: 2021-08-01
+  - Need risk assessment
+  - Need RVal meeting to define timeline and scope
+  - Potential Testing / Qualification
+    - Could start with same data; make plots in validated environments:
+      - SAS, kiwiExplore, kiwiExploreLive
+    - Could start with a project containing kiwiExplore plots
+      - Added benefits of reference, comparison, training
+    - Need to define testing platform
+    - Kevin would need to sign off on any testing
 - Vignettes
   - Styles and Scales to display the default mappings
+    - Figures like https://portal.kiwipharm.org/kiwiDoc/0721_Exploratory_Display_Styles.html for each style
+    - Include directions on accessing elements from styles manually
   - Examples of each custom geom
-- Find and document methods of controlling overlaying scales
-  - Experiment with `inherit.aes` arg
+  - Example of moving legend
 - Function to split by a grouping variable to create file for each group
   - Could treat like a `facet_` function
+  - Can `ggsave` save multiple plots with regex like base devices?
+  - {ggforce} has this. Maybe we can just document how to use it in a vignette
+- Categorical variable formatting. i.e., represent a factor SEXF == 0 as "Male"
 - Experiment with `plot.margin` in themes
+- Experiment with `legend.text` and other text sizes
 - Merge concept of `setaxis` macro with `format_continuous_cognigen()`
   - Might require custom `scale_` functions
+- Standards for footnotes (captions)
 - Geoms
+  - geom_smooth?
+    - lattice uses a different smoother
+    - Email from Aksana on 2019-08-15
   - histograms
   - density plots
   - bar plots
