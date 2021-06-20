@@ -184,8 +184,8 @@ As described above, `geom_boxplot2()` and `ggplot2::geom_boxplot()` differ by th
 * The `outlier.colour`/`outlier.color`, `outlier.fill`, `outlier.shape`, `outlier.size`, `outlier.stroke`, and `outlier.alpha` arguments are ignored in `geom_boxplot2()` and have no impact on the outlier display or design.
 * Medians: with `ggplot2::geom_boxplot()`, medians are always represented by a horizontal line inside the box. This is also true with `geom_boxplot2()` in absence of any aesthetics; otherwise, medians are represented by symbols. Therefore, it is recommended to always set both `color` and `shape` aesthetics with `geom_boxplot2()`.
 * Legend: with `geom_boxplot2()`, the legend will shown the group specific colors and symbols rather than the "mini-box" displayed in the `ggplot2::geom_boxplot()` legend.
-* `colour`/`color`: this aesthetic controls the color of the box borders, whiskers, and outliers in both functions. However, `outlier.color`/``outlier.coulor` will set the border and fill colors of the outliers in `ggplot2::geom_boxplot()` and are ignored in `geom_boxplot2()`
-* `fill`: this aesthetic controls the fill color of the boxes but not the outliers in `ggplot2::geom_boxplot()` while it controls the fill colors of the outliers but not the boxes in `geom_boxplot2()`. Boxes are always filled with white with the later functions.
+* `colour`/`color`: this aesthetic controls the color of the box borders, whiskers, and outliers in both functions. However, `outlier.color`/``outlier.colour` will set the border and fill colors of the outliers in `ggplot2::geom_boxplot()` and are ignored in `geom_boxplot2()`
+* `fill`: this aesthetic controls the fill color of the boxes but not the outliers in `ggplot2::geom_boxplot()` while it controls the fill colors of the outliers but not the boxes in `geom_boxplot2()`. Boxes are always filled with white with the latter function.
 * `shape`: this aesthetic has no effect in `ggplot2::geom_boxplot()`, besides hiding the outliers if set to `NA`. In `geom_boxplot2()`, this aesthetic controls the shape of the outliers.
 
 
@@ -241,4 +241,28 @@ ggplot(mpg, aes(class, hwy)) +
   geom_boxcount() +
   scale_y_continuous(trans = 'log10')  + 
   theme_cognigen()
+```
+
+## `geom_barcount()`
+
+This function is intended to work in combination with `geom_bar()` and to display the sum of the values represented by each bar.
+
+```{r, fig.dim = c(8, 3.5)}
+ggplot(data = bardata) +
+  aes(x = STUDY, y = COUNT, fill = GROUP) +
+  geom_bar(stat = 'identity') +
+  geom_barcount() +
+  theme_cognigen() +
+  scale_discrete_cognigen(geom = 'bar')
+```
+
+This function works only for `stack` and `dodge` positions, shown above and below respectfully.
+
+```{r, fig.dim = c(8, 3.5)}
+ggplot(data = bardata) +
+  aes(x = STUDY, y = COUNT, fill = GROUP) +
+  geom_bar(stat = 'identity', position = 'dodge') +
+  geom_barcount(position = position_dodge(width = 0.9)) +
+  theme_cognigen() +
+  scale_discrete_cognigen(geom = 'bar')
 ```

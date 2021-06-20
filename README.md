@@ -27,6 +27,7 @@ New geom functions for the creation of box-and-whisker plots.
 
 - `geom_boxplot2()`: a variant on `ggplot2::geom_boxplot()` allowing users to set whisker limits based upon a confidence interval rather than a multiple of the IQR, display outliers with jitter, and providing a slightly different graphical styles for grouping/coloring.
 - `geom_boxcount()`: a utility function working in combination with `geom_boxplot2()` allowing the display of the number of data points used for the calculation of statistics which are graphically represented by each box and whiskers
+- `geom_barcount()`: a utility function working in combination with `geom_bar()` and allowing the displaying the sum of the values represented by each bar.
 
 ## Style and scale functions for mapping aesthetics
 
