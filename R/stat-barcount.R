@@ -90,7 +90,8 @@ StatBarcount <- ggplot2::ggproto(
         counts$y <- count + 0.05 * max(count)
       } else if ( inherits(position, 'PositionDodge') | inherits(position, 'PositionDodge2')) {
         counts <- data[!duplicated(data[, c('x', 'group')]), ]
-        count <- as.numeric(aggregate(y, list(x, data$group), sum, na.rm = TRUE)[,3])
+        count <- aggregate(y, list(x, data$group), sum, na.rm = TRUE)
+        count <- as.numeric(count[order(count[, 1], count[, 2]), 3])
         counts$y <- count + 0.05 * max(count)
         counts$xmin <- counts$xmin <- counts$x
       } else {
