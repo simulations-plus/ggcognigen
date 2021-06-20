@@ -64,7 +64,7 @@ StatBoxcount <- ggplot2::ggproto(
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_boxcount() requires an x or y aesthetic.")
+      rlang::abort("stat_boxcount() requires an x or y aesthetic.")
     }
 
     if (is.double(data$x) && !ggplot2::has_groups(data) && any(data$x != data$x[1L])) {

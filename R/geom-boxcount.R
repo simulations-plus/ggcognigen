@@ -41,6 +41,8 @@ geom_boxcount <- function(
   show.legend = FALSE,
   inherit.aes = TRUE) {
 
+  #position <- ggplot2:::check_subclass(position, "Position", env = parent.frame())
+
   ggplot2::layer(
     data = data,
     mapping = mapping,
@@ -76,12 +78,10 @@ GeomBoxcount <- ggplot2::ggproto(
   extra_params = c("na.rm", "width", "orientation"),
 
   setup_data = function(data, params) {
-
     data$xmin <- data$xmax <- data$x
+    data$ymin <- data$ymax <- data$y
     data$width <- 0
-
     data
-
   },
 
   draw_group = function(
@@ -93,7 +93,7 @@ GeomBoxcount <- ggplot2::ggproto(
     data <- ggplot2::flip_data(data, flipped_aes)
     # this may occur when using geom_count(stat = "identity")
     if (nrow(data) != 1) {
-      abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
+      rlang::abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
     }
 
     data$y <- ifelse(

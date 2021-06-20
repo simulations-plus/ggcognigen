@@ -78,7 +78,7 @@ StatBoxplot2 <- ggplot2::ggproto(
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_boxplot2() requires an x or y aesthetic.")
+      rlang::abort("stat_boxplot2() requires an x or y aesthetic.")
     }
 
     params$width <- params$width %||% (ggplot2::resolution(data$x %||% 0) * 0.75)
