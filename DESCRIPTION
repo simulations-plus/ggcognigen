@@ -6,6 +6,8 @@ Date: $date$
 Authors@R: c(person("Sebastien","Bihorel",role=c("aut","cre"),email="sebastien.bihorel@cognigencorp.com"),
              person("Nash","Delcamp",role=c("aut"),email="nash.delcamp@cognigencorp.com"),
              person("Cognigen Corporation",role="cph"))
+URL: https://gitlab.cognigencorp.com/r/ggcognigen
+BugReports: https://gitlab.cognigencorp.com/r/ggcognigen/-/issues
 Description: Geom, themes, styles, and helper functions for ggplot2 at Cognigen Corporation.
 License: file LICENSE
 Encoding: UTF-8
