@@ -26,7 +26,7 @@ build:
 	@rm -rf /tmp/$(PKGNAME)
 
 check: build
-	R CMD check --no-manual builds/$(PKGNAME)_$(PKGVERS).tar.gz
+	R CMD check builds/$(PKGNAME)_$(PKGVERS).tar.gz
 
 install:
 	R CMD INSTALL --library=$(R_LIBS_USER) builds/$(PKGNAME)_$(PKGVERS).tar.gz
