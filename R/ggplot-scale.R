@@ -11,14 +11,6 @@
 #'
 #' @examples
 #' \dontrun{
-#' # TODO cleanup examples
-#'
-#' xydata <- read.csv(
-#'   file = './resources/xyplot_data.csv',
-#'   header = TRUE,
-#'   as.is = TRUE,
-#'   stringsAsFactors = FALSE
-#' )
 #' xydata$DOSE <- as.factor(xydata$DOSE)
 #'
 #' # scatter plot
@@ -42,15 +34,6 @@
 #'   theme_cognigen()
 #'
 #' # Barchart
-#' bardata <-  read.csv(
-#'   file = './resources/bar_data.csv',
-#'   header = TRUE,
-#'   as.is = TRUE,
-#'   stringsAsFactors = FALSE
-#' )
-#' bardata <- subset(bardata, GROUP > 0)
-#' bardata$GROUP <- as.factor(bardata$GROUP)
-#'
 #' ggplot(data = bardata) +
 #'   aes(x = STUDY, y = COUNT, fill = GROUP) +
 #'   geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
@@ -58,18 +41,9 @@
 #'   scale_discrete_cognigen(n = 10, geom = 'bar')
 #'
 #' # Boxplot
-#' boxdata <- read.csv(
-#'   file = './resources/box_data.csv',
-#'   header = TRUE,
-#'   as.is = TRUE,
-#'   stringsAsFactors = FALSE
-#' )
-#' boxdata$GROUP <- as.factor(boxdata$GROUP)
-#' boxdata$CATEGORICAL <- as.factor(boxdata$CATEGORICAL)
-#'
 #' ggplot(data = boxdata) +
 #'   aes(x = GROUP, y = CONTINUOUS, colour = CATEGORICAL) +
-#'   geom_cognigenBoxplot(
+#'   geom_boxplot2(
 #'     notch = TRUE,
 #'     coef = 90,
 #'     fill = 'white',
@@ -83,13 +57,7 @@
 #'   scale_discrete_cognigen(10)
 #'
 #' # Histogram
-#' histdata <- read.csv(
-#'   file = './resources/hist_data.csv',
-#'   header = TRUE,
-#'   as.is = TRUE,
-#'   stringsAsFactors = FALSE
-#' )
-#' histdata$GROUP <- as.factor(histdata$GROUP)
+#'
 #' }
 
 scale_discrete_cognigen <- function(
