@@ -109,7 +109,7 @@ GeomCrossbar2 <- ggplot2::ggproto(
         colour = rep(data$colour, 11),
         size = rep(data$size, 11),
         linetype = rep(data$linetype, 11),
-        fill = rep('white', 11), #data$fill, 11),
+        fill = rep('white', nrow(data) * 11), #data$fill, 11),
         group = rep(seq_len(nrow(data)), 11)
       ))
     } else {
@@ -121,7 +121,7 @@ GeomCrossbar2 <- ggplot2::ggproto(
         colour = rep(data$colour, 5),
         size = rep(data$size, 5),
         linetype = rep(data$linetype, 5),
-        fill = rep('white', 5), #rep(data$fill, 5),
+        fill = rep('white', nrow(data) * 5), #rep(data$fill, 5),
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
       ))
     }
