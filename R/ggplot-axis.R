@@ -42,7 +42,7 @@ format_continuous_cognigen <- function(x){
 
   sciNot.expression <- function(x, digits = 5){
 
-    exponent <- floor(log10(x))
+    exponent <- floor(log10(abs(x)))
     base <- signif(x / 10^exponent, digits)
     res <- vector(mode = 'expression', length = length(x))
 
@@ -55,7 +55,7 @@ format_continuous_cognigen <- function(x){
       }
 
       if ( neg ){
-        if (base[i] == 1){
+        if (base[i] == -1){
           res[i] <- as.expression(
             substitute(
               -10^exponent,
@@ -65,7 +65,7 @@ format_continuous_cognigen <- function(x){
         } else {
           res[i] <- as.expression(
             substitute(
-              -base%.%10^exponent,
+              base%.%10^exponent,
               list(base = base[i], exponent = exponent[i])
             )
           )
