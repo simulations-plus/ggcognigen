@@ -83,8 +83,8 @@ StatBoxplot2 <- ggplot2::ggproto(
 
     params$width <- params$width %||% (ggplot2::resolution(data$x %||% 0) * 0.75)
 
-    if (is.double(data$x) && !ggplot2::has_groups(data) && any(data$x != data$x[1L])) {
-      warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
+    if (is.double(data$x) && !ggplot2:::has_groups(data) && any(data$x != data$x[1L])) {
+      rlang::warn(glue::glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
     }
 
     params
