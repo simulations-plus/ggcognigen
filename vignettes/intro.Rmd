@@ -70,10 +70,12 @@ ggplot(data = diamonds) +
 
 # Using the Cognigen graphical style
 
+## `set_default_style()`
+
 When data are not stratified within a panel, `set_default_style()` must be called prior to any `ggplot2` function in order to apply the default Cognigen graphical style. This function will apply the Cognigen styling to all types of geom's (note that outlier styling in `geom_boxplot()` is not controlled by aesthetics and should be changed manually; alternatively, use `geom_boxplot2()`):
 
 ```{r, echo = FALSE}
-xydata <- subset(xydata, REP == 1)
+#xydata <- subset(xydata, REP == 1)
 ```
 
 ```{r, fig.dim = c(8, 3.5)}
@@ -93,14 +95,21 @@ ggpubr::ggarrange(
 
 ```
 
-When data are stratified within a panel, `scale_discrete_cognigen()` can be added to `ggplot2` object in order to apply the colors, symbols, and line styles from the default Cognigen graphical style. 
+## `scale_discrete_cognigen()`
 
-```{r, fig.dim = c(8, 3.5)}
+When data are stratified within a panel, `scale_discrete_cognigen()` can be added to `ggplot2` object in order to apply the colors, symbols, and line styles from the default Cognigen graphical style. This function accepts a `geom` argument which should be aligned with the type of geom being plotted, if it is not a `geom_point` (as this is the default geom used in `scale_discrete_cognigen()`)
+
+```{r, fig.dim = c(8, 6.5)}
 ggpubr::ggarrange(
   ggplot(data = xydata) +
-    aes(x = TIME, y = CONCENTRATION, colour = DOSE, fill = DOSE, shape = DOSE) +
+    aes(x = TIME, y = CONCENTRATION, colour = GROUP, shape = GROUP) +
     geom_point() +
     geom_line() +
+    theme_cognigen() +
+    scale_discrete_cognigen(),
+  ggplot(data = diamonds) +
+    aes(x = carat, y = price, colour = clarity, shape = clarity, fill = clarity) + 
+    geom_smooth() +
     theme_cognigen() +
     scale_discrete_cognigen(),
   ggplot(data = bardata) +
@@ -108,18 +117,50 @@ ggpubr::ggarrange(
     geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
     theme_cognigen() +
     scale_discrete_cognigen(geom = 'bar'),
-  nrow = 1,
+  nrow = 2,
   ncol = 2
 )
 ```
 
-**Important notes:**
-
-* `scale_discrete_cognigen()` has multiple arguments:
+`scale_discrete_cognigen()` accepts multiple arguments:
     - `n`: defines the number of distinct data groups in the discrete scale. It is only important to set this argument if there are > 10 distinct groups; in this case, graphical elements get recycled.
     - `geom`: defines the type of geom's on which the scale will apply.
+    - `style`: a list of graphical settings set to `cognigen_style` by default (see next section).
     - `grayscale`: set this argument to FALSE to apply graphical settings using grayscale colors.
 * for scatter plots, it is important to use both `colour` and `fill` aesthetics so that the different data groups can be distinguishable when the plot is printed in balck and white.
+
+## `cognigen_style()`
+
+By default, the `style` argument of `scale_discrete_cognigen` is set to `cognigen_style()`. `cognigen_style()` returns a large list object which contains all the settings defining the Cognigen graphical standards and which has the following structure:
+
+```{r}
+str(cognigen_style())
+```
+
+Note that each level contains a `color` and a `grayscale` sub-level, which provides settings intended for use in colored or grayscale plots respectively. Since this is a typical R list, any subset method applicable to lists will allow the extraction of particular portion of this information.
+
+```{r}
+style <- cognigen_style()
+style$scatter$color$lty
+style$bar$grayscale$col
+```
+
+This collection of settings was initially designed for the graphing workflows implemented in the [Cognigen KIWI platform for modeling & simulation](https://www.simulations-plus.com/software/kiwi/) and contains information that is relevant to a `ggplot2`-based workflow and some that is not. Relevant information is automatically extracted by `scale_discrete_cognigen()`.
+
+## `read_style()`
+
+The `style` argument of `scale_discrete_cognigen` can also be used to set a custom style. For this purpose, one could save the output of `cognigen_style()` into a list variable, modify its content (but not its structure), then call `scale_discrete_cognigen` and set the `style` argument to the custin style list.
+
+Alternatively, if this custom style list must be re-used, it can be saved as a JSON file (see `?jsonlite::wrtie_json`). Later, one can use `read_style()` to read the content of the JSON file and re-construct the appropriate style object.
+
+```{r eval=FALSE}
+ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION, colour = GROUP, shape = GROUP) +
+    geom_point() +
+    geom_line() +
+    theme_cognigen() +
+    scale_discrete_cognigen()
+```
 
 # Using the Cognigen geom's
 

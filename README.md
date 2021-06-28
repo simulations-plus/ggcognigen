@@ -57,9 +57,9 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
     - Kevin would need to sign off on testing
 - Vignettes
   - Styles and Scales to display the default mappings
-    - Figures like https://portal.kiwipharm.org/kiwiDoc/0721_Exploratory_Display_Styles.html for each style
-    - Include directions on accessing elements from styles manually
-  - Examples of each custom geom
+    - Figures like https://portal.kiwipharm.org/kiwiDoc/0721_Exploratory_Display_Styles.html for each style (WHEN A STYLE IS AGREED UPON)
+    - Include directions on accessing elements from styles manually (DONE)
+  - Examples of each custom geom (DONE)
   - Example of moving legend to bottom
   - Example of splitting a facet by page:
     - `ggforce::facet_grid_paginate()` & `ggforce::facet_wrap_paginate()` with `ggsave()`
