@@ -19,12 +19,400 @@ cognigen_style <- function(){
   list(
     scatter = list(
       color = data.frame(
-        pch = as.integer(c(21, 3, 2, 4, 22, 25, 21, 23, 22, 8, 24)),
+        pch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        col = c('#000000', '#FF0000', '#0000FF', '#008000', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+                '#888888', '#50E050', '#8F308F'),
+        fill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+                 '#888888', '#50E050', '#8F308F'),
+        cex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5,
+                0.45, 0.5, 0.5, 0.45, 0.5),
+        lty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                'dotdash'),
+        lwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        pch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        col = c('#000000', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                '#888888', '#BEBEBE', '#4C4C4C'),
+        fill = c('#000000', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                 '#888888', '#BEBEBE', '#4C4C4C'),
+        cex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        lty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                'dotdash'),
+        lwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        stringsAsFactors = FALSE
+      )
+    ),
+    ramp = list(
+      color = data.frame(
+        pch = c(1L, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        col = c('#9E0142', '#D53E4F', '#F46D43', '#FDAE61', '#FEE08B', '#E6F598', '#ABDDA4', '#66C2A5',
+                '#3288BD', '#5E4FA2'),
+        fill = c('transparent', NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        cex = c(0.5, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        pch = c(1L, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        col = c('#D8D8D8', '#C0C0C0', '#A8A8A8', '#909090', '#787878', '#606060', '#484848', '#303030',
+                '#181818', '#000000'),
+        fill = c('transparent', NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        cex = c(0.5, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        stringsAsFactors = FALSE
+      )
+    ),
+    bar = list(
+      color = data.frame(
+        col = c('#FFFFFF', '#FF7F7F', '#7F7FFF', '#7FBF7F', '#FFCF7F', '#FF7FCF', '#7FEEFF', '#E3B485',
+                '#C3C3C3', '#A7EFA7', '#C797C7'),
+        border = rep('#000000', 11),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        col = c('#FFFFFF', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                '#888888', '#BEBEBE', '#4C4C4C'),
+        border = rep('#000000', 11),
+        stringsAsFactors = FALSE
+      )
+    ),
+    box.sym = list(
+      color = data.frame(
+        bwdotpch = c('|', '3', '0', '1', '2', '4', '5', '19', '15', '8', '17'),
+        bwdotcol = c('#000000', '#FF0000', '#0000FF', '#008080', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+                     '#888888', '#50E050', '#8F308F'),
+        bwdotfill = c('#000000', '#FF0000', '#0000FF', '#008080', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+                      '#888888', '#50E050', '#8F308F'),
+        bwdotcex = rep(0.45, 11),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        bwdotpch = c('|', '3', '0', '1', '2', '4', '5', '19', '22', '8', '24'),
+        bwdotcol = c('#000000', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                     '#888888', '#BEBEBE', '#4C4C4C'),
+        bwdotfill = c('#000000', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                      '#888888', '#BEBEBE', '#4C4C4C'),
+        bwdotcex = rep(0.45, 11),
+        stringsAsFactors = FALSE
+      )
+    ),
+    box.rec = list(
+      color = data.frame(
+        value = c('#000000', 'solid', '1', '#000000', 'transparent', 'solid', '1', '21', '#000000', '0.45'),
+        row.names = c('Whisker color',
+                      'Whisker line type', 'Whisker line width', 'Box border color', 'Box fill',
+                      'Box border type', 'Box border width', 'Outlier symbol', 'Outlier color',
+                      'Outlier scaling'),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c('#000000', 'solid', '1', '#000000', 'transparent', 'solid', '1', '21', '#000000', '0.45'),
+        row.names = c('Whisker color',
+                      'Whisker line type', 'Whisker line width', 'Box border color', 'Box fill',
+                      'Box border type', 'Box border width', 'Outlier symbol', 'Outlier color',
+                      'Outlier scaling'),
+        stringsAsFactors = FALSE
+      )
+    ),
+    hist = list(
+      color = data.frame(
+        value = c('#FFFFFF', '#000000', 'solid', '1', '#FF0000', 'dashed', '1.5'),
+        row.names = c('Histogram fill color', 'Histogram border color', ' Histogram border type',
+                      'Histogram border width', 'Normal distribution color', 'Normal distribution type',
+                      'Normal distribution width'),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c('#FFFFFF', '#000000', 'solid', '1', '#363636', 'dashed', '1.5'),
+        row.names = c('Histogram fill color', 'Histogram border color', ' Histogram border type',
+                      'Histogram border width', 'Normal distribution color', 'Normal distribution type',
+                      'Normal distribution width'),
+        stringsAsFactors = FALSE
+      )
+    ),
+    hist.dens = list(
+      color = data.frame(
+        col = c('#000000', '#FF0000', '#0000FF', '#008000', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+                '#888888', '#50E050', '#8F308F'),
+        fill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+                 '#888888', '#50E050', '#8F308F'),
+        pch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        cex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        hidcol = c('#0066FF', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        hidlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                   'dotdash'),
+        hidlwd = rep(1.5, 11),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        col = c('#000000', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                '#888888', '#BEBEBE', '#4C4C4C'),
+        fill = c('#000000', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                 '#888888', '#BEBEBE', '#4C4C4C'),
+        pch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        cex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5,
+                0.45, 0.5, 0.5, 0.45, 0.5),
+        hidcol = c('#5D5D5D', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        hidlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                   'dotdash'),
+        hidlwd = rep(1.5, 11),
+        stringsAsFactors = FALSE
+      )
+    ),
+    vpc = list(
+      color = data.frame(
+        value = c(
+          # Observed data
+          '1', '#000000', '0.5',
+          'solid', '#FF0000', '1.5', 'solid', '#FF0000', '1.5', 'solid', '#FF0000', '1.5',
+          # Simulated data
+          '#90ee90', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
+          # PI
+          '#0000FF', '#0000FF', '#0000FF'
+        ),
+        value2 = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'solid', '#FF0000', '1.5', 'dashed', '#FF0000', '1.5', 'dashed', '#FF0000', '1.5',
+          # Simulated data
+          '#90ee90', 'solid', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
+          # PI
+          '#FF0000', '#0000FF', '#0000FF'
+        ),
+        value3 = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'solid', '#FF0000', '1.5', 'solid', '#0000FF', '1.5', 'solid', '#0000FF', '1.5',
+          # Simulated data
+          '#90ee90', 'solid', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
+          # PI
+          '#FF0000', '#0000FF', '#0000FF'
+        ),
+        row.names = c(
+          # Observed data
+          'Symbol', 'Symbol color', 'Symbol scale',
+          'Median line type', 'Median line color', 'Median line width',
+          'CI upper limit line type', 'CI upper limit line color', 'CI upper limit line width',
+          'CI lower limit line type', 'CI lower limit line color', 'CI lower limit line width',
+          # Simulated data
+          'PI area color',
+          'Predicted median line type', 'Predicted median line color', 'Predicted median line width',
+          'PI upper limit line type', 'PI upper limit line color', 'PI upper limit line width',
+          'PI lower limit line type', 'PI lower limit line color', 'PI lower limit line width',
+          # PI CI
+          'CI around median - Area color', 'CI around PI upper limit - Area color', 'CI around PI lower limit - Area color'
+        ),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'solid', '#000000', '1.5', 'solid', '#000000', '1.5', 'solid', '#000000', '1.5',
+          # Simulated data
+          '#D1D1D1', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5',
+          # PI
+          '#5F5F5F', '#5F5F5F', '#5F5F5F'
+        ),
+        value2 = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'dotted', '#000000', '3', 'F8', '#000000', '1.5', 'F8', '#000000', '1.5',
+          # Simulated data
+          '#D1D1D1', 'solid', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5',
+          # PI
+          '#5F5F5F', '#5F5F5F', '#5F5F5F'
+        ),
+        value3 = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'solid', '#000000', '1.5', 'F8', '#000000', '1.5', 'F8', '#000000', '1.5',
+          # Simulated data
+          '#90ee90', 'solid', '#000000', '1.5', 'dashed', '#000000', '1.5', 'dashed', '#000000', '1.5',
+          # PI
+          '#111111', '#666666', '#666666'
+        ),
+        row.names = c(
+          # Observed data
+          'Symbol', 'Symbol color', 'Symbol scale',
+          'Median line type', 'Median line color', 'Median line width',
+          'CI upper limit line type', 'CI upper limit line color', 'CI upper limit line width',
+          'CI lower limit line type', 'CI lower limit line color', 'CI lower limit line width',
+          # Simulated data
+          'PI area color',
+          'Predicted median line type', 'Predicted median line color', 'Predicted median line width',
+          'PI upper limit line type', 'PI upper limit line color', 'PI upper limit line width',
+          'PI lower limit line type', 'PI lower limit line color', 'PI lower limit line width',
+          # PI CI
+          'CI around median - Area color', 'CI around PI upper limit - Area color', 'CI around PI lower limit - Area color'
+        ),
+        stringsAsFactors = FALSE
+      )
+    ),
+    vpc.style = data.frame(
+      style = 1:22,
+      type = c('p', 'p', 'p', 'p', 'p', 'p', 'p', 'n', 'n', 'n', 'p', 'p', 'p',
+               'p', 'p', 'p', 'p', 'n', 'n', 'n', 'p', 'n'),
+      PI.real = c(NA, NA, NA, 'lines', 'lines', 'lines', 'lines', 'lines',
+                  'lines', 'lines', NA, NA, NA, 'lines', 'lines', 'lines', 'lines',
+                  'lines', 'lines', 'lines', 'lines', 'lines'),
+      PI = c('lines', 'lines', 'area', 'lines', 'lines', 'area', NA, 'lines',
+             'lines', 'area', 'lines', 'lines', 'area', 'lines', 'lines', 'area',
+             NA, 'lines', 'lines', 'area', 'lines', NA),
+      PI.ci = c(NA, 'area', NA, NA, 'area', NA, 'area', NA, 'area', NA, NA,
+                'area', NA, NA, 'area', NA, 'area', NA, 'area', NA, 'area', 'area'),
+      stringsAsFactors = FALSE
+    ),
+    vpc.tte.style = data.frame(
+      style = 1:24,
+      real.ci = c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE,
+                  TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE,
+                  TRUE, TRUE, TRUE, TRUE),
+      median.line = c(FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE,
+                      FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE,
+                      FALSE, FALSE, TRUE, TRUE, TRUE),
+      ci.area = c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE,
+                  FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE,
+                  TRUE, FALSE, TRUE),
+      ci.lines = c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE,
+                   FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE,
+                   TRUE, FALSE, TRUE, TRUE),
+      stringsAsFactors = FALSE
+    ),
+    spline = list(
+      color = data.frame(
+        smcol1 = c('#0066FF', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        smcol2 = c('#7F7F7F', '#FF7F7F', '#7F7FFF', '#7FBF7F', '#FFCF7F', '#FF7FCF', '#7FEEFF', '#E3B485',
+                   '#C3C3C3', '#A7EFA7', '#C797C7'),
+        smlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                  'dotdash'),
+        smlwd = rep(1.5, 11),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        smcol1 = c('#B2B2B2', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        smcol2 = c('#7F7F7F', '#9A9A9A', '#898989', '#ADADAD', '#D3D3D3', '#A0A0A0', '#D8D8D8', '#BABABA',
+                   '#C3C3C3', '#DEDEDE', '#A5A5A5'),
+        smlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                  'dotdash'),
+        smlwd = rep(1.5, 11),
+        stringsAsFactors = FALSE
+      )
+    ),
+    hline = list(
+      color = data.frame(
+        hlinecol1 = rep('#FF0000', 10),
+        hlinecol2 = rep('#000000', 10),
+        hlinelty = rep('solid', 10),
+        hlinelwd = rep(1, 10),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        hlinecol1 = rep('#363636', 10),
+        hlinecol2 = rep('#000000', 10),
+        hlinelty = rep('solid', 10),
+        hlinelwd = rep(1, 10),
+        stringsAsFactors = FALSE
+      )
+    ),
+    vline = list(
+      color = data.frame(
+        vlinecol1 = rep('#FF0000', 10),
+        vlinecol2 = rep('#000000', 10),
+        vlinelty = rep('solid', 10),
+        vlinelwd = rep(1, 10),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        vlinecol1 = rep('#363636', 10),
+        vlinecol2 = rep('#000000', 10),
+        vlinelty = rep('solid', 10),
+        vlinelwd = rep(1, 10),
+        stringsAsFactors = FALSE
+      )
+    ),
+    abline = list(
+      color = data.frame(
+        value = c('#FF0000', '#000000', 'solid', '1'),
+        row.names = c('Line color - no grouping', 'Line color - grouping', 'Line type', 'Line width'),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c('#363636', '#000000', 'solid', '1'),
+        row.names = c('Line color - no grouping', 'Line color - grouping', 'Line type', 'Line width'),
+        stringsAsFactors = FALSE
+      )
+    ),
+    error = list(
+      color = data.frame(
+        errpch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        errcol1 = c('#0066FF', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        errcol2 = c('#000000', '#FF0000', '#0000FF', '#008000', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+                    '#888888', '#50E050', '#8F308F'),
+        errcol3 = c('#7F7F7F', '#FF7F7F', '#7F7FFF', '#7FBF7F', '#FFCF7F', '#FF7FCF', '#7FEEFF', '#E3B485',
+                    '#C3C3C3', '#A7EFA7', '#C797C7'),
+        errfill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+                    '#888888', '#50E050', '#8F308F'),
+        errcex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        errlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                   'dotdash'),
+        errlwd = rep(1.5, 11),
+        erralpha = rep(1, 11),
+        erralpha.area = rep(0.25, 11),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        errpch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        errcol1 = c('#B2B2B2', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        errcol2 = c('#000000', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                    '#888888', '#BEBEBE', '#4C4C4C'),
+        errcol3 = c('#7F7F7F', '#9A9A9A', '#898989', '#ADADAD', '#D3D3D3', '#A0A0A0', '#D8D8D8', '#BABABA',
+                    '#C3C3C3', '#DEDEDE', '#A5A5A5'),
+        errfill = c('#000000', '#363636', '#141414', '#5B5B5B', '#A7A7A7', '#424242', '#B1B1B1', '#767676',
+                    '#888888', '#BEBEBE', '#4C4C4C'),
+        errcex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        errlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                   'dotdash'),
+        errlwd = rep(1.5, 11),
+        erralpha = rep(1, 11),
+        erralpha.area = rep(0.25, 11),
+        stringsAsFactors = FALSE
+      )
+    ),
+    background = list(
+      color = data.frame(
+        value = c('#FFFFFF', '#DDDDDD', '#FFFFFF', '#000000'),
+        row.names = c('Panel background color', 'Grid line color',
+                      'Strip background color', 'Strip text color'),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c('#FFFFFF', '#DDDDDD', '#FFFFFF', '#000000'),
+        row.names = c('Panel background color', 'Grid line color',
+                      'Strip background color', 'Strip text color'),
+        stringsAsFactors = FALSE
+      )
+    )
+  )
+
+}
+
+#' Original ggplot2 style (aligned with KIWI 4 graphical style)
+#'
+#' @return \code{list} of style elements
+#' @export
+#' @rdname cognigen_style
+#'
+initial_style <- function(){
+
+  list(
+    scatter = list(
+      color = data.frame(
+        pch = as.integer(c(1, 3, 2, 1, 0, 4, 19, 5, 15, 8, 17)),
         col = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF', '#FFA000',
                 '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
-        fill = c('transparent', '#FF0000', 'transparent', 'transparent',
-                 'transparent', '#FFA000', '#00DDFF', 'transparent', '#80AD88',
-                 'transparent', '#6F306F'),
+        fill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF', '#FFA000',
+                 '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
         cex = c(0.45, 0.5, 0.45, 0.5, 0.55, 0.45, 0.5, 0.45, 0.5, 0.5, 0.5),
         lty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313',
                 'solid', 'dashed', 'F8', 'dotdash'),
@@ -32,12 +420,11 @@ cognigen_style <- function(){
         stringsAsFactors = FALSE
       ),
       grayscale = data.frame(
-        pch = as.integer(c(21, 3, 2, 4, 22, 25, 21, 23, 22, 8, 24)),
+        pch = as.integer(c(1, 3, 2, 4, 0, 25, 21, 5, 15, 8, 17)),
         col = c('#000000', '#363636', '#141414', '#5B5B5B', '#4A4A4A', '#A7A7A7',
                 '#B1B1B1', '#5A5A5A', '#A1A1A1', '#767676', '#424242'),
-        fill = c('transparent', '#363636', 'transparent', 'transparent',
-                 'transparent', '#A7A7A7', '#B1B1B1', 'transparent', '#A1A1A1',
-                 'transparent', '#424242'),
+        fill = c('#000000', '#363636', '#141414', '#5B5B5B', '#4A4A4A', '#A7A7A7',
+                 '#B1B1B1', '#5A5A5A', '#A1A1A1', '#767676', '#424242'),
         cex = c(0.45, 0.5, 0.45, 0.5, 0.55, 0.45, 0.5, 0.45, 0.5, 0.5, 0.5),
         lty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313',
                 'solid', 'dashed', 'F8', 'dotdash'),
@@ -47,7 +434,7 @@ cognigen_style <- function(){
     ),
     ramp = list(
       color = data.frame(
-        pch = c(16, rep(NA, 9)),
+        pch = c(1, rep(NA, 9)),
         col = c('#9E0142', '#D53E4F', '#F46D43', '#FDAE61', '#FEE08B',
                 '#E6F598', '#ABDDA4', '#66C2A5', '#3288BD', '#5E4FA2'),
         fill = c('transparent', rep(NA, 9)),
@@ -55,7 +442,7 @@ cognigen_style <- function(){
         stringsAsFactors = FALSE
       ),
       grayscale = data.frame(
-        pch = c(16, rep(NA, 9)),
+        pch = c(1, rep(NA, 9)),
         col = c('#D8D8D8', '#C0C0C0', '#A8A8A8', '#909090', '#787878',
                 '#606060', '#484848', '#303030', '#181818', '#000000'),
         fill = c('transparent', rep(NA, 9)),
@@ -82,9 +469,8 @@ cognigen_style <- function(){
         bwdotpch = c('|', 3, 2, 4, 22, 25, 21, 23, 22, 8, 24),
         bwdotcol = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF', '#FFA000',
                      '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
-        bwdotfill = c('transparent', '#FF0000', 'transparent', 'transparent',
-                      'transparent', '#FFA000', '#00DDFF', 'transparent', '#80AD88',
-                      'transparent', '#6F306F'),
+        bwdotfill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF', '#FFA000',
+                      '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
         bwdotcex = rep(0.45, 11),
         stringsAsFactors = FALSE
       ),
@@ -92,9 +478,8 @@ cognigen_style <- function(){
         bwdotpch = c('|', 3, 2, 4, 22, 25, 21, 23, 22, 8, 24),
         bwdotcol = c('#000000', '#363636', '#141414', '#5B5B5B', '#4A4A4A', '#A7A7A7',
                      '#B1B1B1', '#5A5A5A', '#A1A1A1', '#767676', '#424242'),
-        bwdotfill = c('transparent', '#363636', 'transparent', 'transparent',
-                      'transparent', '#A7A7A7', '#B1B1B1', 'transparent', '#A1A1A1',
-                      'transparent', '#424242'),
+        bwdotfill = c('#000000', '#363636', '#141414', '#5B5B5B', '#4A4A4A', '#A7A7A7',
+                      '#B1B1B1', '#5A5A5A', '#A1A1A1', '#767676', '#424242'),
         bwdotcex = rep(0.45, 11),
         stringsAsFactors = FALSE
       )
@@ -138,12 +523,10 @@ cognigen_style <- function(){
     hist.dens = list(
       color = data.frame(
         col = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF', '#FFA000',
-                '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'
-        ),
-        fill = c('transparent', '#FF0000', 'transparent', 'transparent',
-                 'transparent', '#FFA000', '#00DDFF', 'transparent', '#80AD88',
-                 'transparent', '#6F306F'),
-        pch = as.integer(c(21, 3, 2, 4, 22, 25, 21, 23, 22, 8, 24)),
+                '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
+        fill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF', '#FFA000',
+                 '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
+        pch = as.integer(c(1, 3, 2, 4, 0, 25, 21, 5, 15, 8, 17)),
         cex = c(0.45, 0.5, 0.45, 0.5, 0.55, 0.45, 0.5, 0.45, 0.5, 0.5, 0.5),
         hidcol = c('#0066FF', rep(NA, 10)),
         hidlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313',
@@ -153,12 +536,10 @@ cognigen_style <- function(){
       ),
       grayscale = data.frame(
         col = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF', '#FFA000',
-                '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'
-        ),
-        fill = c('transparent', '#363636', 'transparent', 'transparent',
-                 'transparent', '#A7A7A7', '#B1B1B1', 'transparent', '#A1A1A1',
-                 'transparent', '#424242'),
-        pch = as.integer(c(21, 3, 2, 4, 22, 25, 21, 23, 22, 8, 24)),
+                '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
+        fill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF', '#FFA000',
+                 '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
+        pch = as.integer(c(1, 3, 2, 4, 0, 25, 21, 5, 15, 8, 17)),
         cex = c(0.45, 0.5, 0.45, 0.5, 0.55, 0.45, 0.5, 0.45, 0.5, 0.5, 0.5),
         hidcol = c('#0066FF', rep(NA, 10)),
         hidlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313',
@@ -259,16 +640,16 @@ cognigen_style <- function(){
     ),
     vpc.style = data.frame(
       style = 1:22,
-      type = c('p', 'p', 'p', 'p', 'p',  'p', 'p', 'n', 'n', 'n', 'p', 'p', 'p',
-               'p', 'p', 'p', 'p', 'n',  'n', 'n', 'p', 'n'),
-      PI.real = c(NA, NA, NA, 'lines', 'lines', 'lines',  'lines', 'lines',
-                  'lines', 'lines', NA, NA, NA, 'lines', 'lines',  'lines', 'lines',
+      type = c('p', 'p', 'p', 'p', 'p', 'p', 'p', 'n', 'n', 'n', 'p', 'p', 'p',
+               'p', 'p', 'p', 'p', 'n', 'n', 'n', 'p', 'n'),
+      PI.real = c(NA, NA, NA, 'lines', 'lines', 'lines', 'lines', 'lines',
+                  'lines', 'lines', NA, NA, NA, 'lines', 'lines', 'lines', 'lines',
                   'lines', 'lines', 'lines', 'lines', 'lines'),
-      PI = c('lines', 'lines', 'area', 'lines',  'lines', 'area', NA, 'lines',
-             'lines', 'area', 'lines', 'lines',  'area', 'lines', 'lines', 'area',
-             NA, 'lines', 'lines', 'area',  'lines', NA),
-      PI.ci = c(NA, 'area', NA, NA, 'area', NA, 'area', NA,  'area', NA, NA,
-                'area', NA, NA, 'area', NA, 'area', NA, 'area',  NA, 'area', 'area'),
+      PI = c('lines', 'lines', 'area', 'lines', 'lines', 'area', NA, 'lines',
+             'lines', 'area', 'lines', 'lines', 'area', 'lines', 'lines', 'area',
+             NA, 'lines', 'lines', 'area', 'lines', NA),
+      PI.ci = c(NA, 'area', NA, NA, 'area', NA, 'area', NA, 'area', NA, NA,
+                'area', NA, NA, 'area', NA, 'area', NA, 'area', NA, 'area', 'area'),
       stringsAsFactors = FALSE
     ),
     vpc.tte.style = data.frame(
@@ -353,15 +734,14 @@ cognigen_style <- function(){
     ),
     error = list(
       color = data.frame(
-        errpch = as.integer(c(21, 3, 2, 4, 22, 25, 21, 23, 22, 8, 24)),
+        errpch = as.integer(c(1, 3, 2, 4, 0, 25, 21, 5, 15, 8, 17)),
         errcol1 = c('#0066FF', rep(NA, 10)),
         errcol2 = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF',
                     '#FFA000', '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
         errcol3 = c('#7F7F7F', '#FF8080', '#9999FF', '#00CC00', '#FF99FF',
                     '#FFD999', '#99F1FF', '#DF7000', '#CCDECF', '#69ACCD', '#A045A0'),
-        errfill = c('transparent', '#FF0000', 'transparent', 'transparent',
-                    'transparent', '#FFA000', '#00DDFF', 'transparent', '#80AD88',
-                    'transparent', '#6F306F'),
+        errfill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FF00FF',
+                    '#FFA000', '#00DDFF', '#A05000', '#80AD88', '#3883A8', '#6F306F'),
         errcex = c(0.45, 0.5, 0.45, 0.5, 0.55, 0.45, 0.5, 0.45, 0.5, 0.5, 0.5),
         errlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313',
                    'solid', 'dashed', 'F8', 'dotdash'),
@@ -371,15 +751,14 @@ cognigen_style <- function(){
         stringsAsFactors = FALSE
       ),
       grayscale = data.frame(
-        errpch = as.integer(c(21, 3, 2, 4, 22, 25, 21, 23, 22, 8, 24)),
+        errpch = as.integer(c(1, 3, 2, 4, 0, 25, 21, 5, 15, 8, 17)),
         errcol1 = c('#B2B2B2', rep(NA, 10)),
         errcol2 = c('#000000', '#363636', '#141414', '#5B5B5B', '#4A4A4A',
                     '#A7A7A7', '#B1B1B1', '#5A5A5A', '#A1A1A1', '#767676', '#424242'),
         errcol3 = c('#7F7F7F', '#9B9B9B', '#A1A1A1', '#919191', '#B7B7B7',
                     '#DCDCDC', '#E0E0E0', '#7E7E7E', '#D9D9D9', '#A1A1A1', '#5F5F5F'),
-        errfill = c('transparent', '#363636', 'transparent', 'transparent',
-                    'transparent', '#A7A7A7', '#B1B1B1', 'transparent', '#A1A1A1',
-                    'transparent', '#424242'),
+        errfill = c('#000000', '#363636', '#141414', '#5B5B5B', '#4A4A4A',
+                    '#A7A7A7', '#B1B1B1', '#5A5A5A', '#A1A1A1', '#767676', '#424242'),
         errcex = c(0.45, 0.5, 0.45, 0.5, 0.55, 0.45, 0.5, 0.45, 0.5, 0.5, 0.5),
         errlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313',
                    'solid', 'dashed', 'F8', 'dotdash'),
@@ -405,6 +784,391 @@ cognigen_style <- function(){
     )
   )
 
+}
+
+#' Alternative ggplot2 style
+#'
+#' @return \code{list} of style elements
+#' @export
+#' @rdname cognigen_style
+#'
+new_cognigen_style <- function(){
+
+  list(
+    scatter = list(
+      color = data.frame(
+        pch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        col = c('#000000', '#E41A1C', '#377EB8', '#4DAF4A', '#FEAF16', '#984EA3', '#888888', '#A65628',
+                '#F781BF', '#F38400', '#41B6C4'),
+        fill = c('#000000', '#E41A1C', '#377EB8', '#4DAF4A', '#FEAF16', '#984EA3', '#888888', '#A65628',
+                 '#F781BF', '#F38400', '#41B6C4'),
+        cex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        lty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                'dotdash'),
+        lwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        pch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        col = c('#000000', '#454545', '#747474', '#929292', '#B3B3B3', '#646464', '#888888',
+                '#636363', '#9F9F9F', '#919191', '#9F9F9F'),
+        fill = c('#000000', '#454545', '#747474', '#929292', '#B3B3B3', '#646464', '#888888',
+                 '#636363', '#9F9F9F', '#919191', '#9F9F9F'),
+        cex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        lty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed',
+                'F8', 'dotdash'),
+        lwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        stringsAsFactors = FALSE
+      )
+    ),
+    ramp = list(
+      color = data.frame(
+        pch = c(1L, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        col = c('#9E0142', '#D53E4F', '#F46D43', '#FDAE61', '#FEE08B', '#E6F598', '#ABDDA4', '#66C2A5',
+                '#3288BD', '#5E4FA2'),
+        fill = c('transparent', NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        cex = c(0.5, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        pch = c(1L, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        col = c('#D8D8D8', '#C0C0C0', '#A8A8A8', '#909090', '#787878', '#606060', '#484848',
+                '#303030', '#181818', '#000000'),
+        fill = c('transparent', NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        cex = c(0.5, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        stringsAsFactors = FALSE
+      )
+    ),
+    bar = list(
+      color = data.frame(
+        col = c('#FFFFFF', '#F18C8D', '#9ABEDB', '#A5D7A4', '#FED78A', '#CBA6D1', '#C3C3C3', '#D2AA93',
+                '#FBC0DF', '#FBC17F', '#9FDAE1'),
+        border = rep('#000000', 11),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        col = c('#FFFFFF', '#454545',
+                '#747474', '#929292', '#B3B3B3', '#646464', '#888888', '#636363', '#9F9F9F', '#919191', '#CFCFCF'),
+        border = rep('#000000', 11),
+        stringsAsFactors = FALSE
+      )
+    ),
+    box.sym = list(
+      color = data.frame(
+        bwdotpch = c('|', '3', '0', '1', '2', '4', '5', '19', '15', '8', '17'),
+        bwdotcol = c('#000000', '#E41A1C', '#377EB8', '#4DAF4A', '#FEAF16', '#984EA3', '#888888', '#A65628',
+                     '#F781BF', '#F38400', '#41B6C4'),
+        bwdotfill = c('#000000', '#E41A1C', '#377EB8', '#4DAF4A', '#FEAF16', '#984EA3', '#888888', '#A65628',
+                      '#F781BF', '#F38400', '#41B6C4'),
+        bwdotcex = c(0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        bwdotpch = c('|', '3', '0', '1', '2', '4',
+                     '5', '19', '22', '8', '24'),
+        bwdotcol = c('#000000', '#454545', '#747474', '#929292', '#B3B3B3', '#646464', '#888888',
+                     '#636363', '#9F9F9F', '#919191', '#9F9F9F'),
+        bwdotfill = c('#000000', '#454545', '#747474', '#929292', '#B3B3B3', '#646464', '#888888',
+                      '#636363', '#9F9F9F', '#919191', '#9F9F9F'),
+        bwdotcex = c(0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45, 0.45),
+        stringsAsFactors = FALSE
+      )
+    ),
+    box.rec = list(
+      color = data.frame(
+        value = c('#000000', 'solid', '1', '#000000', 'transparent', 'solid', '1', '21', '#000000', '0.45'),
+        row.names = c('Whisker color', 'Whisker line type', 'Whisker line width', 'Box border color',
+                      'Box fill', 'Box border type', 'Box border width', 'Outlier symbol',
+                      'Outlier color', 'Outlier scaling'),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c('#000000', 'solid', '1', '#000000', 'transparent', 'solid', '1', '21', '#000000', '0.45'),
+        row.names = c('Whisker color', 'Whisker line type', 'Whisker line width', 'Box border color',
+                      'Box fill', 'Box border type', 'Box border width', 'Outlier symbol',
+                      'Outlier color', 'Outlier scaling'),
+        stringsAsFactors = FALSE
+      )
+    ),
+    hist = list(
+      color = data.frame(
+        value = c('#FFFFFF', '#000000', 'solid', '1', '#FF0000', 'dashed', '1.5'),
+        row.names = c('Histogram fill color', 'Histogram border color', 'Histogram border type',
+                      'Histogram border width', 'Normal distribution color', 'Normal distribution type',
+                      'Normal distribution width'),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c('#FFFFFF', '#000000', 'solid', '1', '#363636', 'dashed', '1.5'),
+        row.names = c('Histogram fill color', 'Histogram border color', 'Histogram border type',
+                      'Histogram border width', 'Normal distribution color', 'Normal distribution type',
+                      'Normal distribution width'),
+        stringsAsFactors = FALSE
+      )
+    ),
+    hist.dens = list(
+      color = data.frame(
+        col = c('#000000', '#E41A1C', '#377EB8', '#4DAF4A', '#FEAF16', '#984EA3', '#888888', '#A65628',
+                      '#F781BF', '#F38400', '#41B6C4'),
+        fill = c('#000000', '#E41A1C', '#377EB8', '#4DAF4A', '#FEAF16', '#984EA3', '#888888', '#A65628',
+                 '#F781BF', '#F38400', '#41B6C4'),
+        pch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        cex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        hidcol = c('#0066FF', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        hidlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                   'dotdash'),
+        hidlwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        col = c('#000000', '#454545', '#747474', '#929292', '#B3B3B3', '#646464', '#888888',
+                '#636363', '#9F9F9F', '#919191', '#9F9F9F'),
+        fill = c('#000000', '#454545', '#747474', '#929292', '#B3B3B3', '#646464', '#888888',
+                 '#636363', '#9F9F9F', '#919191', '#9F9F9F'),
+        pch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        cex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        hidcol = c('#5D5D5D', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        hidlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed',
+                   'F8', 'dotdash'),
+        hidlwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        stringsAsFactors = FALSE
+      )
+    ),
+    vpc = list(
+      color = data.frame(
+        value = c(
+          # Observed data
+          '1', '#000000', '0.5',
+          'solid', '#FF0000', '1.5', 'solid', '#FF0000', '1.5', 'solid', '#FF0000', '1.5',
+          # Simulated data
+          '#90ee90', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
+          # PI
+          '#0000FF', '#0000FF', '#0000FF'
+        ),
+        value2 = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'solid', '#FF0000', '1.5', 'dashed', '#FF0000', '1.5', 'dashed', '#FF0000', '1.5',
+          # Simulated data
+          '#90ee90', 'solid', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
+          # PI
+          '#FF0000', '#0000FF', '#0000FF'
+        ),
+        value3 = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'solid', '#FF0000', '1.5', 'solid', '#0000FF', '1.5', 'solid', '#0000FF', '1.5',
+          # Simulated data
+          '#90ee90', 'solid', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
+          # PI
+          '#FF0000', '#0000FF', '#0000FF'
+        ),
+        row.names = c(
+          # Observed data
+          'Symbol', 'Symbol color', 'Symbol scale',
+          'Median line type', 'Median line color', 'Median line width',
+          'CI upper limit line type', 'CI upper limit line color', 'CI upper limit line width',
+          'CI lower limit line type', 'CI lower limit line color', 'CI lower limit line width',
+          # Simulated data
+          'PI area color',
+          'Predicted median line type', 'Predicted median line color', 'Predicted median line width',
+          'PI upper limit line type', 'PI upper limit line color', 'PI upper limit line width',
+          'PI lower limit line type', 'PI lower limit line color', 'PI lower limit line width',
+          # PI CI
+          'CI around median - Area color', 'CI around PI upper limit - Area color', 'CI around PI lower limit - Area color'
+        ),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'solid', '#000000', '1.5', 'solid', '#000000', '1.5', 'solid', '#000000', '1.5',
+          # Simulated data
+          '#D1D1D1', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5',
+          # PI
+          '#5F5F5F', '#5F5F5F', '#5F5F5F'
+        ),
+        value2 = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'dotted', '#000000', '3', 'F8', '#000000', '1.5', 'F8', '#000000', '1.5',
+          # Simulated data
+          '#D1D1D1', 'solid', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5',
+          # PI
+          '#5F5F5F', '#5F5F5F', '#5F5F5F'
+        ),
+        value3 = c(
+          # Observed data
+          '3', '#000000', '0.5',
+          'solid', '#000000', '1.5', 'F8', '#000000', '1.5', 'F8', '#000000', '1.5',
+          # Simulated data
+          '#90ee90', 'solid', '#000000', '1.5', 'dashed', '#000000', '1.5', 'dashed', '#000000', '1.5',
+          # PI
+          '#111111', '#666666', '#666666'
+        ),
+        row.names = c(
+          # Observed data
+          'Symbol', 'Symbol color', 'Symbol scale',
+          'Median line type', 'Median line color', 'Median line width',
+          'CI upper limit line type', 'CI upper limit line color', 'CI upper limit line width',
+          'CI lower limit line type', 'CI lower limit line color', 'CI lower limit line width',
+          # Simulated data
+          'PI area color',
+          'Predicted median line type', 'Predicted median line color', 'Predicted median line width',
+          'PI upper limit line type', 'PI upper limit line color', 'PI upper limit line width',
+          'PI lower limit line type', 'PI lower limit line color', 'PI lower limit line width',
+          # PI CI
+          'CI around median - Area color', 'CI around PI upper limit - Area color', 'CI around PI lower limit - Area color'
+        ),
+        stringsAsFactors = FALSE
+      )
+    ),
+    vpc.style = data.frame(
+      style = 1:22,
+      type = c('p', 'p', 'p', 'p', 'p', 'p', 'p', 'n', 'n', 'n', 'p', 'p', 'p',
+               'p', 'p', 'p', 'p', 'n', 'n', 'n', 'p', 'n'),
+      PI.real = c(NA, NA, NA, 'lines', 'lines', 'lines', 'lines', 'lines',
+                  'lines', 'lines', NA, NA, NA, 'lines', 'lines', 'lines', 'lines',
+                  'lines', 'lines', 'lines', 'lines', 'lines'),
+      PI = c('lines', 'lines', 'area', 'lines', 'lines', 'area', NA, 'lines',
+             'lines', 'area', 'lines', 'lines', 'area', 'lines', 'lines', 'area',
+             NA, 'lines', 'lines', 'area', 'lines', NA),
+      PI.ci = c(NA, 'area', NA, NA, 'area', NA, 'area', NA, 'area', NA, NA,
+                'area', NA, NA, 'area', NA, 'area', NA, 'area', NA, 'area', 'area'),
+      stringsAsFactors = FALSE
+    ),
+    vpc.tte.style = data.frame(
+      style = 1:24,
+      real.ci = c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE,
+                  TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE,
+                  TRUE, TRUE, TRUE, TRUE),
+      median.line = c(FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE,
+                      FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE,
+                      FALSE, FALSE, TRUE, TRUE, TRUE),
+      ci.area = c(TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE,
+                  FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE,
+                  TRUE, FALSE, TRUE),
+      ci.lines = c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE,
+                   FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE,
+                   TRUE, FALSE, TRUE, TRUE),
+      stringsAsFactors = FALSE
+    ),
+    spline = list(
+      color = data.frame(
+        smcol1 = c('#0066FF', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        smcol2 = c('#7F7F7F', '#F18C8D', '#9BBEDB', '#A6D7A4', '#FED78A', '#CBA6D1', '#C3C3C3', '#D2AA93',
+                   '#FBC0DF', '#F9C17F', '#A0DAE1'),
+        smlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313',
+                  'solid', 'dashed', 'F8', 'dotdash'),
+        smlwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        smcol1 = c('#B2B2B2', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        smcol2 = c('#7F7F7F', '#A2A2A2', '#B9B9B9', '#C8C8C8', '#D9D9D9', '#B1B1B1', '#C3C3C3',
+                   '#B1B1B1', '#CFCFCF', '#C8C8C8', '#CFCFCF'),
+        smlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313',
+                  'solid', 'dashed', 'F8', 'dotdash'),
+        smlwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        stringsAsFactors = FALSE
+      )
+    ),
+    hline = list(
+      color = data.frame(
+        hlinecol1 = rep('#FF0000', 10),
+        hlinecol2 = rep('#000000', 10),
+        hlinelty = rep('solid', 10),
+        hlinelwd = rep(1L, 10),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        hlinecol1 = rep('#363636', 10),
+        hlinecol2 = rep('#000000', 10),
+        hlinelty = rep('solid', 10),
+        hlinelwd = rep(1L, 10),
+        stringsAsFactors = FALSE
+      )
+    ),
+    vline = list(
+      color = data.frame(
+        vlinecol1 = rep('#FF0000', 10),
+        vlinecol2 = rep('#000000', 10),
+        vlinelty = rep('solid', 10),
+        vlinelwd = rep(1L, 10),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        vlinecol1 = rep('#363636', 10),
+        vlinecol2 = rep('#000000', 10),
+        vlinelty = rep('solid', 10),
+        vlinelwd = rep(1L, 10),
+        stringsAsFactors = FALSE
+      )
+    ),
+    abline = list(
+      color = data.frame(
+        value = c('#FF0000', '#000000', 'solid', '1'),
+        row.names = c('Line color - no grouping', 'Line color - grouping', 'Line type', 'Line width'),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c('#363636', '#000000', 'solid', '1'),
+        row.names = c('Line color - no grouping', 'Line color - grouping', 'Line type', 'Line width'),
+        stringsAsFactors = FALSE
+      )
+    ),
+    error = list(
+      color = data.frame(
+        errpch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        errcol1 = c('#0066FF', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        errcol2 = c('#000000', '#E41A1C', '#377EB8', '#4DAF4A', '#FEAF16', '#984EA3', '#888888', '#A65628',
+                    '#F781BF', '#F38400', '#41B6C4'),
+        errcol3 = c('#7F7F7F', '#F18C8D', '#9BBEDB', '#A6D7A4', '#FED78A', '#CBA6D1', '#C3C3C3', '#D2AA93',
+                    '#FBC0DF', '#F9C17F', '#A0DAE1'),
+        errfill = c('#000000', '#E41A1C', '#377EB8', '#4DAF4A', '#FEAF16', '#984EA3', '#888888', '#A65628',
+                    '#F781BF', '#F38400', '#41B6C4'),
+        errcex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        errlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed', 'F8',
+                   'dotdash'),
+        errlwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        erralpha = c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L),
+        erralpha.area = c(0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        errpch = c(1L, 3L, 0L, 1L, 2L, 4L, 5L, 19L, 15L, 8L, 17L),
+        errcol1 = c('#B2B2B2', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+        errcol2 = c('#000000', '#454545', '#747474', '#929292', '#B3B3B3', '#646464', '#888888',
+                    '#636363', '#9F9F9F', '#919191', '#9F9F9F'),
+        errcol3 = c('#7F7F7F', '#A2A2A2', '#B9B9B9', '#C8C8C8', '#D9D9D9', '#B1B1B1', '#C3C3C3',
+                    '#B1B1B1', '#CFCFCF', '#C8C8C8', '#CFCFCF'),
+        errfill = c('#000000', '#454545', '#747474', '#929292', '#B3B3B3', '#646464', '#888888',
+                    '#636363', '#9F9F9F', '#919191', '#9F9F9F'),
+        errcex = c(0.45, 0.5, 0.5, 0.5, 0.45, 0.5, 0.45, 0.5, 0.5, 0.45, 0.5),
+        errlty = c('solid', 'solid', 'dashed', 'F8', 'dotdash', '22848222', 'F313', 'solid', 'dashed',
+                   'F8', 'dotdash'),
+        errlwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5),
+        erralpha = c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L),
+        erralpha.area = c(0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25),
+        stringsAsFactors = FALSE
+      )
+    ),
+    background = list(
+      color = data.frame(
+        value = c('#FFFFFF', '#DDDDDD', '#FFFFFF', '#000000'),
+        row.names = c('Panel background color', 'Grid line color',
+                      'Strip background color', 'Strip text color'),
+        stringsAsFactors = FALSE
+      ),
+      grayscale = data.frame(
+        value = c('#FFFFFF', '#DDDDDD', '#FFFFFF', '#000000'),
+        row.names = c('Panel background color', 'Grid line color',
+                      'Strip background color', 'Strip text color'),
+        stringsAsFactors = FALSE
+      )
+    )
+  )
 }
 
 #' Set default ggplot2 style when no aesthetics are used
@@ -473,18 +1237,18 @@ set_default_style <- function(style = cognigen_style()){
 
 #' Read graphical style file created with the theme_maker Shiny app
 #'
-#' @param file path to file
+#' @param path Relative or absolute path to the graphical style file
 #'
 #' @return \code{list} of style elements
 #' @export
-read_style_theme <- function(file){
+read_style <- function(path){
 
-  if ( !file.exists(file) ){
+  if ( !file.exists(path) ){
     stop('Invalid file path')
   }
 
   json <- try(
-    jsonlite::read_json(file, simplifyVector = TRUE, flatten = TRUE),
+    jsonlite::read_json(path, simplifyVector = TRUE, flatten = TRUE),
     silent = TRUE
   )
 
