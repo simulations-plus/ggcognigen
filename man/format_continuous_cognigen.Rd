@@ -2,18 +2,32 @@
 % Please edit documentation in R/ggplot-axis.R
 \name{format_continuous_cognigen}
 \alias{format_continuous_cognigen}
+\alias{major_breaks_log}
+\alias{minor_breaks_log}
 \title{Format continuous values}
 \usage{
 format_continuous_cognigen(x)
+
+major_breaks_log(x)
+
+minor_breaks_log(x)
 }
 \arguments{
 \item{x}{breaks}
 }
 \value{
 either a \code{numeric} or \code{expression} vector the same length as \code{x}
+
+Numeric \code{vector} of major axis breaks for log10 axis scales
+
+Numeric \code{vector} of minor axis breaks for log10 axis scales
 }
 \description{
 Format continuous values
+
+Returns major breaks for log10 axis scales
+
+Returns minor breaks for log10 axis scales
 }
 \examples{
 \dontrun{

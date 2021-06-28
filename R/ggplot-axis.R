@@ -98,7 +98,7 @@ format_continuous_cognigen <- function(x){
     function(xx){
       if ( is.na(xx) ){
         NA
-      } else if ( abs(xx) < 999 ){
+      } else if ( abs(xx) < 9999 ){
         return(xx)
       } else {
         return(sciNot.expression(xx))
@@ -108,6 +108,25 @@ format_continuous_cognigen <- function(x){
 
 }
 
+#' Returns major breaks for log10 axis scales
+#'
+#' @return Numeric \code{vector} of major axis breaks for log10 axis scales
+#' @export
+#' @rdname format_continuous_cognigen
+#'
+major_breaks_log <- function(x){
+
+  exponents <- min(floor(log10(x)), na.rm = TRUE) : max(ceiling(log10(x)), na.rm = TRUE)
+  10^exponents
+
+}
+
+#' Returns minor breaks for log10 axis scales
+#'
+#' @return Numeric \code{vector} of minor axis breaks for log10 axis scales
+#' @export
+#' @rdname format_continuous_cognigen
+#'
 minor_breaks_log <- function(x){
 
   exponents <- min(floor(log10(x)), na.rm = TRUE) : max(ceiling(log10(x)), na.rm = TRUE)
