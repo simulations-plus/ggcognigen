@@ -2,13 +2,27 @@
 % Please edit documentation in R/ggplot-style.R
 \name{cognigen_style}
 \alias{cognigen_style}
+\alias{initial_style}
+\alias{new_cognigen_style}
 \title{Cognigen ggplot2 style (default graphical style)}
 \usage{
 cognigen_style()
+
+initial_style()
+
+new_cognigen_style()
 }
 \value{
+\code{list} of style elements
+
+\code{list} of style elements
+
 \code{list} of style elements
 }
 \description{
 Cognigen ggplot2 style (default graphical style)
+
+Original ggplot2 style (aligned with KIWI 4 graphical style)
+
+Alternative ggplot2 style
 }

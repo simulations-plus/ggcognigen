@@ -78,6 +78,14 @@ scale_discrete_cognigen <- function(
 
   default <- cognigen_style()
 
+  if ( is.character(style) ){
+    if ( file.exists(style) ){
+      style <- read_style(path = style)
+    } else {
+      stop('Invalid path to style file')
+    }
+  }
+
   if ( !identical(get.structure(style), get.structure(default)) ){
     message('Invalid settings style. Reverting to default style.')
     style <- default
