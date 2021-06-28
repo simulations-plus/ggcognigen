@@ -72,7 +72,7 @@ ggplot(data = diamonds) +
 
 ## `set_default_style()`
 
-When data are not stratified within a panel, `set_default_style()` must be called prior to any `ggplot2` function in order to apply the default Cognigen graphical style. This function will apply the Cognigen styling to all types of geom's (note that outlier styling in `geom_boxplot()` is not controlled by aesthetics and should be changed manually; alternatively, use `geom_boxplot2()`):
+When data are not stratified within a panel, `set_default_style()` must be called prior to any `ggplot2` function in order to apply the default Cognigen graphical style. This function will apply the Cognigen styling to all types of geoms (note that outlier styling in `geom_boxplot()` is not controlled by aesthetics and should be changed manually; alternatively, use `geom_boxplot2()`):
 
 ```{r, echo = FALSE}
 #xydata <- subset(xydata, REP == 1)
@@ -124,7 +124,7 @@ ggpubr::ggarrange(
 
 `scale_discrete_cognigen()` accepts multiple arguments:
     - `n`: defines the number of distinct data groups in the discrete scale. It is only important to set this argument if there are > 10 distinct groups; in this case, graphical elements get recycled.
-    - `geom`: defines the type of geom's on which the scale will apply.
+    - `geom`: defines the type of geoms on which the scale will apply.
     - `style`: a list of graphical settings set to `cognigen_style` by default (see next section).
     - `grayscale`: set this argument to FALSE to apply graphical settings using grayscale colors.
 * for scatter plots, it is important to use both `colour` and `fill` aesthetics so that the different data groups can be distinguishable when the plot is printed in balck and white.
@@ -162,9 +162,9 @@ ggplot(data = xydata) +
     scale_discrete_cognigen()
 ```
 
-# Using the Cognigen geom's
+# Using the Cognigen geoms
 
-Custom geom functions have been created to generate alternative versions of `ggplot2` geom's. 
+Custom geom functions have been created to generate alternative versions of `ggplot2` geoms. 
 
 ## `geom_boxplot2()`
 
@@ -306,4 +306,28 @@ ggplot(data = bardata) +
   geom_barcount(position = position_dodge(width = 0.9)) +
   theme_cognigen() +
   scale_discrete_cognigen(geom = 'bar')
+```
+
+# Using axis-related functions
+
+`format_continuous_cognigen()` is a utility function intended to format axis tick labels in scientific notataion when deemed appropriate.
+
+`major_break_log()` and `minor_break_log()` are other utilty functions that return all major and minor axis tick marks for logarithmic scale axis.
+
+Both can be passed as arguments to `ggplot2::scale_x_countinuous` and `ggplot2::scale_y_countinuous`.
+
+```{r}
+set.seed(123)
+random_data <- data.frame(x = runif(1000, 0, 10000), y = rlnorm(1000, 0, 3))
+
+ggplot(random_data, aes(x = x, y = y)) +
+  geom_point() +
+  theme_cognigen_grid(minor.x = TRUE, minor.y = TRUE) +
+  scale_x_continuous(labels = format_continuous_cognigen) + 
+  scale_y_continuous(
+    trans = 'log10', 
+    breaks = major_breaks_log,
+    minor_breaks = minor_breaks_log,
+    labels = format_continuous_cognigen
+  )
 ```
