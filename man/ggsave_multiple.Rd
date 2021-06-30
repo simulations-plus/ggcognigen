@@ -47,23 +47,22 @@ specifying dimensions in pixels.}
 as specified by `device`.}
 }
 \description{
-`ggsave_multiple()` extends the capabilities of `ggplot2::ggsave()` by
-allowing #' the saving of multiple ggplots to multiple image files. In
-particular, it is suitable for saving multi-page plots created using
-`ggforce::facet_grid_paginate()` or `ggforce::facet_wrap_paginate()`.
+`ggsave_multiple()` extends `ggplot2::ggsave()` to save multiple ggplots to
+multiple files. In particular, it is suitable for saving multi-page plots
+created using `ggforce::facet_grid_paginate()` or
+`ggforce::facet_wrap_paginate()`.
 }
 \details{
-ggplots are to saved in separate files. Therefore, the `filenames` and
-`plots` arguments must have the same length.
+ggplots are saved in separate files. Therefore, the `filenames` and `plots`
+arguments must have the same length.
 
-For multi-page ggplots, the filenames can be explicitly provided using
-a C integer format expression, such as `figure%03d.png`, to produce
-successive filenames `figure001.png`, `figure002.png`, etc. If the
-that is not the case, `ggsave_multiple()` will automatically detect
-which ggplot is a multi-page plot and amend the filename using the
-format mentioned above. The number of digits used for page identification
-will be depend on the number of pages to be created and will be 2
-at the minimum.
+For multi-page ggplots, the filenames can be explicitly provided using a C
+integer format expression, such as `figure%03d.png`, to produce successive
+filenames `figure001.png`, `figure002.png`, etc. If that is not the case,
+`ggsave_multiple()` will automatically detect multi-page plots and amend
+filenames using the format mentioned above. The number of digits used for
+page identification will depend on the number of pages to be created and will
+be 2 at the minimum.
 }
 \examples{
 \dontrun{
@@ -73,17 +72,21 @@ library(ggforce)
 g1 <- ggplot(data = diamonds) +
   aes(x = carat, y = price) +
     geom_point()
+
 g2 <- ggplot(data = diamonds) +
   aes(x = carat, y = price) +
   geom_point() +
   facet_wrap_paginate(vars(clarity), nrow = 2, ncol = 2, page = NULL)
+
 g3 <- ggplot(diamonds) +
   aes(carat, price) +
   geom_point(alpha = 0.2) +
-  facet_grid_paginate(color ~ cut:clarity, ncol = 3, nrow = 3, page = NULL)
-ggsave_all(
+  facet_grid_paginate(color ~ cut, ncol = 3, nrow = 3, page = NULL)
+
+ggsave_multiple(
   filenames = c('plot_g1.png', 'plot_g2.png', 'plot_g3.png'),
   plots = list(g1, g2, g3),
-  path = '~/workspace_gitlab/tmp/'
+  path = tempdir()
+  )
 }
 }

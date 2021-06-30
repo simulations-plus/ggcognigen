@@ -2,22 +2,21 @@
 
 #' Save multiple ggplots
 #'
-#' `ggsave_multiple()` extends the capabilities of `ggplot2::ggsave()` by
-#' allowing #' the saving of multiple ggplots to multiple image files. In
-#' particular, it is suitable for saving multi-page plots created using
-#' `ggforce::facet_grid_paginate()` or `ggforce::facet_wrap_paginate()`.
+#' `ggsave_multiple()` extends `ggplot2::ggsave()` to save multiple ggplots to
+#' multiple files. In particular, it is suitable for saving multi-page plots
+#' created using `ggforce::facet_grid_paginate()` or
+#' `ggforce::facet_wrap_paginate()`.
 #'
-#' ggplots are to saved in separate files. Therefore, the `filenames` and
-#' `plots` arguments must have the same length.
+#' ggplots are saved in separate files. Therefore, the `filenames` and `plots`
+#' arguments must have the same length.
 #'
-#' For multi-page ggplots, the filenames can be explicitly provided using
-#' a C integer format expression, such as `figure%03d.png`, to produce
-#' successive filenames `figure001.png`, `figure002.png`, etc. If the
-#' that is not the case, `ggsave_multiple()` will automatically detect
-#' which ggplot is a multi-page plot and amend the filename using the
-#' format mentioned above. The number of digits used for page identification
-#' will be depend on the number of pages to be created and will be 2
-#' at the minimum.
+#' For multi-page ggplots, the filenames can be explicitly provided using a C
+#' integer format expression, such as `figure%03d.png`, to produce successive
+#' filenames `figure001.png`, `figure002.png`, etc. If that is not the case,
+#' `ggsave_multiple()` will automatically detect multi-page plots and amend
+#' filenames using the format mentioned above. The number of digits used for
+#' page identification will depend on the number of pages to be created and will
+#' be 2 at the minimum.
 #'
 #' @param filenames A vector of file names to create on disk.
 #' @param plots A list of plots to save.
@@ -46,18 +45,22 @@
 #' g1 <- ggplot(data = diamonds) +
 #'   aes(x = carat, y = price) +
 #'     geom_point()
+#'
 #' g2 <- ggplot(data = diamonds) +
 #'   aes(x = carat, y = price) +
 #'   geom_point() +
 #'   facet_wrap_paginate(vars(clarity), nrow = 2, ncol = 2, page = NULL)
+#'
 #' g3 <- ggplot(diamonds) +
 #'   aes(carat, price) +
 #'   geom_point(alpha = 0.2) +
-#'   facet_grid_paginate(color ~ cut:clarity, ncol = 3, nrow = 3, page = NULL)
+#'   facet_grid_paginate(color ~ cut, ncol = 3, nrow = 3, page = NULL)
+#'
 #' ggsave_multiple(
 #'   filenames = c('plot_g1.png', 'plot_g2.png', 'plot_g3.png'),
 #'   plots = list(g1, g2, g3),
-#'   path = '~/workspace_gitlab/tmp/'
+#'   path = tempdir()
+#'   )
 #' }
 
 ggsave_multiple <- function(
@@ -84,7 +87,7 @@ ggsave_multiple <- function(
     plots <- list(plots)
   }
 
-  if ( !all(sapply(plots, is.ggplot)) ){
+  if ( !all(sapply(plots, ggplot2::is.ggplot)) ){
     stop('plots must contain ggplot objets')
   }
 
@@ -103,7 +106,7 @@ ggsave_multiple <- function(
   npages <- sapply(
     plots,
     function(x){
-      pages <- ggplot_build(x)$layout$layout$page
+      pages <- ggplot2::ggplot_build(x)$layout$layout$page
       ifelse( !is.null(pages), max(pages, na.rm = TRUE), 0L)
     }
   )
@@ -115,14 +118,14 @@ ggsave_multiple <- function(
 
     if ( is_paginated[iplot] ){
 
-      # Add class for S3 print methods to be used=
+      # Add class for S3 print methods to be used
       class(plots[[iplot]]) <- c('ggcognigen', class(plots[[iplot]]))
 
-      # Update the filename if multiple pages required for the chosen devie
+      # Update the filename if multiple pages required for the chosen device
       if ( npages[iplot] > 1 ){
         ext <- tolower(tools::file_ext(filename))
 
-        # Poor man check for C notation in the filname
+        # Poor man check for C notation in the filename
         if ( ext != 'pdf' & !grepl('%', filename) ){
           filename <- sub(
             sprintf('.%s', ext),
@@ -135,7 +138,7 @@ ggsave_multiple <- function(
     }
 
     # Save image
-    ggsave(
+    ggplot2::ggsave(
       plot = plots[[iplot]],
       filename = filename,
       device = device,
@@ -151,12 +154,25 @@ ggsave_multiple <- function(
 
   }
 
+}
+
+# intercept print method
+#' @export
+print.gg <- function(x, ...) {
+
+  if(inherits(x$facet, c('FacetWrapPaginate', 'FacetGridPaginate'))) {
+    class(x) <- c('ggcognigen', class(x))
+    print(x)
+  } else {
+    NextMethod()
+  }
 
 }
 
 # Adapted from https://github.com/tidyverse/ggplot2/issues/86
 # Author of reference function: Benjamin Guiastrennec
 
+#' @export
 print.ggcognigen <- function(x, ...) {
 
   # Get pages

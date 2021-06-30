@@ -133,10 +133,38 @@ plot <- ggplot(mpg, aes(class, hwy)) +
 
 ggsave(filename = 'plot.png',
        plot = plot,
+       path = tempdir(),
        width = dims['width'],
        height = dims['height'],
        units = 'in',
        dpi = 300)
+
+
+# example(s) from: man/ggsave_multiple.Rd
+
+
+library(ggplot2)
+library(ggforce)
+
+g1 <- ggplot(data = diamonds) +
+  aes(x = carat, y = price) +
+    geom_point()
+
+g2 <- ggplot(data = diamonds) +
+  aes(x = carat, y = price) +
+  geom_point() +
+  facet_wrap_paginate(vars(clarity), nrow = 2, ncol = 2, page = NULL)
+
+g3 <- ggplot(diamonds) +
+  aes(carat, price) +
+  geom_point(alpha = 0.2) +
+  facet_grid_paginate(color ~ cut, ncol = 3, nrow = 3, page = NULL)
+
+ggsave_multiple(
+  filenames = c('plot_g1.png', 'plot_g2.png', 'plot_g3.png'),
+  plots = list(g1, g2, g3),
+  path = tempdir()
+  )
 
 
 # example(s) from: man/scale_discrete_cognigen.Rd

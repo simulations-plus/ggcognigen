@@ -18,7 +18,8 @@ Imports:
     grid (>= 3.6.1),
     jsonlite (>= 1.6.1),
     quantreg (>= 5.55),
-    glue (>= 1.4.1)
+    glue (>= 1.4.1),
+    ggforce (>= 0.3.1)
 RoxygenNote: 7.1.0
 Suggests: 
     knitr (>= 1.28),
