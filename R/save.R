@@ -54,7 +54,7 @@
 #'   aes(carat, price) +
 #'   geom_point(alpha = 0.2) +
 #'   facet_grid_paginate(color ~ cut:clarity, ncol = 3, nrow = 3, page = NULL)
-#' ggsave_all(
+#' ggsave_multiple(
 #'   filenames = c('plot_g1.png', 'plot_g2.png', 'plot_g3.png'),
 #'   plots = list(g1, g2, g3),
 #'   path = '~/workspace_gitlab/tmp/'
@@ -80,6 +80,10 @@ ggsave_multiple <- function(
     stop('plots argument is empty.')
   }
 
+  if ( !all(class(plots) == 'list') ){
+    plots <- list(plots)
+  }
+
   if ( !all(sapply(plots, is.ggplot)) ){
     stop('plots must contain ggplot objets')
   }
@@ -99,7 +103,7 @@ ggsave_multiple <- function(
   npages <- sapply(
     plots,
     function(x){
-      pages <- ggplot_build(g)$layout$layout$page
+      pages <- ggplot_build(x)$layout$layout$page
       ifelse( !is.null(pages), max(pages, na.rm = TRUE), 0L)
     }
   )
@@ -112,7 +116,7 @@ ggsave_multiple <- function(
     if ( is_paginated[iplot] ){
 
       # Add class for S3 print methods to be used=
-      class(plots[[1]]) <- c('ggcognigen', class(plots[[1]]))
+      class(plots[[iplot]]) <- c('ggcognigen', class(plots[[iplot]]))
 
       # Update the filename if multiple pages required for the chosen devie
       if ( npages[iplot] > 1 ){
@@ -132,7 +136,7 @@ ggsave_multiple <- function(
 
     # Save image
     ggsave(
-      plot = p,
+      plot = plots[[iplot]],
       filename = filename,
       device = device,
       path = path,
@@ -162,7 +166,7 @@ print.ggcognigen <- function(x, ...) {
   x$facet$params$page <- pages
 
   # Print all pages
-  for (p in 1:seq_along(pages)) {
+  for (p in seq_along(pages)) {
     x$facet$params$page <- pages[p]
     ggplot2:::print.ggplot(x = repair_facet(x), ...)
 

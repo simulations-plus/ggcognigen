@@ -45,7 +45,7 @@ After installation, users can load the package using the following command:
 library(ggcognigen)
 ```
 
-# Using the Cognigen themes
+# Using the `ggcognigen` themes
 
 For the plain Cognigen theme, use `theme_cognigen()`.
 
@@ -68,7 +68,7 @@ ggplot(data = diamonds) +
   theme_cognigen_grid()
 ```
 
-# Using `ggcognigen` graphical style
+# Using the `ggcognigen` graphical style
 
 ## `set_default_style()`
 
