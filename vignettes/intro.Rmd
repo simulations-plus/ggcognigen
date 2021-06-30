@@ -68,7 +68,7 @@ ggplot(data = diamonds) +
   theme_cognigen_grid()
 ```
 
-# Using the Cognigen graphical style
+# Using `ggcognigen` graphical style
 
 ## `set_default_style()`
 
@@ -162,7 +162,7 @@ ggplot(data = xydata) +
     scale_discrete_cognigen()
 ```
 
-# Using the Cognigen geoms
+# Using `ggcognigen` geoms
 
 Custom geom functions have been created to generate alternative versions of `ggplot2` geoms. 
 
