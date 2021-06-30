@@ -20,6 +20,7 @@
 #'
 #' ggsave(filename = 'plot.png',
 #'        plot = plot,
+#'        path = tempdir(),
 #'        width = dims['width'],
 #'        height = dims['height'],
 #'        units = 'in',
