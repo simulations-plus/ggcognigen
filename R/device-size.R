@@ -1,13 +1,13 @@
 # Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
-#' Generate width and height of a device
+#' Generate width and height of a device based upon a given number of plots per page
 #'
-#' @param nplots number of plots per page
-#' @param layout either 'portrait' or 'landscape'
-#' @param units one of ('in', 'cm', 'mm', 'px'). If not supplied, defaults to 'in'
-#' @param dpi plot resolution
+#' @param nplots Number of plots per page.
+#' @param layout Either 'portrait' or 'landscape'.
+#' @param units One of ('in', 'cm', 'mm', 'px'). If not supplied, defaults to 'in'.
+#' @param dpi Plot resolution in dot per inch.
 #'
-#' @return a named \code{numeric} vector of width and height
+#' @return A named \code{numeric} vector of width and height
 #' @export
 #' @examples
 #' \dontrun{
@@ -86,4 +86,24 @@ get_device_size <- function(
 
   return(structure(sizes, units = units))
 
+}
+
+#' Generate width and height in pixels of a device based upon a given number of plots per page
+#'
+#' @return A named \code{numeric} vector of width and height
+#' @export
+#' @rdname get_device_size
+#'
+get_device_size_pixel <- function(
+  nplots = 1,
+  layout = 'portrait',
+  dpi = 300
+){
+
+  get_device_size(
+    nplots = nplots,
+    layout = layout,
+    units = 'px',
+    dpi = dpi
+  )
 }

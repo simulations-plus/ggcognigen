@@ -263,12 +263,12 @@ scale_discrete_cognigen <- function(
       ggplot2::scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
       ggplot2::scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
     )
-  } else if ( geom %in% 'bar') {
+  } else if ( geom %in% 'bar' ) {
     list(
       ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
       ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale))
     )
-  } else if ( geom %in% 'boxplot') {
+  } else if ( geom %in% 'boxplot' ) {
     list(
       ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
       ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale)),
