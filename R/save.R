@@ -114,12 +114,10 @@ ggsave_multiple <- function(
   )
 
   # update dimensions if either is NA
-  dim <- suppressMessages({
-    ggplot2:::plot_dim(dim = c(width, height),
-                       scale = scale,
-                       units = units,
-                       limitsize = limitsize)
-  })
+  dim <- plot_dim(dim = c(width, height),
+                  scale = scale,
+                  units = units,
+                  limitsize = limitsize)
   width <- dim[1]
   height <- dim[2]
 
@@ -159,7 +157,7 @@ ggsave_multiple <- function(
     }
 
     if ( npages[iplot] >= 1L ){
-      msg <- glue::glue('{msg} ({length(plots)} pages)')
+      msg <- glue::glue('{msg} ({npages[iplot]} pages)')
     }
 
     message(msg)
@@ -228,4 +226,36 @@ repair_facet <- function(x) {
     x$facet$params$nrow <- x$facet$params$max_row
   }
   x
+}
+
+
+# similar to ggplot2:::plot_dim, but returns the same unit it is passed
+plot_dim <- function(dim = c(NA, NA),
+                     scale = 1,
+                     units = c("in", "cm", "mm"),
+                     limitsize = TRUE) {
+
+  units <- match.arg(units)
+  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
+  from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
+
+  dim <- to_inches(dim) * scale
+
+  if (any(is.na(dim))) {
+    if (length(grDevices::dev.list()) == 0) {
+      default_dim <- c(7, 7)
+    } else {
+      default_dim <- grDevices::dev.size() * scale
+    }
+    dim[is.na(dim)] <- default_dim[is.na(dim)]
+  }
+
+  if (limitsize && any(dim >= 50)) {
+    rlang::abort(glue::glue("
+      Dimensions exceed 50 inches (height and width are specified in '{units}' not pixels).
+      If you're sure you want a plot that big, use `limitsize = FALSE`.
+    "))
+  }
+
+  from_inches(dim)
 }
