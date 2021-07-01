@@ -56,12 +56,24 @@
 #'   geom_point(alpha = 0.2) +
 #'   facet_grid_paginate(color ~ cut, ncol = 3, nrow = 3, page = NULL)
 #'
+#' g4 <- ggplot(data = diamonds) +
+#'   aes(x = carat, y = price, color = clarity, alpha = 0.2) +
+#'   geom_point()
+#'
+#' g5 <- ggplot(data = diamonds) +
+#'   aes(x = carat, y = price, color = cut, alpha = 0.2) +
+#'   geom_point()
+#'
+#' gs <- ggpubr::ggarrange(g1, g4, g5, nrow = 2, ncol = 2)
+#'
 #' ggsave_multiple(
-#'   filenames = c('plot_g1.png', 'plot_g2.png', 'plot_g3.png'),
-#'   plots = list(g1, g2, g3),
+#'   filenames = c('plot_g1.png', 'plot_g2.png', 'plot_g3.png', 'plot_gs.png'),
+#'   plots = list(g1, g2, g3, gs),
 #'   path = tempdir()
-#'   )
+#' )
+#'
 #' }
+#'
 
 ggsave_multiple <- function(
   filenames,
@@ -79,6 +91,14 @@ ggsave_multiple <- function(
 
   force(filenames)
 
+  if ( missing(plots) ){
+    stop('plots argument is missing with any default.')
+  }
+
+  if ( length(filenames) == 0 ){
+    stop('filenames argument is empty.')
+  }
+
   if ( length(plots) == 0 ){
     stop('plots argument is empty.')
   }
@@ -88,7 +108,7 @@ ggsave_multiple <- function(
   }
 
   if ( !all(sapply(plots, ggplot2::is.ggplot)) ){
-    stop('plots must contain ggplot objects')
+    stop('plots must contain `ggplot` objects')
   }
 
   if ( length(plots) != length(filenames) ){
@@ -96,6 +116,22 @@ ggsave_multiple <- function(
   }
 
   nplots <- length(plots)
+
+  build_plots <- lapply(
+    seq_along(plots),
+    function(iplot, plots){
+      tryCatch(
+        {
+          ggplot2::ggplot_build(plots[[iplot]])
+        },
+        error = function(e) {
+          message(glue::glue('Error occured while building plot #{iplot}'))
+          stop(e)
+        }
+      )
+    },
+    plots
+  )
 
   # Find if plots are paginated and how many pages there are
   is_paginated <- sapply(
@@ -106,23 +142,56 @@ ggsave_multiple <- function(
   )
 
   npages <- sapply(
-    plots,
+    build_plots,
     function(x){
-      pages <- ggplot2::ggplot_build(x)$layout$layout$page
+      pages <- x$layout$layout$page
       ifelse( !is.null(pages), max(pages, na.rm = TRUE), 0L)
     }
   )
 
-  # update dimensions if either is NA
-  dim <- plot_dim(dim = c(width, height),
-                  scale = scale,
-                  units = units,
-                  limitsize = limitsize)
-  width <- dim[1]
-  height <- dim[2]
-
   # Process each plot i
   for ( iplot in 1:length(plots) ){
+
+    # Get number of plots per page
+    if ( is_paginated[iplot] ){
+      tmp <- subset(build_plots[[iplot]]$layout$layout, page == 1)
+      nrow_panels <- max(tmp$ROW)
+      ncol_panels <- max(tmp$COL)
+    } else if ( 'ggarrange' %in% class(plots[[iplot]]) ){
+      # Need to extract the number of rows and columns from the dimension of the first slot
+      # in the built ggarrange object
+      tmp <- build_plots[[iplot]]$data[[1]]
+      nrow_panels <- 1/(tmp$ymax - tmp$ymin)
+      ncol_panels <- 1/(tmp$xmax - tmp$xmin)
+    } else {
+      nrow_panels <- max(build_plots[[iplot]]$layout$layout$ROW)
+      ncol_panels <- max(build_plots[[iplot]]$layout$layout$COL)
+    }
+    n_panels <- nrow_panels*ncol_panels
+
+    # Check if width / height are defined
+    # if yes, use them
+    # if no, call get.device.size using number of plots per page
+    if ( missing(width) | missing(height) | any(is.na(width)) | any(is.na(height)) ){
+      if ( !glue::glue('{nrow_panels}x{ncol_panels}') %in%
+           c('1x1', '1x2', '2x1', '1x3', '3x1', '2x2', '2x3', '3x2', '2x4', '4x2')
+      ) {
+        warning(
+          glue::glue(
+            'A non-standard plot layout was applied in plot #{iplot}: {nrow_panels}x{ncol_panels}.',
+            'Default plot dimensions may not be suitable for this case. Consider providing width and height.',
+          )
+        )
+      }
+      dim <- get_device_size(
+        nplots = n_panels,
+        layout = ifelse(ncol_panels > nrow_panels, 'landscape', 'portrait'),
+        units = units,
+        dpi = dpi
+      )
+    }
+
+    # Call the plot_dim function
 
     filename <- filenames[[iplot]]
 
@@ -148,7 +217,6 @@ ggsave_multiple <- function(
     }
 
     # Save image
-
     full_path <- Reduce(file.path, c(path, filename))
     msg <- glue::glue("Saving {width} x {height} {match.arg(units)} image to '{full_path}'")
 
@@ -230,10 +298,12 @@ repair_facet <- function(x) {
 
 
 # similar to ggplot2:::plot_dim, but returns the same unit it is passed
-plot_dim <- function(dim = c(NA, NA),
-                     scale = 1,
-                     units = c("in", "cm", "mm"),
-                     limitsize = TRUE) {
+plot_dim <- function(
+  dim = c(NA, NA),
+  scale = 1,
+  units = c("in", "cm", "mm"),
+  limitsize = TRUE
+) {
 
   units <- match.arg(units)
   to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
