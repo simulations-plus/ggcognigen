@@ -39,22 +39,15 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
 - `read_style_theme()`
 
 ## Miscellaneous helper functions
-- `format_continuous_cognigen()`: a utility function be passed to the `labels` argument of a `scale_` function in order to automatically format axis ticks numerical labels in default or scientific notation (beyond pre-defined value limits)
+- `ggsave_multiple()`: extension of `ggsave` to save multiple plots and multi-page plots like those created using `ggforce::facet_grid_paginate()` or `ggforce::facet_wrap_paginate()`.
 - `get_device_size()`
+- `format_continuous_cognigen()`: a utility function be passed to the `labels` argument of a `scale_` function in order to automatically format axis ticks numerical labels in default or scientific notation (beyond pre-defined value limits)
 
 
 # TODO
 - Release date scheduled: 2021-08-01
-  - Need risk assessment
-  - Need RVal meeting to define timeline and scope
-  - Potential Testing / Qualification
-    - Could start with same data; make plots in validated environments:
-      - SAS, kiwiExplore, kiwiExploreLive
-    - Could start with a project containing kiwiExplore plots
-      - Added benefits of reference, comparison, training
-    - Need to define testing platform
-      - Jira, GitLab, or Word doc
-    - Kevin would need to sign off on testing
+  - Risk will likely be medium, but may be low
+  - Documentation and review of vignettes and help documentation will be sufficient for validation
 - Vignettes
   - Styles and Scales to display the default mappings
     - Figures like https://portal.kiwipharm.org/kiwiDoc/0721_Exploratory_Display_Styles.html for each style (WHEN A STYLE IS AGREED UPON)

@@ -170,15 +170,15 @@ ggsave_multiple <- function(
     n_panels <- nrow_panels*ncol_panels
 
     # Check if width / height are defined
+    # if no, call get_device_size using number of plots per page
     # if yes, use them
-    # if no, call get.device.size using number of plots per page
     if ( missing(width) | missing(height) | any(is.na(width)) | any(is.na(height)) ){
       if ( !glue::glue('{nrow_panels}x{ncol_panels}') %in%
            c('1x1', '1x2', '2x1', '1x3', '3x1', '2x2', '2x3', '3x2', '2x4', '4x2')
       ) {
         warning(
           glue::glue(
-            'A non-standard plot layout was applied in plot #{iplot}: {nrow_panels}x{ncol_panels}.',
+            'A non-standard plot layout was applied in plot #{iplot}: {nrow_panels}x{ncol_panels}. ',
             'Default plot dimensions may not be suitable for this case. Consider providing width and height.',
           )
         )
@@ -186,12 +186,12 @@ ggsave_multiple <- function(
       dim <- get_device_size(
         nplots = n_panels,
         layout = ifelse(ncol_panels > nrow_panels, 'landscape', 'portrait'),
-        units = units,
+        units = match.arg(units),
         dpi = dpi
       )
+    } else {
+      dim <- c(width, height)
     }
-
-    # Call the plot_dim function
 
     filename <- filenames[[iplot]]
 
@@ -218,7 +218,7 @@ ggsave_multiple <- function(
 
     # Save image
     full_path <- Reduce(file.path, c(path, filename))
-    msg <- glue::glue("Saving {width} x {height} {match.arg(units)} image to '{full_path}'")
+    msg <- glue::glue("Saving {dim[1]} x {dim[2]} {match.arg(units)} image to '{full_path}'")
 
     if ( nplots > 1L ){
       msg <- glue::glue("[{iplot}/{nplots}] {msg}")
@@ -237,8 +237,8 @@ ggsave_multiple <- function(
         device = device,
         path = path,
         scale = scale,
-        width = width,
-        height = height,
+        width = dim[1],
+        height = dim[2],
         units = units,
         dpi = dpi,
         limitsize = limitsize,
@@ -294,38 +294,4 @@ repair_facet <- function(x) {
     x$facet$params$nrow <- x$facet$params$max_row
   }
   x
-}
-
-
-# similar to ggplot2:::plot_dim, but returns the same unit it is passed
-plot_dim <- function(
-  dim = c(NA, NA),
-  scale = 1,
-  units = c("in", "cm", "mm"),
-  limitsize = TRUE
-) {
-
-  units <- match.arg(units)
-  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
-  from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
-
-  dim <- to_inches(dim) * scale
-
-  if (any(is.na(dim))) {
-    if (length(grDevices::dev.list()) == 0) {
-      default_dim <- c(7, 7)
-    } else {
-      default_dim <- grDevices::dev.size() * scale
-    }
-    dim[is.na(dim)] <- default_dim[is.na(dim)]
-  }
-
-  if (limitsize && any(dim >= 50)) {
-    rlang::abort(glue::glue("
-      Dimensions exceed 50 inches (height and width are specified in '{units}' not pixels).
-      If you're sure you want a plot that big, use `limitsize = FALSE`.
-    "))
-  }
-
-  from_inches(dim)
 }

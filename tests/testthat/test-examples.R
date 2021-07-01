@@ -160,11 +160,23 @@ g3 <- ggplot(diamonds) +
   geom_point(alpha = 0.2) +
   facet_grid_paginate(color ~ cut, ncol = 3, nrow = 3, page = NULL)
 
+g4 <- ggplot(data = diamonds) +
+  aes(x = carat, y = price, color = clarity, alpha = 0.2) +
+  geom_point()
+
+g5 <- ggplot(data = diamonds) +
+  aes(x = carat, y = price, color = cut, alpha = 0.2) +
+  geom_point()
+
+gs <- ggpubr::ggarrange(g1, g4, g5, nrow = 2, ncol = 2)
+
 ggsave_multiple(
-  filenames = c('plot_g1.png', 'plot_g2.png', 'plot_g3.png'),
-  plots = list(g1, g2, g3),
+  filenames = c('plot_g1.png', 'plot_g2.png', 'plot_g3.png', 'plot_gs.png'),
+  plots = list(g1, g2, g3, gs),
   path = tempdir()
-  )
+)
+
+
 
 
 # example(s) from: man/scale_discrete_cognigen.Rd
