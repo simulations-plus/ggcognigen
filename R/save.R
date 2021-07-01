@@ -65,7 +65,7 @@
 
 ggsave_multiple <- function(
   filenames,
-  plots = NULL,
+  plots,
   device = NULL,
   path = NULL,
   scale = 1,
@@ -88,12 +88,14 @@ ggsave_multiple <- function(
   }
 
   if ( !all(sapply(plots, ggplot2::is.ggplot)) ){
-    stop('plots must contain ggplot objets')
+    stop('plots must contain ggplot objects')
   }
 
   if ( length(plots) != length(filenames) ){
     stop('Lengths of filenames and plots arguments must be identical.')
   }
+
+  nplots <- length(plots)
 
   # Find if plots are paginated and how many pages there are
   is_paginated <- sapply(
@@ -110,6 +112,16 @@ ggsave_multiple <- function(
       ifelse( !is.null(pages), max(pages, na.rm = TRUE), 0L)
     }
   )
+
+  # update dimensions if either is NA
+  dim <- suppressMessages({
+    ggplot2:::plot_dim(dim = c(width, height),
+                       scale = scale,
+                       units = units,
+                       limitsize = limitsize)
+  })
+  width <- dim[1]
+  height <- dim[2]
 
   # Process each plot i
   for ( iplot in 1:length(plots) ){
@@ -138,23 +150,40 @@ ggsave_multiple <- function(
     }
 
     # Save image
-    ggplot2::ggsave(
-      plot = plots[[iplot]],
-      filename = filename,
-      device = device,
-      path = path,
-      scale = scale,
-      width = width,
-      height = height,
-      units = units,
-      dpi = dpi,
-      limitsize = limitsize,
-      ...
-    )
+
+    full_path <- Reduce(file.path, c(path, filename))
+    msg <- glue::glue("Saving {width} x {height} {match.arg(units)} image to '{full_path}'")
+
+    if ( nplots > 1L ){
+      msg <- glue::glue("[{iplot}/{nplots}] {msg}")
+    }
+
+    if ( npages[iplot] >= 1L ){
+      msg <- glue::glue('{msg} ({length(plots)} pages)')
+    }
+
+    message(msg)
+
+    suppressMessages({
+      ggplot2::ggsave(
+        plot = plots[[iplot]],
+        filename = filename,
+        device = device,
+        path = path,
+        scale = scale,
+        width = width,
+        height = height,
+        units = units,
+        dpi = dpi,
+        limitsize = limitsize,
+        ...
+      )
+    })
 
   }
 
 }
+
 
 # intercept print method
 #' @export
@@ -171,7 +200,6 @@ print.gg <- function(x, ...) {
 
 # Adapted from https://github.com/tidyverse/ggplot2/issues/86
 # Author of reference function: Benjamin Guiastrennec
-
 #' @export
 print.ggcognigen <- function(x, ...) {
 
@@ -194,7 +222,6 @@ print.ggcognigen <- function(x, ...) {
 
 # From https://github.com/tidyverse/ggplot2/issues/86
 # Original author: Benjamin Guiastrennec
-
 repair_facet <- function(x) {
   if (class(x$facet)[1] == 'FacetWrapPaginate' &&
       !'nrow' %in% names(x$facet$params)) {

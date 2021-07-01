@@ -6,7 +6,7 @@
 \usage{
 ggsave_multiple(
   filenames,
-  plots = NULL,
+  plots,
   device = NULL,
   path = NULL,
   scale = 1,
