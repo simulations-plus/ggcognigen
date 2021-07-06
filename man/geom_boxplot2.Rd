@@ -123,7 +123,7 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 \description{
 The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
-and two whiskers), and all "outlying" points individually. [geom_boxplot2()]
+and two whiskers), and all "outlying" points individually. `geom_boxplot2()`
 is a variant on the [geom_boxplot()] function from the ggplot2 package.
 It allows users to set whisker limits based upon a confidence interval rather
 than a multiple of the IQR, allows to display outliers with jitter, and

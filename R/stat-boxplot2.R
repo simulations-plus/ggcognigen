@@ -26,7 +26,9 @@ stat_boxplot2 <- function(
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE) {
+  inherit.aes = TRUE
+) {
+
   ggplot2::layer(
     data = data,
     mapping = mapping,
@@ -42,12 +44,14 @@ stat_boxplot2 <- function(
       ...
     )
   )
+
 }
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
+
 StatBoxplot2 <- ggplot2::ggproto(
   "StatBoxplot2",
   ggplot2::Stat,

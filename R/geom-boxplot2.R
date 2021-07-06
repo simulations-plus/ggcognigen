@@ -4,7 +4,7 @@
 #'
 #' The boxplot compactly displays the distribution of a continuous variable.
 #' It visualises five summary statistics (the median, two hinges
-#' and two whiskers), and all "outlying" points individually. [geom_boxplot2()]
+#' and two whiskers), and all "outlying" points individually. `geom_boxplot2()`
 #' is a variant on the [geom_boxplot()] function from the ggplot2 package.
 #' It allows users to set whisker limits based upon a confidence interval rather
 #' than a multiple of the IQR, allows to display outliers with jitter, and
@@ -210,37 +210,7 @@ GeomBoxplot2 <- ggplot2::ggproto(
     params
   },
 
-  setup_data = function(data, params) {
-
-    data$flipped_aes <- params$flipped_aes
-    data <- ggplot2::flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (ggplot2::resolution(data$x, FALSE) * 0.9)
-
-    if (!is.null(data$outliers)) {
-      suppressWarnings({
-        out_min <- vapply(data$outliers, min, numeric(1))
-        out_max <- vapply(data$outliers, max, numeric(1))
-      })
-
-      data$ymin_final  <- pmin(out_min, data$ymin)
-      data$ymax_final  <- pmax(out_max, data$ymax)
-    }
-
-    # if `varwidth` not requested or not available, don't use it
-    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(data$relvarwidth)) {
-      data$xmin <- data$x - data$width / 2
-      data$xmax <- data$x + data$width / 2
-    } else {
-      # make `relvarwidth` relative to the size of the largest group
-      data$relvarwidth <- data$relvarwidth / max(data$relvarwidth)
-      data$xmin <- data$x - data$relvarwidth * data$width / 2
-      data$xmax <- data$x + data$relvarwidth * data$width / 2
-    }
-    data$width <- NULL
-    if (!is.null(data$relvarwidth)) data$relvarwidth <- NULL
-    ggplot2::flip_data(data, params$flipped_aes)
-  },
+  setup_data = ggplot2:::fetch_ggproto(ggplot2::GeomBoxplot, 'setup_data'),
 
   draw_group = function(
     data, panel_params, coord, fatten = 2.5,
@@ -374,24 +344,9 @@ GeomBoxplot2 <- ggplot2::ggproto(
   },
 
   draw_key = function(data, params, size) {
-
-    # Copy of draw_key_point
-    if (is.null(data$shape)) {
-      data$shape <- 19
-    } else if (is.character(data$shape)) {
-      data$shape <- ggplot2::translate_shape_string(data$shape)
-    }
-
-    grid::pointsGrob(
-      0.5, 0.5,
-      pch = data$shape,
-      gp = grid::gpar(
-        col = alpha(data$colour %||% "black", data$alpha),
-        fill = alpha(data$fill %||% "black", data$alpha),
-        fontsize = 2.5 * (data$size %||% 1.5) * .pt + (data$stroke %||% 0.5) * .stroke / 2,
-        lwd = (data$stroke %||% 0.5) * .stroke / 2
-      )
-    )
+    grob <- ggplot2::draw_key_point(data, params, size)
+    grob$gp$fontsize <- grob$gp$fontsize * 1.75
+    grob
   }
 
 )
