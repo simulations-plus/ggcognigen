@@ -11,6 +11,7 @@ geom_barcount(
   stat = "barcount",
   position = "stack",
   ...,
+  overall.stack = TRUE,
   width = NULL,
   na.rm = FALSE,
   orientation = NA,
@@ -24,6 +25,7 @@ stat_barcount(
   geom = "barcount",
   position = "stack",
   ...,
+  overall.stack = TRUE,
   width = NULL,
   na.rm = FALSE,
   orientation = NA,
@@ -60,6 +62,10 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
+\item{overall.stack}{Defines whether an overall count is displayed for
+stacked bars or if the counts of each individual component of the
+stacked bars should be displayed.}
+
 \item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -86,8 +92,14 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
 \description{
 This function is intended to work in combination with [geom_bar()] and
-to display the sum of the values represented by each bar.
+to display the sum of the values represented by each bar. Like [geom_bar()]
+this function works if the `x` and/or `y` aesthetics are provided.
 }
+\section{Orientation}{
+ 
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \examples{
 \dontrun{
 p <- ggplot(mpg)
@@ -99,11 +111,19 @@ p + aes(y = class) + geom_bar() + geom_barcount()
 # For stacked position
 p <- ggplot(diamonds, aes(color, fill = cut))
 p + geom_bar(position = 'stack') + geom_barcount()
+p + geom_bar(position = 'stack') + geom_barcount(overall.stack = FALSE)
 
 # For dodged position
 p + geom_bar(position = 'dodge') + geom_barcount(position = position_dodge(width = 0.9))
+
+# For fill position
+p + geom_bar(position = 'fill') + geom_barcount(position = position_fill())
+
+# For fillpercent position
+p + geom_bar(position = 'fillpercent') + geom_barcount(position = position_fillpercent()) + ylab('count (\%)')
+
 }
 }
 \seealso{
-[geom_bar()]
+[ggplot2::geom_bar()]
 }

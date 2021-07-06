@@ -3,14 +3,20 @@
 #' Data count for barcounts
 #'
 #' This function is intended to work in combination with [geom_bar()] and
-#' to display the sum of the values represented by each bar.
+#' to display the sum of the values represented by each bar. Like [geom_bar()]
+#' this function works if the `x` and/or `y` aesthetics are provided.
+#'
+#' @eval ggplot2:::rd_orientation()
 #'
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar
+#' @param overall.stack Defines whether an overall count is displayed for
+#'   stacked bars or if the counts of each individual component of the
+#'   stacked bars should be displayed.
 #' @param geom,stat Use to override the default connection between
 #'   `geom_barcount` and `stat_barcount`.
 #'
-#' @seealso [geom_bar()]
+#' @seealso [ggplot2::geom_bar()]
 #' @export
 #' @examples
 #' \dontrun{
@@ -23,9 +29,17 @@
 #' # For stacked position
 #' p <- ggplot(diamonds, aes(color, fill = cut))
 #' p + geom_bar(position = 'stack') + geom_barcount()
+#' p + geom_bar(position = 'stack') + geom_barcount(overall.stack = FALSE)
 #'
 #' # For dodged position
 #' p + geom_bar(position = 'dodge') + geom_barcount(position = position_dodge(width = 0.9))
+#'
+#' # For fill position
+#' p + geom_bar(position = 'fill') + geom_barcount(position = position_fill())
+#'
+#' # For fillpercent position
+#' p + geom_bar(position = 'fillpercent') + geom_barcount(position = position_fillpercent()) + ylab('count (%)')
+#'
 #' }
 
 geom_barcount <- function(
@@ -34,17 +48,12 @@ geom_barcount <- function(
   stat = "barcount",
   position = "stack",
   ...,
+  overall.stack = TRUE,
   width = NULL,
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE) {
-
-  position <- ggplot2:::check_subclass(position, 'Position', env = parent.frame())
-
-  if ( inherits(position, 'PositionFill') ) {
-    rlang::abort("stat_boxcount() is not compatible with position_fill().")
-  }
 
   ggplot2::layer(
     data = data,
@@ -55,6 +64,7 @@ geom_barcount <- function(
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      overall.stack = overall.stack,
       width = width,
       na.rm = na.rm,
       orientation = orientation,
@@ -72,10 +82,10 @@ geom_barcount <- function(
 GeomBarcount <- ggplot2::ggproto(
   "GeomBarcount",
   ggplot2::Geom,
-  required_aes = c("x", "y"),
+  required_aes = c("x", "y", "label"),
   default_aes = ggplot2::aes(
     colour = "black", size = 3, angle = 0, hjust = 0.5,
-    vjust = 0.5 , alpha = NA, family = "", fontface = 1, lineheight = 1.2,
+    vjust = 0.5 , alpha = NA, family = "", fontface = 1, lineheight = 1.2
   ),
 
   setup_params = function(data, params) {
@@ -83,10 +93,14 @@ GeomBarcount <- ggplot2::ggproto(
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("overall.stack", "na.rm", "orientation"),
 
   draw_panel = function(data, panel_params, coord) {
-    data$colour <- 'black'
+    if ( !is.null(data$fill) ){
+      data$colour <- ifelse(contrast(data$fill) > 150, 'black', 'white')
+    } else {
+      data$colour <- 'black'
+    }
     ggplot2:::ggname(
       "geom_barcount",
       GeomText$draw_panel(data, panel_params, coord)
