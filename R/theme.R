@@ -34,7 +34,7 @@ theme_cognigen <- function(...) {
       # text elements
       plot.title = ggplot2::element_text(
         family = font,
-        size = 14,
+        size = 12,
         face = "bold",
         vjust = 1
       ),
@@ -51,13 +51,27 @@ theme_cognigen <- function(...) {
 
       axis.title = ggplot2::element_text(
         family = font,
-        face = "bold",
-        size = 11
+        size = 10
       ),
 
       axis.text = ggplot2::element_text(
         family = font,
-        size = 10
+        size = 9
+      ),
+
+      legend.title = ggplot2::element_text(
+        family = font,
+        size = 9
+      ),
+
+      legend.text = ggplot2::element_text(
+        family = font,
+        size = 9
+      ),
+
+      strip.text = ggplot2::element_text(
+        family = font,
+        size = 9
       ),
 
       # facet elements
