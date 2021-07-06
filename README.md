@@ -65,6 +65,7 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
   - geom_smooth? (training issue; no need for dedicated function or inclusion in vignette)
     - lattice uses a different smoother
     - Email from Aksana on 2019-08-15
-  - histograms
+  - histograms (DONE)
   - density plots
-  - bar plots
+  - bar plots (DONE)
+  - pattern in barcharts
