@@ -3,8 +3,12 @@
 # get.structure
 # utility function for style checks
 get.structure <- function(x){
-  if (!(is.data.frame(x))){
-    lapply(x, get.structure)
+  if ( !is.data.frame(x) ){
+    if ( is.list(x) ){
+      lapply(x, get.structure)
+    } else {
+      stop('x argument is not a list.')
+    }
   } else {
     sort(names(x))
   }
@@ -1197,7 +1201,7 @@ set_default_style <- function(style = cognigen_style()){
 
   default <- cognigen_style()
 
-  if ( !( is.character(style) && all(style == 'ggplot2')) ){
+  if ( is.character(style) && all(style == 'ggplot2') ){
     style <- list(
       scatter = list(
         color = list(
