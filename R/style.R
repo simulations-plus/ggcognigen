@@ -1215,7 +1215,7 @@ set_default_style <- function(style = cognigen_style()){
       ),
       bar = list(
         border = NA,
-        col = 'grey35',
+        col = 'grey35'
       )
     )
     bar_size <- 0.5
