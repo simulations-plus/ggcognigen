@@ -40,9 +40,8 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
 
 ## Miscellaneous helper functions
 - `ggsave_multiple()`: extension of `ggsave` to save multiple plots and multi-page plots like those created using `ggforce::facet_grid_paginate()` or `ggforce::facet_wrap_paginate()`.
-- `get_device_size()`
+- `get_device_size()`: a utility function returning default device dimensions based upon a number of plots/panels per page.
 - `format_continuous_cognigen()`: a utility function be passed to the `labels` argument of a `scale_` function in order to automatically format axis ticks numerical labels in default or scientific notation (beyond pre-defined value limits)
-
 
 # TODO
 - Release date scheduled: 2021-08-01
@@ -53,17 +52,17 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
     - Figures like https://portal.kiwipharm.org/kiwiDoc/0721_Exploratory_Display_Styles.html for each style (WHEN A STYLE IS AGREED UPON)
     - Include directions on accessing elements from styles manually (DONE)
   - Examples of each custom geom (DONE)
-  - Example of moving legend to bottom
-  - Example of splitting a facet by page:
+  - Example of moving legend to bottom (training issue; no need for dedicated function or inclusion in vignette)
+  - Example of splitting a facet by page (DONE):
     - `ggforce::facet_grid_paginate()` & `ggforce::facet_wrap_paginate()` with `ggsave()`
 - Categorical variable formatting. i.e., represent a factor SEXF == 0 as "Male"
 - Experiment with `plot.margin` in themes
-- Experiment with `legend.text` and other text sizes
+- Experiment with `legend.text` and other text sizes (DONE)
 - Merge concept of `setaxis` macro with `format_continuous_cognigen()`
   - Might require custom `scale_` functions
 - Standards for footnotes (captions)
 - Geoms
-  - geom_smooth?
+  - geom_smooth? (training issue; no need for dedicated function or inclusion in vignette)
     - lattice uses a different smoother
     - Email from Aksana on 2019-08-15
   - histograms
