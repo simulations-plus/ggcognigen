@@ -72,7 +72,7 @@ scale_discrete_cognigen <- function(
     n <- 10
   }
 
-  if ( ! (geom %in% c('point', 'line', 'bar', 'boxplot'))){
+  if ( ! (geom %in% c('point', 'line', 'bar', 'boxplot', 'histogram'))){
     stop('Invalid geom argument')
   }
 
@@ -108,21 +108,24 @@ scale_discrete_cognigen <- function(
       'point' = 'col',
       'line' = 'col',
       'bar' = 'col',
-      'boxplot' = 'bwdotcol'
+      'boxplot' = 'bwdotcol',
+      'histogram' = 'col'
     )
     aes_value <- switch(
       geom,
       'point' = -1,
       'line' = -1,
       'bar' = -1,
-      'boxplot' = -1
+      'boxplot' = -1,
+      'histogram' = -1
     )
     geom <- switch(
       geom,
       'point' = 'scatter',
       'line' = 'scatter',
       'bar' = 'bar',
-      'boxplot' = 'box.sym'
+      'boxplot' = 'box.sym',
+      'histogram' = 'hist.dens'
     )
 
 
@@ -147,21 +150,24 @@ scale_discrete_cognigen <- function(
       'point' = 'fill',
       'line' = 'fill',
       'bar' = 'fill',
-      'boxplot' = 'bwdotfill'
+      'boxplot' = 'bwdotfill',
+      'histogram' = 'fill'
     )
     aes_value <- switch(
       geom,
       'point' = -1,
       'line' = -1,
       'bar' = -1,
-      'boxplot' = -1
+      'boxplot' = -1,
+      'histogram' = -1
     )
     geom <- switch(
       geom,
       'point' = 'scatter',
       'line' = 'scatter',
       'bar' = 'bar',
-      'boxplot' = 'box.sym'
+      'boxplot' = 'box.sym',
+      'histogram' = 'hist.dens'
     )
 
     if ( n != 1 ){
@@ -184,19 +190,22 @@ scale_discrete_cognigen <- function(
       geom,
       'point' = 'pch',
       'line' = 'pch',
-      'boxplot' = 'bwdotpch'
+      'boxplot' = 'bwdotpch',
+      'histogram' = 'pch'
     )
     aes_value <- switch(
       geom,
       'point' = -1,
       'line' = -1,
-      'boxplot' = -1
+      'boxplot' = -1,
+      'histogram' = -1
     )
     geom <- switch(
       geom,
       'point' = 'scatter',
       'line' = 'scatter',
-      'boxplot' = 'box.sym'
+      'boxplot' = 'box.sym',
+      'histogram' = 'hist.dens'
     )
 
     if ( n != 1 ){
@@ -223,20 +232,23 @@ scale_discrete_cognigen <- function(
       geom,
       'point' = 'pch',
       'line' = 'pch',
-      'boxplot' = 'value'
+      'boxplot' = 'value',
+      'histogram' = 'hidlty'
     )
     aes_value <- switch(
       geom,
       'point' = -1,
       'line' = -1,
-      'boxplot' = 6
+      'boxplot' = 6,
+      'histogram' = -1
     )
     geom <- switch(
       geom,
       'point' = 'scatter',
       'line' = 'scatter',
       'bar' = 'bar',
-      'boxplot' = 'box.rec'
+      'boxplot' = 'box.rec',
+      'histogram' = 'hist.dens'
     )
 
     if ( n != 1 ){
@@ -269,6 +281,13 @@ scale_discrete_cognigen <- function(
       ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale))
     )
   } else if ( geom %in% 'boxplot' ) {
+    list(
+      ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
+      ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale)),
+      ggplot2::scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
+      ggplot2::scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
+    )
+  } else if ( geom %in% 'histogram' ) {
     list(
       ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
       ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale)),
