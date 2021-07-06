@@ -23,11 +23,29 @@ Cognigen themes are based on `ggplot2::theme_bw()`. Additional `theme()` inputs 
 
 ## Geoms
 
-New geom functions for the creation of box-and-whisker plots.
+New geom functions:
 
+- `geom_barcount()`: a utility function working in combination with `geom_bar()` and allowing the display of the (possibly cumulative) count, normalized count, or percentages of the data represented by each bar.
 - `geom_boxplot2()`: a variant on `ggplot2::geom_boxplot()` allowing users to set whisker limits based upon a confidence interval rather than a multiple of the IQR, display outliers with jitter, and providing a slightly different graphical styles for grouping/coloring.
 - `geom_boxcount()`: a utility function working in combination with `geom_boxplot2()` allowing the display of the number of data points used for the calculation of statistics which are graphically represented by each box and whiskers
-- `geom_barcount()`: a utility function working in combination with `geom_bar()` and allowing the displaying the sum of the values represented by each bar.
+- `geom_histcount()`: a utility function working in combination with `geom_histogram()` and allowing the display of the cumulative count, density, or percentage of data in each histogram bar.
+
+## Stats
+
+New stat functions:
+
+- `stat_barcount()`: associated with `geom_barcount`
+- `stat_bin2()`: a variant of `ggplot2::bin()` which exports the `percent` variable in addition to the default `count` and `density` variables. Mostly intended to be used with `ggplot2::geom_histogram()` and `stat_histcount()` when percentages are required.
+- `stat_count2()`: a variant of `ggplot2::count()` which exports the `percent` variable in addition to the default `count` and `prop` variables. Mostly intended to be used with `ggplot2::geom_bar()` and `stat_barcount()` when percentages are required.
+- `stat_boxplot2()`: a variant of `ggplot2::stat_boxplot()` which supports `geom_boxplot2()`.
+- `stat_boxcount()`: associated with `geom_boxcount()`
+- `stat_histcount()`: associated with `geom_histcount()`.
+
+## Positions
+
+New position function:
+
+- `position_fillpercent()`: a variant of `ggplot2::position_Fill()` wich normalizes the data to 100 instead of 1. Mostly intended for use with `ggplot2::geom_bar()` and `geom_barcount()` for display of data in percentages.
 
 ## Style and scale functions for mapping aesthetics
 
