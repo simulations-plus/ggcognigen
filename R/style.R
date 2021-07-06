@@ -1171,9 +1171,12 @@ new_cognigen_style <- function(){
   )
 }
 
-#' Set default ggplot2 style when no aesthetics are used
+#' Set default ggplot2 style when no aesthetics are used. Run by default at startup of
+#' `ggcognigen`
 #'
-#' @param style \code{list} of style elements
+#' @param style \code{list} of style elements, liked one return by [cognigen_style()] or
+#' [read_style()]. Alternatively, `style` can be set to `ggplot2` to revert to the
+#' defaults of the `ggplot2` package.
 #'
 #' @return updates elements of default ggplot2 style then invisibly returns \code{NULL}
 #' @export
@@ -1185,14 +1188,43 @@ new_cognigen_style <- function(){
 #' ggplot(mpg, aes(class, hwy)) +
 #'   geom_point()
 #'
+#' set_default_style(style = 'ggplot2')
+#' ggplot(mpg, aes(class, hwy)) +
+#'   geom_point()
+#'
 #' }
 set_default_style <- function(style = cognigen_style()){
 
   default <- cognigen_style()
 
-  if ( !identical(get.structure(style), get.structure(default)) ){
-    message('Invalid settings style. Reverting to default style.')
-    style <- default
+  if ( !( is.character(style) && all(style == 'ggplot2')) ){
+    style <- list(
+      scatter = list(
+        color = list(
+          pch = 19,
+          col = 'black',
+          fill = NA,
+          lty = 1,
+          cex = 0.5
+        )
+      ),
+      line = list(
+        col = 'black',
+        lty = 1,
+        lwd = 1
+      ),
+      bar = list(
+        border = NA,
+        col = 'grey35',
+      )
+    )
+    bar_size <- 0.5
+  } else {
+    if ( !identical(get.structure(style), get.structure(default)) ){
+      message('Invalid settings style. Reverting to default style.')
+      style <- default
+    }
+    bar_size <- 0.25
   }
 
   ggplot2::update_geom_defaults(
@@ -1220,7 +1252,7 @@ set_default_style <- function(style = cognigen_style()){
     list(
       colour = style$bar$color$border[1],
       fill = style$bar$color$col[1],
-      size = 0.25
+      size = bar_size
     )
   )
 

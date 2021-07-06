@@ -39,5 +39,8 @@
     )
   }
 
+  # Apply default Cognigen styling for ggplot2
+  set_default_style()
+
 }
 
