@@ -3,7 +3,7 @@
 \name{theme_cognigen}
 \alias{theme_cognigen}
 \alias{theme_cognigen_grid}
-\title{Cognigen ggplot2 themes}
+\title{Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`}
 \usage{
 theme_cognigen(...)
 
@@ -22,7 +22,7 @@ theme_cognigen_grid(
 draw major/minor grid lines on the respective axis}
 }
 \description{
-Cognigen ggplot2 themes
+Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`
 }
 \examples{
 \dontrun{

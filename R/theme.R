@@ -1,6 +1,6 @@
 # Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
-#' Cognigen ggplot2 themes
+#' Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`
 #'
 #' @param ... additional theme elements to override defaults. See \link[ggplot2]{theme}.
 #'
