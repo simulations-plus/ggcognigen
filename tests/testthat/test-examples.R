@@ -45,9 +45,17 @@ p + aes(y = class) + geom_bar() + geom_barcount()
 # For stacked position
 p <- ggplot(diamonds, aes(color, fill = cut))
 p + geom_bar(position = 'stack') + geom_barcount()
+p + geom_bar(position = 'stack') + geom_barcount(overall.stack = FALSE)
 
 # For dodged position
 p + geom_bar(position = 'dodge') + geom_barcount(position = position_dodge(width = 0.9))
+
+# For fill position
+p + geom_bar(position = 'fill') + geom_barcount(position = position_fill())
+
+# For fillpercent position
+p + geom_bar(position = 'fillpercent') + geom_barcount(position = position_fillpercent()) + ylab('count (%)')
+
 
 
 # example(s) from: man/geom_boxcount.Rd
@@ -119,6 +127,34 @@ df <- data.frame(
 
 p <- ggplot(df, aes(trt, resp, colour = group))
 p + geom_crossbar2(aes(ymin = lower, ymax = upper), width = 0.2)
+
+
+# example(s) from: man/geom_histcount.Rd
+
+
+p <- ggplot(diamonds)
+
+# Histogram for continuous variable count
+p + aes(x = price) + geom_histogram() + geom_histcount()
+
+# Map class to y instead to flip the orientation
+p + aes(y = price) + geom_histogram() + geom_histcount()
+
+# Histogram with a fill aesthetic
+p + aes(x = price, fill = clarity) + geom_histogram() + geom_histcount()
+
+# Histogram for continuous variable density
+p +
+  aes(x = price) +
+  geom_histogram(aes(y = ..density..), stat = 'bin2', bins = 15) +
+  geom_histcount(aes(y = ..density.., label = ..density_label..), bins = 15)
+
+# Histogram for continuous variable percentage using the bin2 stat
+p +
+  aes(x = price) +
+  geom_histogram(aes(y = ..percent..), stat = 'bin2', bins = 15) +
+  geom_histcount(aes(y = ..percent.., label = ..percent_label..), bins = 15) +
+  ylab('percent (%)')
 
 
 # example(s) from: man/get_device_size.Rd
@@ -238,6 +274,33 @@ set_default_style()
 
 ggplot(mpg, aes(class, hwy)) +
   geom_point()
+
+set_default_style(style = 'ggplot2')
+ggplot(mpg, aes(class, hwy)) +
+  geom_point()
+
+
+
+# example(s) from: man/stat_bin2.Rd
+
+
+# Count
+ggplot(diamonds, aes(carat)) +
+  geom_histogram()
+# Percent
+ggplot(diamonds, aes(carat)) +
+  geom_histogram(aes(y=..percent..), stat = 'bin2')
+
+
+# example(s) from: man/stat_count2.Rd
+
+
+# Count
+ggplot(diamonds, aes(clarity)) +
+  geom_bar()
+# Percent
+ggplot(diamonds, aes(clarity)) +
+  geom_bar(aes(y=..percent..), stat = 'count2')
 
 
 
