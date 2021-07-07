@@ -2,4 +2,5 @@
 #' @importFrom glue glue
 #' @importFrom grid grobTree
 #' @importFrom quantreg rq
+#' @importFrom utils page
 NULL

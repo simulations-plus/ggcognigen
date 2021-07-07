@@ -3,7 +3,7 @@ contrast <- function(color){
     color,
     function(x) {
       tryCatch(
-        is.matrix(col2rgb(x)),
+        is.matrix(grDevices::col2rgb(x)),
         error = function(e) FALSE
       )
     }
@@ -11,6 +11,6 @@ contrast <- function(color){
   if ( any(!is.color) ){
     rlang::abort( sprintf('Invalid color(s): %s', paste(color[!is.color], collapse = ', ')) )
   }
-  color <- col2rgb(color)
+  color <- grDevices::col2rgb(color)
   color[1,]*0.299 + color[2,]*0.587 + color[3,]*0.114
 }
