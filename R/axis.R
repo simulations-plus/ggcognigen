@@ -98,7 +98,7 @@ format_continuous_cognigen <- function(x){
     function(xx){
       if ( is.na(xx) ){
         NA
-      } else if ( abs(xx) < 9999 ){
+      } else if ( xx == 0 | (abs(xx) > 1e-4 & abs(xx) < 9999) ){
         return(xx)
       } else {
         return(sciNot.expression(xx))
