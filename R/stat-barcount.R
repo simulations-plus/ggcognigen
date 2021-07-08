@@ -61,6 +61,10 @@ StatBarcount <- ggplot2::ggproto(
   },
   compute_panel = function(data, scales, position, overall.stack = TRUE, width = NULL, flipped_aes = FALSE) {
 
+    position <- ggplot2:::check_subclass(position, 'Position', env = parent.frame())
+    position_class <- class(position)[1]
+    reverse <- position$reverse
+
     data <- flip_data(data, flipped_aes)
     data$flipped_aes <- flipped_aes
 
@@ -79,9 +83,6 @@ StatBarcount <- ggplot2::ggproto(
     y[which(is.na(data$y))] <- 0
     data$width <- width %||% (resolution(x) * 0.9)
 
-    position <- ggplot2:::check_subclass(position, 'Position', env = parent.frame())
-    position_class <- class(position)[1]
-
     if ( all(data$group < 0) ){
       has_group <- FALSE
       data$group_unique <- 1:nrow(data)
@@ -92,18 +93,29 @@ StatBarcount <- ggplot2::ggproto(
 
     if ( position_class == 'PositionFill' | position_class == 'PositionFillpercent' |
          ( position_class == 'PositionStack' & overall.stack == FALSE)){
-      mid_cumsum <- function(index, count, group){
+      mid_cumsum <- function(index, count, group, reverse = FALSE){
         if ( all(data$group < 0) ){
           x <- count[index]
         } else {
           x <- count[index]
           group <- group[index]
-          x <- x[ do.call(order, list(-group, seq_along(x))) ]
-          sort_back <- seq_along(x)[ do.call(order, list(-group, seq_along(x))) ]
+          if ( reverse ){
+            x <- x[ do.call(order, list(-group, -seq_along(x))) ]
+            sort_back <- seq_along(x)[ do.call(order, list(-group, -seq_along(x))) ]
+          } else {
+            x <- x[ do.call(order, list(-group, seq_along(x))) ]
+            sort_back <- seq_along(x)[ do.call(order, list(-group, seq_along(x))) ]
+          }
+        }
+        if ( reverse ){
+          x <- rev(x)
         }
         xx <- cumsum(x)
         xx <- 0.5 * (xx + c(0, xx[1:(length(xx) - 1)]))
         xx <- c(xx[1], diff(xx))
+        if ( reverse ){
+          xx <- rev(xx)
+        }
         if (has_group){
           xx [ order(sort_back) ]
         } else{
@@ -123,12 +135,19 @@ StatBarcount <- ggplot2::ggproto(
       } else {
         count <- counts$y / counts$y_max
       }
-      counts$y <- as.numeric(unlist(tapply(seq_along(count), x, mid_cumsum, count, data$group_unique)))
+      counts$y <- as.numeric(
+        unlist(
+          tapply(seq_along(count), x, mid_cumsum, count, data$group_unique, reverse)
+        )
+      )
       adjustment <- counts[!duplicated(counts$x), ]
       adjustment$SORT_counts <- seq(
         from = 1 + max(counts$SORT_counts),
         length.out = length(unique(data$x))
       )
+      if ( reverse ){
+        adjustment$group <- +Inf
+      }
       if ( position_class == 'PositionStack' ){
         adjustment$y <- as.numeric(unlist(tapply(y, x, sum))) - as.numeric(unlist(tapply(counts$y, x, sum)))
       } else {
@@ -182,7 +201,6 @@ StatBarcount <- ggplot2::ggproto(
     }
 
     counts$SORT_counts <- counts$group_unique <- counts$y_max <- NULL
-
     counts$count <- counts$y # Required when y is not in data (provide placement of label)
     counts$label <- count
     flip_data(counts, flipped_aes)
