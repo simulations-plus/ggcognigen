@@ -290,7 +290,7 @@ scale_discrete_cognigen <- function(
   } else if ( geom %in% 'histogram' ) {
     list(
       ggplot2::scale_colour_manual(values = scales_col(n, geom, style, grayscale)),
-      ggplot2::scale_fill_manual(values = scales_col(n, geom, style, grayscale)),
+      ggplot2::scale_fill_manual(values = scales_fill(n, geom, style, grayscale)),
       ggplot2::scale_shape_manual(values = scales_pch(n, geom, style, grayscale)),
       ggplot2::scale_linetype_manual(values = scales_lty(n, geom, style, grayscale))
     )
