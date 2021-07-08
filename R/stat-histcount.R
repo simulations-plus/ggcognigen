@@ -98,14 +98,29 @@ StatHistcount <- ggplot2::ggproto(
   ) {
 
     fun <- ggplot2:::fetch_ggproto(ggplot2::StatBin, 'compute_group')
-    bins <- fun(
-      data = data, scales = scales, binwidth = binwidth, bins = bins,
+    tmp <- lapply(
+      lapply(
+        sort(unique(data$group)),
+        function(group, data){
+          data = data[which(data$group == group), ]
+        },
+        data
+      ),
+      fun,
+      scales = scales, binwidth = binwidth, bins = bins,
       center = center, boundary = boundary,
-      closed = closed, pad = pad,
-      breaks = breaks, flipped_aes = flipped_aes,
-      origin = origin, right = right, drop = drop,
-      width = width
+      closed = closed, pad = pad, breaks = breaks,
+      flipped_aes = flipped_aes, origin = origin,
+      right = right, drop = drop, width = width
     )
+    bins <- tmp[[1]]
+    bins$count <- bins$ncount <- bins$density <- bins$ndensity <- 0
+    for ( igroup in sort(unique(data$group)) ){
+      bins$count <- bins$count + tmp[[igroup]]$count
+      bins$ncount <- bins$ncount + tmp[[igroup]]$ncount
+      bins$density <- bins$density + tmp[[igroup]]$density
+      bins$ndensity <- bins$ndensity + tmp[[igroup]]$ndensity
+    }
     nrows <- data$nrow_total_[1]
     bins$percent <- 100 * bins$count/nrows
 
