@@ -1,3 +1,5 @@
+# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
+
 contrast <- function(color){
   is.color <- sapply(
     color,
