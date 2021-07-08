@@ -41,10 +41,14 @@
 
   # Apply default Cognigen styling and theme for ggplot2
   set_default_style()
+
+  # Apply default Cognigen theme
   ggplot2::theme_set(theme_cognigen())
 
-  packageStartupMessage('Default style set to `cognigen_style()`\n',
-                        'Default theme set to `theme_cognigen()`')
+  packageStartupMessage(
+    '\nDefault style set to `cognigen_style()`\n',
+    'Default theme set to `theme_cognigen()`'
+  )
 
 }
 
