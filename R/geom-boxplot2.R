@@ -53,6 +53,8 @@
 #'   not used in geom_boxplot2. Instead, outliers inherits colors, shapes, sizes from the box
 #'   aesthetics. These aesthetics were included to maintain code compatibility with
 #'   call to [geom_boxplot()].
+#' @param whisker.cap If `FALSE` (default), the whiskers are simple segments. If `TRUE`,
+#'   the end of the whiskers are delineated by orthogonal segments.
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
@@ -76,6 +78,7 @@
 #' ggplot(mpg, aes(hwy, class)) + geom_boxplot2()
 #'
 #' p + geom_boxplot2(notch = TRUE)
+#' p + geom_boxplot2(whisker.cap = TRUE)
 #' p + geom_boxplot2(varwidth = TRUE)
 #' p + geom_boxplot2(fill = "white", colour = "#3366FF")
 #'
@@ -123,6 +126,7 @@ geom_boxplot2 <- function(
   outlier.size = 1.5,
   outlier.stroke = 0.5,
   outlier.alpha = NULL,
+  whisker.cap = FALSE,
   notch = FALSE,
   notchwidth = 0.5,
   varwidth = FALSE,
@@ -157,6 +161,7 @@ geom_boxplot2 <- function(
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
       outlier.alpha = outlier.alpha,
+      whisker.cap = whisker.cap,
       notch = notch,
       notchwidth = notchwidth,
       varwidth = varwidth,
@@ -219,6 +224,7 @@ GeomBoxplot2 <- ggplot2::ggproto(
     outlier.shape = 21,
     outlier.size = 1.5, outlier.stroke = 0.5,
     outlier.alpha = NULL,
+    whisker.cap = FALSE,
     notch = FALSE, notchwidth = 0.5, varwidth = FALSE, flipped_aes = FALSE
   ) {
 
@@ -245,14 +251,14 @@ GeomBoxplot2 <- ggplot2::ggproto(
           x = c(
             data$x,
             data$x,
-            data$x - 0.25*(data$xmax - data$xmin),
-            data$x - 0.25*(data$xmax - data$xmin)
+            data$x - ifelse(whisker.cap, 0.25, 0)*(data$xmax - data$xmin),
+            data$x - ifelse(whisker.cap, 0.25, 0)*(data$xmax - data$xmin)
           ),
           xend = c(
             data$x,
             data$x,
-            data$x + 0.25*(data$xmax - data$xmin),
-            data$x + 0.25*(data$xmax - data$xmin)
+            data$x + ifelse(whisker.cap, 0.25, 0)*(data$xmax - data$xmin),
+            data$x + ifelse(whisker.cap, 0.25, 0)*(data$xmax - data$xmin)
           ),
           y = c(
             data$upper,

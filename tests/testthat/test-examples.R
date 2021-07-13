@@ -80,6 +80,7 @@ ggplot(mpg, aes(hwy, class)) + geom_boxplot2()
 
 p + geom_boxplot2(notch = TRUE)
 p + geom_boxplot2(varwidth = TRUE)
+p + geom_boxplot2(whisker.cap = TRUE)
 p + geom_boxplot2(fill = "white", colour = "#3366FF")
 
 # Boxplots are automatically dodged when any aesthetic is a factor

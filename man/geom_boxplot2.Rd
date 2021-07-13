@@ -19,6 +19,7 @@ geom_boxplot2(
   outlier.size = 1.5,
   outlier.stroke = 0.5,
   outlier.alpha = NULL,
+  whisker.cap = FALSE,
   notch = FALSE,
   notchwidth = 0.5,
   varwidth = FALSE,
@@ -82,6 +83,9 @@ displayed without jitter by setting `outlier.position = 'identity'`.}
 not used in geom_boxplot2. Instead, outliers inherits colors, shapes, sizes from the box
 aesthetics. These aesthetics were included to maintain code compatibility with
 call to [geom_boxplot()].}
+
+\item{whisker.cap}{If `FALSE` (default), the whiskers are simple segments. If `TRUE`,
+the end of the whiskers are delineated by orthogonal segments.}
 
 \item{notch}{If `FALSE` (default) make a standard box plot. If
 `TRUE`, make a notched box plot. Notches are used to compare groups;
@@ -177,6 +181,7 @@ p + geom_boxplot2(outlier.position = 'identity', coef = 90)
 ggplot(mpg, aes(hwy, class)) + geom_boxplot2()
 
 p + geom_boxplot2(notch = TRUE)
+p + geom_boxplot2(whisker.cap = TRUE)
 p + geom_boxplot2(varwidth = TRUE)
 p + geom_boxplot2(fill = "white", colour = "#3366FF")
 
