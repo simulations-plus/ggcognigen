@@ -51,7 +51,8 @@ theme_cognigen <- function(...) {
 
       axis.title = ggplot2::element_text(
         family = font,
-        size = 10
+        size = 10,
+        face = "bold"
       ),
 
       axis.text = ggplot2::element_text(
