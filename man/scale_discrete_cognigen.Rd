@@ -38,6 +38,12 @@ ggplot(data = xydata) +
   geom_point() +
   scale_discrete_cognigen(n = 10, geom = 'point')
 
+ggplot(data = xydata) +
+  aes(x = TIME, y = CONCENTRATION, colour = DOSE, fill = DOSE, shape = DOSE) +
+  geom_point() +
+  theme_cognigen() +
+  scale_discrete_cognigen(style = cognigen_purple_style(), n = 10, geom = 'point')
+
 # Lineplot
 linedata <- subset(xydata, REP == 1)
 ggplot(data = linedata) +
@@ -49,6 +55,12 @@ ggplot(data = bardata) +
   aes(x = STUDY, y = COUNT, fill = GROUP) +
   geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
   scale_discrete_cognigen(n = 10, geom = 'bar')
+
+ggplot(data = bardata) +
+  aes(x = STUDY, y = COUNT, fill = GROUP) +
+  geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
+  theme_cognigen() +
+  scale_discrete_cognigen(style = cognigen_purple_style(), n = 10, geom = 'bar')
 
 # Boxplot
 ggplot(data = boxdata) +
@@ -63,6 +75,21 @@ ggplot(data = boxdata) +
     position = position_dodge(width = 0.9),
     na.rm = TRUE
   ) +
+  theme_cognigen() +
+  scale_discrete_cognigen(style = cognigen_purple_style(), n = 10, geom = 'boxplot')
+
+ggplot(data = boxdata) +
+  aes(x = GROUP, y = CONTINUOUS, colour = CATEGORICAL) +
+  geom_boxplot2(
+    notch = TRUE,
+    coef = 90,
+    fill = 'white',
+    outlier.jitter = TRUE,
+    outlier.size = 3,
+    position = position_dodge(width = 0.9),
+    na.rm = TRUE
+  ) +
+  theme_cognigen() +
   scale_discrete_cognigen(10)
 
 # Histogram

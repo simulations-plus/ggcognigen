@@ -404,9 +404,9 @@ cognigen_style <- function(){
 #' An alternative Cognigen ggplot2 style using a purple-hue ramp. It is
 #' primarily intended to be used for order
 #'
-#' @param gray.first A logical variable controlling whether the first group
-#'   of the discrete scale should be represented using a gray color while
-#'   the rest should
+#' @inheritParams scale_discrete_cognigen
+#' @param gray.first \code{logical} indicating whether the first group
+#'   of the discrete scale should be represented using a gray color
 #' @return \code{list} of style elements
 #' @export
 cognigen_purple_style <- function(n = 10, gray.first = FALSE){
@@ -456,9 +456,9 @@ cognigen_purple_style <- function(n = 10, gray.first = FALSE){
   }
 
   if ( all(gray.first) ){
-    new_col <- colorRampPalette(c('#E79BFF', '#3F184A'))(9)
+    new_col <- grDevices::colorRampPalette(c('#E79BFF', '#3F184A'))(9)
     new_light_col <- find_light_shade(new_col)
-    new_col_grayscale <- colorRampPalette(c('#B3B3B3', '#242424'))(9)
+    new_col_grayscale <- grDevices::colorRampPalette(c('#B3B3B3', '#242424'))(9)
     new_light_col_grayscale <- find_light_shade(new_col_grayscale)
     new_col <- c('#5B5B5B', new_col)
     new_light_col <- c('#7F7F7F', new_light_col)
@@ -467,15 +467,15 @@ cognigen_purple_style <- function(n = 10, gray.first = FALSE){
     new_light_col_grayscale <- c('#7F7F7F', new_light_col_grayscale)
     new_fill_grayscale <- new_col_grayscale
   } else {
-    new_col <- colorRampPalette(c('#E79BFF', '#3F184A'))(10)
+    new_col <- grDevices::colorRampPalette(c('#E79BFF', '#3F184A'))(10)
     new_light_col <- find_light_shade(new_col)
     new_fill <- new_col
-    new_col_grayscale <- colorRampPalette(c('#B3B3B3', '#242424'))(10)
+    new_col_grayscale <- grDevices::colorRampPalette(c('#B3B3B3', '#242424'))(10)
     new_light_col_grayscale <- find_light_shade(new_col_grayscale)
     new_fill_grayscale <- new_col_grayscale
   }
 
-  modifyList(
+  utils::modifyList(
     cognigen_style(),
     list(
       scatter = list(

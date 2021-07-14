@@ -14,7 +14,6 @@ data <- data.frame(
 
 ggplot(data, aes(x = x, y = y)) +
   geom_point() +
-  theme_cognigen() +
   scale_y_continuous(labels = format_continuous_cognigen)
 
 min <- 0
@@ -79,8 +78,8 @@ p + geom_boxplot2(outlier.position = 'identity', coef = 90)
 ggplot(mpg, aes(hwy, class)) + geom_boxplot2()
 
 p + geom_boxplot2(notch = TRUE)
-p + geom_boxplot2(varwidth = TRUE)
 p + geom_boxplot2(whisker.cap = TRUE)
+p + geom_boxplot2(varwidth = TRUE)
 p + geom_boxplot2(fill = "white", colour = "#3366FF")
 
 # Boxplots are automatically dodged when any aesthetic is a factor
@@ -216,6 +215,27 @@ ggsave_multiple(
 
 
 
+# example(s) from: man/scale_continuous_cognigen.Rd
+
+
+df <- data.frame(
+  value = seq(1, 100),
+  x = runif(100),
+  y = runif(100),
+  z = rnorm(100)
+)
+
+# color
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = z), pch = 19) +
+  scale_continuous_cognigen()
+
+# fill
+ggplot(df, aes(x = value, y = y)) +
+  geom_bar(aes(fill = z), stat = "identity") +
+  scale_continuous_cognigen()
+
+
 # example(s) from: man/scale_discrete_cognigen.Rd
 
 
@@ -225,13 +245,11 @@ xydata$DOSE <- as.factor(xydata$DOSE)
 ggplot(data = xydata) +
   aes(x = TIME, y = CONCENTRATION, colour = DOSE, fill = DOSE, shape = DOSE) +
   geom_point() +
-  theme_cognigen() +
   scale_discrete_cognigen(n = 10, geom = 'point')
 
 ggplot(data = xydata) +
   aes(x = TIME, y = CONCENTRATION) +
   geom_point() +
-  theme_cognigen() +
   scale_discrete_cognigen(n = 10, geom = 'point')
 
 ggplot(data = xydata) +
@@ -244,14 +262,12 @@ ggplot(data = xydata) +
 linedata <- subset(xydata, REP == 1)
 ggplot(data = linedata) +
   aes(x = TIME, y = CONCENTRATION, group = DOSE) +
-  geom_line() +
-  theme_cognigen()
+  geom_line()
 
 # Barchart
 ggplot(data = bardata) +
   aes(x = STUDY, y = COUNT, fill = GROUP) +
   geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
-  theme_cognigen() +
   scale_discrete_cognigen(n = 10, geom = 'bar')
 
 ggplot(data = bardata) +

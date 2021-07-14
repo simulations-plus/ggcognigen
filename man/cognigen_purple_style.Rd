@@ -8,9 +8,10 @@ primarily intended to be used for order}
 cognigen_purple_style(n = 10, gray.first = FALSE)
 }
 \arguments{
-\item{gray.first}{A logical variable controlling whether the first group
-of the discrete scale should be represented using a gray color while
-the rest should}
+\item{n}{number of values to be mapped}
+
+\item{gray.first}{\code{logical} indicating whether the first group
+of the discrete scale should be represented using a gray color}
 }
 \value{
 \code{list} of style elements
