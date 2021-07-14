@@ -42,7 +42,6 @@ data <- data.frame(
 
 ggplot(data, aes(x = x, y = y)) +
   geom_point() +
-  theme_cognigen() +
   scale_y_continuous(labels = format_continuous_cognigen)
 
 min <- 0

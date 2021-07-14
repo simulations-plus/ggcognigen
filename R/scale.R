@@ -17,27 +17,23 @@
 #' ggplot(data = xydata) +
 #'   aes(x = TIME, y = CONCENTRATION, colour = DOSE, fill = DOSE, shape = DOSE) +
 #'   geom_point() +
-#'   theme_cognigen() +
 #'   scale_discrete_cognigen(n = 10, geom = 'point')
 #'
 #' ggplot(data = xydata) +
 #'   aes(x = TIME, y = CONCENTRATION) +
 #'   geom_point() +
-#'   theme_cognigen() +
 #'   scale_discrete_cognigen(n = 10, geom = 'point')
 #'
 #' # Lineplot
 #' linedata <- subset(xydata, REP == 1)
 #' ggplot(data = linedata) +
 #'   aes(x = TIME, y = CONCENTRATION, group = DOSE) +
-#'   geom_line() +
-#'   theme_cognigen()
+#'   geom_line()
 #'
 #' # Barchart
 #' ggplot(data = bardata) +
 #'   aes(x = STUDY, y = COUNT, fill = GROUP) +
 #'   geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
-#'   theme_cognigen() +
 #'   scale_discrete_cognigen(n = 10, geom = 'bar')
 #'
 #' # Boxplot
@@ -53,7 +49,6 @@
 #'     position = position_dodge(width = 0.9),
 #'     na.rm = TRUE
 #'   ) +
-#'   theme_cognigen() +
 #'   scale_discrete_cognigen(10)
 #'
 #' # Histogram
