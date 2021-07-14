@@ -292,3 +292,43 @@ scale_discrete_cognigen <- function(
   }
 
 }
+
+
+#' Continuous scale for color and fill aesthetics with a purple gradient
+#'
+#' @inheritParams ggplot2::scale_color_gradient
+#' @inheritDotParams ggplot2::continuous_scale scale_name name
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' df <- data.frame(
+#'   value = seq(1, 100),
+#'   x = runif(100),
+#'   y = runif(100),
+#'   z = rnorm(100)
+#' )
+#'
+#' # color
+#' ggplot(df, aes(x = x, y = y)) +
+#'   geom_point(aes(color = z), pch = 19) +
+#'   scale_continuous_cognigen()
+#'
+#' # fill
+#' ggplot(df, aes(x = value, y = y)) +
+#'   geom_bar(aes(fill = z), stat = "identity") +
+#'   scale_continuous_cognigen()
+#' }
+scale_continuous_cognigen <- function(..., na.value = "grey50", guide = "colourbar") {
+
+  ggplot2::scale_color_gradient(
+    ...,
+    low = "#E79BFF",
+    high = "#3F184A",
+    na.value = na.value,
+    guide = guide,
+    aesthetics = c("colour", "fill")
+  )
+
+}
