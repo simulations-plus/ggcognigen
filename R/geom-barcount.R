@@ -13,6 +13,8 @@
 #' @param overall.stack Defines whether an overall count is displayed for
 #'   stacked bars or if the counts of each individual component of the
 #'   stacked bars should be displayed.
+#' @param digits Integer indicating the number of significant digits to be used.
+#'   Recognized values are \code{0..22}. Use \code{digits = 0} to display as integers.
 #' @param geom,stat Use to override the default connection between
 #'   `geom_barcount` and `stat_barcount`.
 #'
@@ -49,6 +51,7 @@ geom_barcount <- function(
   position = "stack",
   ...,
   overall.stack = TRUE,
+  digits = 3,
   width = NULL,
   na.rm = FALSE,
   orientation = NA,
@@ -65,6 +68,7 @@ geom_barcount <- function(
     inherit.aes = inherit.aes,
     params = list(
       overall.stack = overall.stack,
+      digits = digits,
       width = width,
       na.rm = na.rm,
       orientation = orientation,
@@ -93,7 +97,7 @@ GeomBarcount <- ggplot2::ggproto(
     params
   },
 
-  extra_params = c("overall.stack", "na.rm", "orientation"),
+  extra_params = c("overall.stack", "digits", "na.rm", "orientation"),
 
   draw_panel = function(data, panel_params, coord) {
     if ( !is.null(data$fill) ){

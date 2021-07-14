@@ -10,6 +10,7 @@ stat_histcount <- function(
   geom = "histcount",
   position = "stack",
   ...,
+  digits = 3,
   binwidth = NULL,
   bins = NULL,
   center = NULL,
@@ -38,6 +39,7 @@ stat_histcount <- function(
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      digits = digits,
       binwidth = binwidth,
       bins = bins,
       center = center,
@@ -83,6 +85,7 @@ StatHistcount <- ggplot2::ggproto(
   compute_panel = function(
     data,
     scales,
+    digits = 3,
     binwidth = NULL,
     bins = NULL,
     center = NULL,
@@ -115,7 +118,7 @@ StatHistcount <- ggplot2::ggproto(
     )
     bins <- tmp[[1]]
     bins$count <- bins$ncount <- bins$density <- bins$ndensity <- 0
-    for ( igroup in sort(unique(data$group)) ){
+    for ( igroup in seq_along(tmp) ){
       bins$count <- bins$count + tmp[[igroup]]$count
       bins$ncount <- bins$ncount + tmp[[igroup]]$ncount
       bins$density <- bins$density + tmp[[igroup]]$density
@@ -130,10 +133,10 @@ StatHistcount <- ggplot2::ggproto(
 
     # Store labels
     bins$label <- bins$count
-    bins$percent_label <- sprintf('%s %%', signif(bins$percent, 3))
-    bins$density_label <- signif(bins$density, 3)
-    bins$ncount_label <- signif(bins$ncount, 3)
-    bins$ndensity_label <- signif(bins$ndensity, 3)
+    bins$percent_label <- sprintf('%s %%', format_count(bins$percent, digits = digits))
+    bins$density_label <- format_count(bins$density, digits = digits)
+    bins$ncount_label <- format_count(bins$ncount, digits = digits)
+    bins$ndensity_label <- format_count(bins$ndensity, digits = digits)
 
     # Add margins
     bins$count <- bins$count + 0.05 * max(bins$count)

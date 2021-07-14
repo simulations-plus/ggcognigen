@@ -16,6 +16,7 @@
 #' @eval ggplot2:::rd_orientation()
 #'
 #' @inheritParams ggplot2::geom_histogram
+#' @inheritParams geom_barcount
 #' @param geom,stat Use to override the default connection between
 #'   `geom_histcount` and `stat_histcount`.
 #'
@@ -54,6 +55,7 @@ geom_histcount <- function(
   stat = "histcount",
   position = "stack",
   ...,
+  digits = 3,
   binwidth = NULL,
   bins = NULL,
   na.rm = FALSE,
@@ -77,6 +79,7 @@ geom_histcount <- function(
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      digits = digits,
       binwidth = binwidth,
       bins = bins,
       na.rm = na.rm,
@@ -95,6 +98,7 @@ geom_histcount <- function(
 GeomHistcount <- ggplot2::ggproto(
   "GeomHistcount",
   GeomBarcount,
+  extra_params = c("digits", "na.rm"),
   draw_panel = function(data, panel_params, coord) {
     data$colour <- 'black'
     ggplot2:::ggname(

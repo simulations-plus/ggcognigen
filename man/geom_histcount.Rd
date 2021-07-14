@@ -11,6 +11,7 @@ geom_histcount(
   stat = "histcount",
   position = "stack",
   ...,
+  digits = 3,
   binwidth = NULL,
   bins = NULL,
   na.rm = FALSE,
@@ -25,6 +26,7 @@ stat_histcount(
   geom = "histcount",
   position = "stack",
   ...,
+  digits = 3,
   binwidth = NULL,
   bins = NULL,
   center = NULL,
@@ -66,6 +68,9 @@ a call to a position adjustment function.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{digits}{Integer indicating the number of significant digits to be used.
+Recognized values are \code{0..22}. Use \code{digits = 0} to display as integers.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
 or as a function that calculates width from unscaled x. Here, "unscaled x"

@@ -11,6 +11,7 @@ stat_barcount <- function(
   position = "stack",
   ...,
   overall.stack = TRUE,
+  digits = 3,
   width = NULL,
   na.rm = FALSE,
   orientation = NA,
@@ -27,6 +28,7 @@ stat_barcount <- function(
     inherit.aes = inherit.aes,
     params = list(
       overall.stack = overall.stack,
+      digits = digits,
       na.rm = na.rm,
       orientation = orientation,
       position = position,
@@ -59,7 +61,7 @@ StatBarcount <- ggplot2::ggproto(
     params
 
   },
-  compute_panel = function(data, scales, position, overall.stack = TRUE, width = NULL, flipped_aes = FALSE) {
+  compute_panel = function(data, scales, position, overall.stack = TRUE, digits = 3, width = NULL, flipped_aes = FALSE) {
 
     position <- ggplot2:::check_subclass(position, 'Position', env = parent.frame())
     position_class <- class(position)[1]
@@ -159,7 +161,7 @@ StatBarcount <- ggplot2::ggproto(
           ifelse(
             count == 0,
             rep('', length(count)),
-            signif(count, 3)
+            format_count(count, digits = digits)
           ),
           rep('', nrow(adjustment))
         )
@@ -168,7 +170,7 @@ StatBarcount <- ggplot2::ggproto(
           ifelse(
             count == 0,
             rep('', length(count)),
-            sprintf('%s %%', signif(100*count, 3))
+            sprintf('%s %%', format_count(100*count, digits = digits))
           ),
           rep('', nrow(adjustment))
         )
@@ -208,3 +210,25 @@ StatBarcount <- ggplot2::ggproto(
 
 )
 
+
+# helper function to format text in StatBarcount and StatHistcount
+format_count <- function(x, digits = 3) {
+
+  if(digits <= 0) {
+    digits <- 0
+    x <- as.integer(x)
+  } else {
+    x <- signif(x, digits = digits)
+  }
+
+  fmt <- ifelse(any(abs(x) <= 1e-4) || any(abs(x) >= 9999), 'g', 'fg')
+
+  formatC(
+    x,
+    digits = digits,
+    format = ifelse(digits == 0, 'd', fmt),
+    flag = ifelse(digits == 0 || fmt == 'g', '', '#'),
+    drop0trailing = FALSE
+  )
+
+}

@@ -12,6 +12,7 @@ geom_barcount(
   position = "stack",
   ...,
   overall.stack = TRUE,
+  digits = 3,
   width = NULL,
   na.rm = FALSE,
   orientation = NA,
@@ -26,6 +27,7 @@ stat_barcount(
   position = "stack",
   ...,
   overall.stack = TRUE,
+  digits = 3,
   width = NULL,
   na.rm = FALSE,
   orientation = NA,
@@ -65,6 +67,9 @@ to the paired geom/stat.}
 \item{overall.stack}{Defines whether an overall count is displayed for
 stacked bars or if the counts of each individual component of the
 stacked bars should be displayed.}
+
+\item{digits}{Integer indicating the number of significant digits to be used.
+Recognized values are \code{0..22}. Use \code{digits = 0} to display as integers.}
 
 \item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
 
