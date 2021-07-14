@@ -184,6 +184,55 @@ style$bar$grayscale$col
 
 This collection of settings was initially designed for the graphing workflows implemented in the [Cognigen KIWI platform for modeling & simulation](https://www.simulations-plus.com/software/kiwi/) and contains information that is relevant to a `ggplot2`-based workflow and some that is not. Relevant information is automatically extracted by `scale_discrete_cognigen()`.
 
+## `cognigen_purple_style()`
+
+`cognigen_purple_style()` is an alternative graphical style to `cognigen_style()`. It is intended to provide graphical settings based upon a single color hue, primarily to denote the change in a ordered series of categories.
+
+```{r, fig.dim = c(8, 6.5)}
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION, colour = GROUP, shape = GROUP) +
+    geom_point() +
+    geom_line() +
+    scale_discrete_cognigen(style = cognigen_purple_style()),
+  ggplot(data = diamonds) +
+    aes(x = carat, y = price, colour = clarity, shape = clarity, fill = clarity) + 
+    geom_smooth() +
+    scale_discrete_cognigen(style = cognigen_purple_style()),
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
+    scale_discrete_cognigen(style = cognigen_purple_style(), geom = 'bar'),
+  nrow = 2,
+  ncol = 2
+)
+```
+
+`cognigen_purple_style()` accepts 2 arguments:
+
+* `n` to define the number of categories to be displayed such that the lowest category is assigned the lightest color in the style hue, and the highest category is assigned the darkest color in the style hue; and
+* `gray.first` to indicate whether the 1st category should be displayed using the color gray, in a way to distinguish this category from all the other (for example, placebo vs multiple active dose).
+
+```{r, fig.dim = c(8, 6.5)}
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION, colour = GROUP, shape = GROUP) +
+    geom_point() +
+    geom_line() +
+    scale_discrete_cognigen(style = cognigen_purple_style(gray.first = TRUE)),
+  ggplot(data = diamonds) +
+    aes(x = carat, y = price, colour = clarity, shape = clarity, fill = clarity) + 
+    geom_smooth() +
+    scale_discrete_cognigen(style = cognigen_purple_style(n = 8)),
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
+    scale_discrete_cognigen(style = cognigen_purple_style(gray.first = TRUE), geom = 'bar'),
+  nrow = 2,
+  ncol = 2
+)
+```
+
 ## `read_style()` {#read_style}
 
 The `style` argument of `scale_discrete_cognigen()` and `set_default_style()` can also be used to set a custom style. For this purpose, one could save the output of `cognigen_style()` into a list variable, modify its content (but not its structure), then call `scale_discrete_cognigen` and set the `style` argument to the custin style list.
