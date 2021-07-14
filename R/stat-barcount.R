@@ -216,7 +216,7 @@ format_count <- function(x, digits = 3) {
 
   if(digits <= 0) {
     digits <- 0
-    x <- as.integer(x)
+    x <- round(x)
   } else {
     x <- signif(x, digits = digits)
   }
