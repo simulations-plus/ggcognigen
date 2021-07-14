@@ -159,12 +159,33 @@ ggpubr::ggarrange(
 )
 ```
 
-`scale_discrete_cognigen()` accepts multiple arguments:
-    - `n`: defines the number of distinct data groups in the discrete scale. It is only important to set this argument if there are > 10 distinct groups; in this case, graphical elements get recycled.
-    - `geom`: defines the type of geoms on which the scale will apply.
-    - `style`: a list of graphical settings set to `cognigen_style` by default (see next section).
-    - `grayscale`: set this argument to FALSE to apply graphical settings using grayscale colors.
+`scale_discrete_cognigen()` accepts multiple arguments:  
+    - `n`: defines the number of distinct data groups in the discrete scale. It is only important to set this argument if there are > 10 distinct groups; in this case, graphical elements get recycled.  
+    - `geom`: defines the type of geoms on which the scale will apply.  
+    - `style`: a list of graphical settings set to `cognigen_style` by default (see next section).  
+    - `grayscale`: set this argument to FALSE to apply graphical settings using grayscale colors.  
 * for scatter plots, it is important to use both `colour` and `fill` aesthetics so that the different data groups can be distinguishable when the plot is printed in black and white.
+
+
+## `scale_continuous_cognigen()`
+
+For continuous colour or fill aesthetics, `scale_continuous_cognigen()` can be added to a `ggplot2` object to use a purple gradient.
+
+```{r, fig.dim = c(8, 7)}
+ggpubr::ggarrange(
+  ggplot(diamonds) +
+    aes(x = carat, y = depth) +
+    geom_point(aes(colour = price), pch = 19) +
+    scale_continuous_cognigen() + 
+    ggtitle('continuous color'),
+  ggplot(faithfuld, aes(waiting, eruptions)) +
+    geom_raster(aes(fill = density)) +
+    scale_continuous_cognigen() + 
+    ggtitle('continuous fill'),
+  nrow = 2,
+  ncol = 1
+)
+```
 
 ## `cognigen_style()`
 
@@ -426,6 +447,33 @@ ggpubr::ggarrange(
 
 ```
 
+Use the `digits` argument to control significant digits:
+
+```{r, fig.dim = c(6, 7)}
+ggpubr::ggarrange(
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'fillpercent') +
+    geom_barcount(position = position_fillpercent(),
+                  digits = 4) +
+    scale_discrete_cognigen(geom = 'bar') +
+    ylab('Normalized Count (%)') +
+    theme(legend.position = 'none') +
+    ggtitle('digits = 4'),
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'fillpercent') +
+    geom_barcount(position = position_fillpercent(),
+                  digits = 0) +
+    scale_discrete_cognigen(geom = 'bar') +
+    ylab('Normalized Count (%)') +
+    theme(legend.position = 'none') +
+    ggtitle('digits = 0 to display as an integer'),
+  nrow = 2,
+  ncol = 1
+  )
+```
+
 ## `geom_histcount()`
 
 This function is intended to work in combination with `geom_histogram()` and to display, by default, the values represented by each bar. Note that any non-default argument set in the `geom_histogram()` call should also be set in the `geom_histcount()` call.
@@ -491,7 +539,7 @@ ggplot(data = boxdata) +
 
 `major_break_log()` and `minor_break_log()` are other utilty functions that return all major and minor axis tick marks for logarithmic scale axis.
 
-Both can be passed as arguments to `ggplot2::scale_x_countinuous` and `ggplot2::scale_y_countinuous`.
+Both can be passed as arguments to `ggplot2::scale_x_continuous` and `ggplot2::scale_y_continuous`.
 
 ```{r}
 set.seed(123)
