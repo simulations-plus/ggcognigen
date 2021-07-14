@@ -9,7 +9,7 @@ Authors@R: c(person("Sebastien","Bihorel",role=c("aut","cre"),email="sebastien.b
 URL: https://gitlab.cognigencorp.com/r/ggcognigen
 BugReports: https://gitlab.cognigencorp.com/r/ggcognigen/-/issues
 Description: Geom, themes, styles, and helper functions for ggplot2 at Cognigen Corporation.
-License: file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
