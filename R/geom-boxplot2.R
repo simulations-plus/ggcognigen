@@ -4,7 +4,7 @@
 #'
 #' The boxplot compactly displays the distribution of a continuous variable.
 #' It visualises five summary statistics (the median, two hinges
-#' and two whiskers), and all "outlying" points individually. [geom_boxplot2()]
+#' and two whiskers), and all "outlying" points individually. `geom_boxplot2()`
 #' is a variant on the [geom_boxplot()] function from the ggplot2 package.
 #' It allows users to set whisker limits based upon a confidence interval rather
 #' than a multiple of the IQR, allows to display outliers with jitter, and
@@ -53,6 +53,8 @@
 #'   not used in geom_boxplot2. Instead, outliers inherits colors, shapes, sizes from the box
 #'   aesthetics. These aesthetics were included to maintain code compatibility with
 #'   call to [geom_boxplot()].
+#' @param whisker.cap If `FALSE` (default), the whiskers are simple segments. If `TRUE`,
+#'   the end of the whiskers are delineated by orthogonal segments.
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
@@ -76,6 +78,7 @@
 #' ggplot(mpg, aes(hwy, class)) + geom_boxplot2()
 #'
 #' p + geom_boxplot2(notch = TRUE)
+#' p + geom_boxplot2(whisker.cap = TRUE)
 #' p + geom_boxplot2(varwidth = TRUE)
 #' p + geom_boxplot2(fill = "white", colour = "#3366FF")
 #'
@@ -92,7 +95,6 @@
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot2(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 #'
-#' \donttest{
 #' # It's possible to draw a boxplot with your own computations if you
 #' # use stat = "identity":
 #' y <- rnorm(100)
@@ -110,7 +112,6 @@
 #'    stat = "identity"
 #'  )
 #' }
-#' }
 geom_boxplot2 <- function(
   mapping = NULL,
   data = NULL,
@@ -121,10 +122,11 @@ geom_boxplot2 <- function(
   outlier.colour = NULL,
   outlier.color = NULL,
   outlier.fill = NULL,
-  outlier.shape = 19,
+  outlier.shape = 21,
   outlier.size = 1.5,
   outlier.stroke = 0.5,
   outlier.alpha = NULL,
+  whisker.cap = FALSE,
   notch = FALSE,
   notchwidth = 0.5,
   varwidth = FALSE,
@@ -159,6 +161,7 @@ geom_boxplot2 <- function(
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
       outlier.alpha = outlier.alpha,
+      whisker.cap = whisker.cap,
       notch = notch,
       notchwidth = notchwidth,
       varwidth = varwidth,
@@ -179,8 +182,8 @@ GeomBoxplot2 <- ggplot2::ggproto(
   required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|xmax"),
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = ggplot2::aes(
-    weight = 1, colour = "grey20", fill = "white", size = 0.5,
-    alpha = NA, shape = 19, linetype = "solid", stroke = 0.5
+    weight = 1, colour = "grey20", fill = "transparent", size = 0.5,
+    alpha = NA, shape = 21, linetype = "solid", stroke = 0.5
   ),
 
   # need to declare `width` here in case this geom is used with a stat that
@@ -193,7 +196,7 @@ GeomBoxplot2 <- ggplot2::ggproto(
     show_warning <- !is.null(params$outlier.colour) |
       !is.null(params$outlier.color) |
       !is.null(params$outlier.fill) |
-      params$outlier.shape != 19 |
+      params$outlier.shape != 21 |
       params$outlier.size != 1.5 |
       params$outlier.stroke != 0.5 |
       !is.null(params$outlier.alpha)
@@ -212,45 +215,16 @@ GeomBoxplot2 <- ggplot2::ggproto(
     params
   },
 
-  setup_data = function(data, params) {
-
-    data$flipped_aes <- params$flipped_aes
-    data <- ggplot2::flip_data(data, params$flipped_aes)
-    data$width <- data$width %||%
-      params$width %||% (ggplot2::resolution(data$x, FALSE) * 0.9)
-
-    if (!is.null(data$outliers)) {
-      suppressWarnings({
-        out_min <- vapply(data$outliers, min, numeric(1))
-        out_max <- vapply(data$outliers, max, numeric(1))
-      })
-
-      data$ymin_final  <- pmin(out_min, data$ymin)
-      data$ymax_final  <- pmax(out_max, data$ymax)
-    }
-
-    # if `varwidth` not requested or not available, don't use it
-    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(data$relvarwidth)) {
-      data$xmin <- data$x - data$width / 2
-      data$xmax <- data$x + data$width / 2
-    } else {
-      # make `relvarwidth` relative to the size of the largest group
-      data$relvarwidth <- data$relvarwidth / max(data$relvarwidth)
-      data$xmin <- data$x - data$relvarwidth * data$width / 2
-      data$xmax <- data$x + data$relvarwidth * data$width / 2
-    }
-    data$width <- NULL
-    if (!is.null(data$relvarwidth)) data$relvarwidth <- NULL
-    ggplot2::flip_data(data, params$flipped_aes)
-  },
+  setup_data = ggplot2:::fetch_ggproto(ggplot2::GeomBoxplot, 'setup_data'),
 
   draw_group = function(
     data, panel_params, coord, fatten = 2.5,
     outlier.position = 'jitter',
-    outlier.colour = 'NULL', outlier.fill = NULL,
-    outlier.shape = 19,
+    outlier.colour = NULL, outlier.fill = NULL,
+    outlier.shape = 21,
     outlier.size = 1.5, outlier.stroke = 0.5,
     outlier.alpha = NULL,
+    whisker.cap = FALSE,
     notch = FALSE, notchwidth = 0.5, varwidth = FALSE, flipped_aes = FALSE
   ) {
 
@@ -277,14 +251,14 @@ GeomBoxplot2 <- ggplot2::ggproto(
           x = c(
             data$x,
             data$x,
-            data$x - 0.25*(data$xmax - data$xmin),
-            data$x - 0.25*(data$xmax - data$xmin)
+            data$x - ifelse(whisker.cap, 0.25, 0)*(data$xmax - data$xmin),
+            data$x - ifelse(whisker.cap, 0.25, 0)*(data$xmax - data$xmin)
           ),
           xend = c(
             data$x,
             data$x,
-            data$x + 0.25*(data$xmax - data$xmin),
-            data$x + 0.25*(data$xmax - data$xmin)
+            data$x + ifelse(whisker.cap, 0.25, 0)*(data$xmax - data$xmin),
+            data$x + ifelse(whisker.cap, 0.25, 0)*(data$xmax - data$xmin)
           ),
           y = c(
             data$upper,
@@ -376,24 +350,9 @@ GeomBoxplot2 <- ggplot2::ggproto(
   },
 
   draw_key = function(data, params, size) {
-
-    # Copy of draw_key_point
-    if (is.null(data$shape)) {
-      data$shape <- 19
-    } else if (is.character(data$shape)) {
-      data$shape <- ggplot2::translate_shape_string(data$shape)
-    }
-
-    grid::pointsGrob(
-      0.5, 0.5,
-      pch = data$shape,
-      gp = grid::gpar(
-        col = alpha(data$colour %||% "black", data$alpha),
-        fill = alpha(data$fill %||% "black", data$alpha),
-        fontsize = 2.5 * (data$size %||% 1.5) * .pt + (data$stroke %||% 0.5) * .stroke / 2,
-        lwd = (data$stroke %||% 0.5) * .stroke / 2
-      )
-    )
+    grob <- ggplot2::draw_key_point(data, params, size)
+    grob$gp$fontsize <- grob$gp$fontsize * 1.75
+    grob
   }
 
 )

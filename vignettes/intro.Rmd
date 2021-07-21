@@ -1,0 +1,558 @@
+---
+title: "Introduction to ggcognigen"
+author:
+  - name: "Nash Delcamp, Sebastien Bihorel"
+  - name: "for Cognigen Corporation, a SimulationsPlus Company"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to ggcognigen}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{ggpubr}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`ggcognigen` is a package intended to provide graphical standards for the creation of plots at Cognigen Corporation using a plotting workflow based upon the `ggplot2` package.
+
+# Installing `ggcognigen`
+
+`ggcognigen` is a proprietary package developed by Cognigen Corporation. Its installation, use, copy, and re-distribution are subject to terms specified in the license file included with this package.
+
+Installation of the `ggcognigen` package can be performed using the source code provided in the compressed .tar.gz file which Cognigen Corporation sent you. For instance: 
+
+```{r, eval = FALSE}
+install.packages('ggcognigen_0.1.0.tar.gz', type = 'source')
+```
+
+Dependencies of the `ggcognigen` package are listed in the package DESCRIPTION file.
+
+Outside of Cognigen, it is the responsibility of the user to test and validate `ggcognigen`.
+
+# Loading `ggcognigen`
+
+After installation, users can load the package using the following command:
+
+```{r setup}
+library(ggcognigen)
+```
+```{r, echo = FALSE}
+set_default_style(style = 'ggplot2')
+```
+
+# Using `ggcognigen` themes {#theme}
+
+A plain, Cognigen-specific theme, is applied by default when the `ggcognigen` package is loaded.
+
+```{r, fig.dim = c(6, 3.5)}
+library(ggplot2)
+ggplot(data = diamonds) +
+  aes(x = carat, y = price) + 
+  geom_point() +
+  facet_wrap(vars(clarity))
+```
+
+If a different default theme has been applied (for instance, using `ggplot2::reset_theme_settings()`), the Cognigen theme can be explicitly applied by including `theme_cognigen()` in your ggplot calls.
+
+```{r, fig.dim = c(8, 3.5)}
+ggplot2::reset_theme_settings()
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION) + 
+    geom_point() +
+    ggtitle('Default ggplot2 theme'),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot() +
+    theme_cognigen() +
+    ggtitle('Cognigen theme'),
+  nrow = 1,
+  ncol = 2
+)
+```
+
+To add grid lines in the background of the plot panel, use `theme_cognigen_grid()`.
+
+```{r, fig.dim = c(6, 3.5)}
+ggplot(data = diamonds) +
+  aes(x = carat, y = price) + 
+  geom_point() +
+  facet_wrap(vars(clarity)) +
+  theme_cognigen_grid()
+```
+
+If needed, the Cognigen-specific themes can be set to default using the following call:
+
+```{r}
+ggplot2::theme_set(theme_cognigen())
+```
+
+# Using the `ggcognigen` graphical style
+
+## `set_default_style()`
+
+When data are not stratified by any aesthetics within a panel, default geom styling applies. When `ggcognigen` is loaded, `set_default_style()` is automatically called in order to apply the default Cognigen graphical style. This function applies the Cognigen styling to all types of geoms (note that outlier styling in `geom_boxplot()` is not controlled by aesthetics and should be changed manually; alternatively, use `geom_boxplot2()`):
+
+```{r, echo = FALSE}
+#xydata <- subset(xydata, REP == 1)
+```
+```{r, echo = FALSE}
+set_default_style()
+```
+
+```{r, fig.dim = c(8, 3.5)}
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION) + 
+    geom_point(),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot(),
+  nrow = 1,
+  ncol = 2
+)
+
+```
+
+One can revert to `ggplot2` default styling by calling `set_default_style()` as follows (note that this call was made in the background for the purpose of creation of plots in the [theme](#theme) section above):
+
+```{r, eval = FALSE}
+# Revert to ggplot2 styling
+set_default_style(style = 'ggplot2')
+```
+
+One can also select an alternative default style by combining `set_default_style()` and `read_style()` (see [section](#read_style) below)
+
+```{r, eval = FALSE}
+set_default_style(style = read_style('/path/to/my/style.json'))
+```
+
+## `scale_discrete_cognigen()`
+
+When data are stratified within a panel, `scale_discrete_cognigen()` can be added to `ggplot2` object in order to apply the colors, symbols, and line styles from the default Cognigen graphical style. This function accepts a `geom` argument which should be aligned with the type of geom being plotted, if it is not a `geom_point()` (as this is the default geom used in `scale_discrete_cognigen()`)
+
+```{r, fig.dim = c(8, 6.5)}
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION, colour = GROUP, shape = GROUP) +
+    geom_point() +
+    geom_line() +
+    scale_discrete_cognigen(),
+  ggplot(data = diamonds) +
+    aes(x = carat, y = price, colour = clarity, shape = clarity, fill = clarity) + 
+    geom_smooth() +
+    scale_discrete_cognigen(),
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
+    scale_discrete_cognigen(geom = 'bar'),
+  nrow = 2,
+  ncol = 2
+)
+```
+
+`scale_discrete_cognigen()` accepts multiple arguments:  
+    - `n`: defines the number of distinct data groups in the discrete scale. It is only important to set this argument if there are > 10 distinct groups; in this case, graphical elements get recycled.  
+    - `geom`: defines the type of geoms on which the scale will apply.  
+    - `style`: a list of graphical settings set to `cognigen_style` by default (see next section).  
+    - `grayscale`: set this argument to FALSE to apply graphical settings using grayscale colors.  
+* for scatter plots, it is important to use both `colour` and `fill` aesthetics so that the different data groups can be distinguishable when the plot is printed in black and white.
+
+
+## `scale_continuous_cognigen()`
+
+For continuous colour or fill aesthetics, `scale_continuous_cognigen()` can be added to a `ggplot2` object to use a purple gradient.
+
+```{r, fig.dim = c(8, 7)}
+ggpubr::ggarrange(
+  ggplot(diamonds) +
+    aes(x = carat, y = depth) +
+    geom_point(aes(colour = price), pch = 19) +
+    scale_continuous_cognigen() + 
+    ggtitle('continuous color'),
+  ggplot(faithfuld, aes(waiting, eruptions)) +
+    geom_raster(aes(fill = density)) +
+    scale_continuous_cognigen() + 
+    ggtitle('continuous fill'),
+  nrow = 2,
+  ncol = 1
+)
+```
+
+## `cognigen_style()`
+
+By default, the `style` argument of `scale_discrete_cognigen()` is set to `cognigen_style()`. `cognigen_style()` returns a large list object which contains all the settings defining the Cognigen graphical standards and which has the following structure:
+
+```{r}
+str(cognigen_style())
+```
+
+Note that each level contains a `color` and a `grayscale` sub-level, which provides settings intended for use in colored or grayscale plots respectively. Since this is a typical R list, any subset method applicable to lists will allow the extraction of particular portion of this information.
+
+```{r}
+style <- cognigen_style()
+style$scatter$color$lty
+style$bar$grayscale$col
+```
+
+This collection of settings was initially designed for the graphing workflows implemented in the [Cognigen KIWI platform for modeling & simulation](https://www.simulations-plus.com/software/kiwi/) and contains information that is relevant to a `ggplot2`-based workflow and some that is not. Relevant information is automatically extracted by `scale_discrete_cognigen()`.
+
+## `cognigen_purple_style()`
+
+`cognigen_purple_style()` is an alternative graphical style to `cognigen_style()`. It is intended to provide graphical settings based upon a single color hue, primarily to denote the change in a ordered series of categories.
+
+```{r, fig.dim = c(8, 6.5)}
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION, colour = GROUP, shape = GROUP) +
+    geom_point() +
+    geom_line() +
+    scale_discrete_cognigen(style = cognigen_purple_style()),
+  ggplot(data = diamonds) +
+    aes(x = carat, y = price, colour = clarity, shape = clarity, fill = clarity) + 
+    geom_smooth() +
+    scale_discrete_cognigen(style = cognigen_purple_style()),
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
+    scale_discrete_cognigen(style = cognigen_purple_style(), geom = 'bar'),
+  nrow = 2,
+  ncol = 2
+)
+```
+
+`cognigen_purple_style()` accepts 2 arguments:
+
+* `n` to define the number of categories to be displayed such that the lowest category is assigned the lightest color in the style hue, and the highest category is assigned the darkest color in the style hue; and
+* `gray.first` to indicate whether the 1st category should be displayed using the color gray, in a way to distinguish this category from all the other (for example, placebo vs multiple active dose).
+
+```{r, fig.dim = c(8, 6.5)}
+ggpubr::ggarrange(
+  ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION, colour = GROUP, shape = GROUP) +
+    geom_point() +
+    geom_line() +
+    scale_discrete_cognigen(style = cognigen_purple_style(gray.first = TRUE)),
+  ggplot(data = diamonds) +
+    aes(x = carat, y = price, colour = clarity, shape = clarity, fill = clarity) + 
+    geom_smooth() +
+    scale_discrete_cognigen(style = cognigen_purple_style(n = 8)),
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'stack', alpha = 1) +
+    scale_discrete_cognigen(style = cognigen_purple_style(gray.first = TRUE), geom = 'bar'),
+  nrow = 2,
+  ncol = 2
+)
+```
+
+## `read_style()` {#read_style}
+
+The `style` argument of `scale_discrete_cognigen()` and `set_default_style()` can also be used to set a custom style. For this purpose, one could save the output of `cognigen_style()` into a list variable, modify its content (but not its structure), then call `scale_discrete_cognigen` and set the `style` argument to the custin style list.
+
+Alternatively, if this custom style list must be re-used, it can be saved as a JSON file (see `?jsonlite::wrtie_json`). Later, one can use `read_style()` to read the content of the JSON file and re-construct the appropriate style object.
+
+```{r eval=FALSE}
+ggplot(data = xydata) +
+    aes(x = TIME, y = CONCENTRATION, colour = GROUP, shape = GROUP) +
+    geom_point() +
+    geom_line() +
+    scale_discrete_cognigen()
+```
+
+# Using `ggcognigen` geoms
+
+Custom geom functions have been created to generate alternative versions of `ggplot2` geoms. 
+
+## `geom_boxplot2()`
+
+`geom_boxplot2()` is a variant of `ggplot2::geom_boxplot()`. It allows users to set whisker limits based upon a confidence interval rather than a multiple of the IQR, allows to display outliers with jitter, and
+provides a slightly different graphical styles when grouping/coloring is used.
+
+**Controlling whisker limits**
+
+The whisker limits are controlled by the value of the `coef` argument which can be set to any number between 0 (no whiskers are displayed) to 100 (whiskers extend from minimum to maximum data values). When `coef` is below 50, whisker limits are set based upon `coef` x IQR as in `ggplot2::geom_boxplot()`. When `coef` is above 50, whisker limits are set to the `coef`$^{th}$ confidence interval. By default, `coef` is set to 1.5 as in `ggplot2::geom_boxplot()`.
+
+```{r, fig.dim = c(8, 3.5)}
+ggpubr::ggarrange(
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2(coef = 1.5, outlier.position = 'identity') +
+    ggtitle('coef = 1.5'),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2(coef = 90, outlier.position = 'identity') +
+    ggtitle('coef = 90'),
+  nrow = 1,
+  ncol = 2
+)
+```
+
+Caps can also be displayed at the end of the whiskers using the `whisker.cap` argument.
+
+```{r, fig.dim = c(4, 3.5)}
+ggplot(data = boxdata) +
+  aes(x = GROUP, y = CONTINUOUS) +
+  geom_boxplot2(whisker.cap = TRUE, outlier.position = 'identity')
+
+```
+
+**Controlling outlier positioning**
+
+By default, data points located beyond the limits of the whiskers are deemed outliers and are displaying by default with some random jitter. The display and position of the outliers are controlled by the `outlier.position` argument.
+
+```{r, fig.dim = c(8, 3.5)}
+ggpubr::ggarrange(
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2(outlier.position = NULL) +
+    ggtitle('NULL'),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2(outlier.position = 'identity') +
+    ggtitle('\'identity\''),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS) +
+    geom_boxplot2() +
+    ggtitle('default or \'jitter\''),
+  nrow = 1,
+  ncol = 3
+)
+```
+
+**Differences between `geom_boxplot2()` and `ggplot2::geom_boxplot()` styling**
+
+As described above, `geom_boxplot2()` and `ggplot2::geom_boxplot()` differ by the way they handle whisker limits outliers. Additionally, the two functions differ in how aesthetics and graphical styleing are applied:
+
+* The `outlier.colour`/`outlier.color`, `outlier.fill`, `outlier.shape`, `outlier.size`, `outlier.stroke`, and `outlier.alpha` arguments are ignored in `geom_boxplot2()` and have no impact on the outlier display or design.
+* Medians: with `ggplot2::geom_boxplot()`, medians are always represented by a horizontal line inside the box. This is also true with `geom_boxplot2()` in absence of any aesthetics; otherwise, medians are represented by symbols. Therefore, it is recommended to always set both `color` and `shape` aesthetics with `geom_boxplot2()`.
+* Legend: with `geom_boxplot2()`, the legend will shown the group specific colors and symbols rather than the "mini-box" displayed in the `ggplot2::geom_boxplot()` legend.
+* `colour`/`color`: this aesthetic controls the color of the box borders, whiskers, and outliers in both functions. However, `outlier.color`/``outlier.colour` will set the border and fill colors of the outliers in `ggplot2::geom_boxplot()` and are ignored in `geom_boxplot2()`
+* `fill`: this aesthetic controls the fill color of the boxes but not the outliers in `ggplot2::geom_boxplot()` while it controls the fill colors of the outliers but not the boxes in `geom_boxplot2()`. Boxes are always filled with white with the latter function.
+* `shape`: this aesthetic has no effect in `ggplot2::geom_boxplot()`, besides hiding the outliers if set to `NA`. In `geom_boxplot2()`, this aesthetic controls the shape of the outliers.
+
+
+```{r, fig.dim = c(8, 7)}
+ggpubr::ggarrange(
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS, color = CATEGORICAL, shape = CATEGORICAL, fill = CATEGORICAL) +
+    geom_boxplot(
+      notch = TRUE,
+      position = position_dodge(width = 0.9)
+    ) +
+    ggtitle('geom_boxplot()') +
+    scale_discrete_cognigen(),
+  ggplot(data = boxdata) +
+    aes(x = GROUP, y = CONTINUOUS, color = CATEGORICAL, shape = CATEGORICAL, fill = CATEGORICAL) +
+    geom_boxplot2(
+      notch = TRUE,
+      position = position_dodge(width = 0.9)
+    ) +
+    ggtitle('geom_boxplot2()') +
+    scale_discrete_cognigen(),
+  nrow = 2,
+  ncol = 1
+)
+```
+
+## `geom_boxcount()`
+
+This function is intended to work in combination with `geom_boxplot2()` and to display the number of data points used for the calculation of statistics which are graphically represented by each box and whiskers. 
+
+```{r, fig.dim = c(8, 3.5)}
+ggplot(data = boxdata) +
+  aes(x = GROUP, y = CONTINUOUS, color = CATEGORICAL, shape = CATEGORICAL, fill = CATEGORICAL) +
+  geom_boxplot2(
+    notch = TRUE,
+    position = position_dodge(width = 0.9)
+  ) +
+  geom_boxcount(
+    position = position_dodge(width = 0.9)
+  ) + 
+  scale_discrete_cognigen()
+```
+
+When `geom_boxcount()` is used, log axis scale display should be implemented using `ggplot2::scale_y_continuous`. Using `coord_trans(y ='log10')` would display the counts at the wrong locations.
+
+```{r, fig.dim = c(6, 3.5)}
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot2() +
+  geom_boxcount() +
+  scale_y_continuous(trans = 'log10')
+```
+
+## `geom_barcount()`
+
+This function is intended to work in combination with `geom_bar()` and to display, by default, the sum of the values represented by each bar. Note that any non-default argument set in the `geom_bar()` call should also be set in the `geom_barcount()` call.
+
+```{r, fig.dim = c(8, 3.5)}
+ggplot(data = bardata) +
+  aes(x = STUDY, y = COUNT, fill = GROUP) +
+  geom_bar(stat = 'identity') +
+  geom_barcount() +
+  scale_discrete_cognigen(geom = 'bar')
+```
+
+Alternatively, you can request the display of values associated with each bar components:
+```{r, fig.dim = c(8, 3.5)}
+ggplot(data = bardata) +
+  aes(x = STUDY, y = COUNT, fill = GROUP) +
+  geom_bar(stat = 'identity') +
+  geom_barcount(overall.stack = FALSE) +
+  scale_discrete_cognigen(geom = 'bar')
+```
+
+This function also works with the `dodge`, `fill`, and `fillpercent` positions:
+
+```{r, fig.dim = c(8, 7)}
+ggpubr::ggarrange(
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'dodge') +
+    geom_barcount(position = position_dodge(width = 0.9)) +
+    ylab('Count') +
+    scale_discrete_cognigen(geom = 'bar') +
+    ggtitle('dodge'),
+  ggpubr::ggarrange(
+    ggplot(data = bardata) +
+      aes(x = STUDY, y = COUNT, fill = GROUP) +
+      geom_bar(stat = 'identity', position = 'fill') +
+      geom_barcount(position = position_fill()) +
+      scale_discrete_cognigen(geom = 'bar') +
+      ylab('Normalized Count') +
+      theme(legend.position = 'none') +
+      ggtitle('fill'),
+    ggplot(data = bardata) +
+      aes(x = STUDY, y = COUNT, fill = GROUP) +
+      geom_bar(stat = 'identity', position = 'fillpercent') +
+      geom_barcount(position = position_fillpercent()) +
+      scale_discrete_cognigen(geom = 'bar') +
+      ylab('Normalized Count (%)') +
+      theme(legend.position = 'none') +
+      ggtitle('fillpercent'),
+    ncol = 2,
+    nrow = 1
+  ),
+  nrow = 2,
+  ncol = 1
+)
+
+```
+
+Use the `digits` argument to control significant digits:
+
+```{r, fig.dim = c(6, 7)}
+ggpubr::ggarrange(
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'fillpercent') +
+    geom_barcount(position = position_fillpercent(),
+                  digits = 4) +
+    scale_discrete_cognigen(geom = 'bar') +
+    ylab('Normalized Count (%)') +
+    theme(legend.position = 'none') +
+    ggtitle('digits = 4'),
+  ggplot(data = bardata) +
+    aes(x = STUDY, y = COUNT, fill = GROUP) +
+    geom_bar(stat = 'identity', position = 'fillpercent') +
+    geom_barcount(position = position_fillpercent(),
+                  digits = 0) +
+    scale_discrete_cognigen(geom = 'bar') +
+    ylab('Normalized Count (%)') +
+    theme(legend.position = 'none') +
+    ggtitle('digits = 0 to display as an integer'),
+  nrow = 2,
+  ncol = 1
+  )
+```
+
+## `geom_histcount()`
+
+This function is intended to work in combination with `geom_histogram()` and to display, by default, the values represented by each bar. Note that any non-default argument set in the `geom_histogram()` call should also be set in the `geom_histcount()` call.
+
+```{r, fig.dim = c(6, 3.5)}
+ggplot(data = histdata) +
+  aes(x = RANDOM) +
+  geom_histogram(bins = 15) +
+  geom_histcount(bins = 15) +
+  scale_discrete_cognigen(geom = 'histogram')
+```
+
+To display the data distribution as density or percentages, we suggest that you use the `bin2` stat and set the `y` aesthetic to either `..density..` and `..percent..` variable (note that the `bin` stat only export `..density..`). For `geom_histcount()`, you must also set the `label` aesthetic to `..density_label..` or `..percent_label..`.
+
+```{r, fig.dim = c(6, 7)}
+ggpubr::ggarrange(
+  ggplot(data = histdata) +
+    aes(x = RANDOM, fill = GROUP) +
+    geom_histogram(aes(y = ..density..), stat = 'bin2', bins = 15) +
+    geom_histcount(aes(y = ..density.., label = ..density_label..), bins = 15)  +
+    scale_discrete_cognigen(geom = 'histogram') +
+    ylab('Density'),
+  ggplot(data = histdata) +
+    aes(x = RANDOM, fill = GROUP) +
+    geom_histogram(aes(y = ..percent..), stat = 'bin2', bins = 15) +
+    geom_histcount(aes(y = ..percent.., label = ..percent_label..), bins = 15) +
+    ylab('Percent (%)') +
+    scale_discrete_cognigen(geom = 'histogram'),
+  nrow = 2,
+  ncol = 1
+)
+```
+
+While `geom_histogram()` can be called using a continuous or categorical `x` aesthetic variable, `geom_histcount()` is not compatible with categorical variables; `geom_barcount()` should be used instead. At the moment, this precludes the display of distribution as density or percentages based upon unmodified data
+
+```{r, fig.dim = c(6, 3.5)}
+ggplot(data = boxdata) +
+  aes(x = CATEGORICAL) +
+  geom_histogram(stat = 'count') +
+  geom_barcount()
+```
+
+<!--
+# Using `ggcognigen` stats
+
+`ggcognigen` provides a series of new stat functions in support of the geom functions listed above. The following stat functions should typically not be called directly:
+
+* `stat_barcount()`: associated with `geom_barcount()`,
+* `stat_bin2()`: supporting function for `geom_histcount()`,
+* `stat_count2()`: supporting function for `geom_barcount()`,
+* `stat_boxcount()`: associated with `geom_boxcount()`,
+* `stat_boxplot2()`: associated with `geom_boxplot2()`, and
+* `stat_histcount()`: associated with `geom_histcount()`.
+
+# Using `ggcognigen` position {#fillpercent}
+
+`position_fillpercent()` is a new position function supporting the display of data count as percentages with `geom_bar()` and `geom_barcount()`.
+-->
+
+# Using axis-related functions
+
+`format_continuous_cognigen()` is a utility function intended to format axis tick labels in scientific notataion when deemed appropriate.
+
+`major_break_log()` and `minor_break_log()` are other utilty functions that return all major and minor axis tick marks for logarithmic scale axis.
+
+Both can be passed as arguments to `ggplot2::scale_x_continuous` and `ggplot2::scale_y_continuous`.
+
+```{r}
+set.seed(123)
+random_data <- data.frame(x = runif(1000, 0, 10000), y = rlnorm(1000, 0, 3))
+
+ggplot(random_data, aes(x = x, y = y)) +
+  geom_point() +
+  theme_cognigen_grid(minor.x = TRUE, minor.y = TRUE) +
+  scale_x_continuous(labels = format_continuous_cognigen) + 
+  scale_y_continuous(
+    trans = 'log10', 
+    breaks = major_breaks_log,
+    minor_breaks = minor_breaks_log,
+    labels = format_continuous_cognigen
+  )
+```

@@ -1,6 +1,6 @@
 # Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
 
-#' Cognigen ggplot2 themes
+#' Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`
 #'
 #' @param ... additional theme elements to override defaults. See \link[ggplot2]{theme}.
 #'
@@ -34,7 +34,7 @@ theme_cognigen <- function(...) {
       # text elements
       plot.title = ggplot2::element_text(
         family = font,
-        size = 14,
+        size = 12,
         face = "bold",
         vjust = 1
       ),
@@ -51,17 +51,34 @@ theme_cognigen <- function(...) {
 
       axis.title = ggplot2::element_text(
         family = font,
-        face = "bold",
-        size = 11
+        size = 10,
+        face = "bold"
       ),
 
       axis.text = ggplot2::element_text(
         family = font,
-        size = 10
+        size = 9
+      ),
+
+      legend.title = ggplot2::element_text(
+        family = font,
+        size = 9
+      ),
+
+      legend.text = ggplot2::element_text(
+        family = font,
+        size = 9
+      ),
+
+      strip.text = ggplot2::element_text(
+        family = font,
+        size = 9
       ),
 
       # facet elements
-      strip.background = ggplot2::element_rect()
+      strip.background = ggplot2::element_rect(),
+      strip.background.x = ggplot2::element_rect(),
+      strip.background.y = ggplot2::element_rect()
 
     ) %+replace%
 

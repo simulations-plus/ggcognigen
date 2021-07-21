@@ -26,7 +26,9 @@ stat_boxplot2 <- function(
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE) {
+  inherit.aes = TRUE
+) {
+
   ggplot2::layer(
     data = data,
     mapping = mapping,
@@ -42,12 +44,14 @@ stat_boxplot2 <- function(
       ...
     )
   )
+
 }
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
+
 StatBoxplot2 <- ggplot2::ggproto(
   "StatBoxplot2",
   ggplot2::Stat,
@@ -78,13 +82,13 @@ StatBoxplot2 <- ggplot2::ggproto(
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      abort("stat_boxplot2() requires an x or y aesthetic.")
+      rlang::abort("stat_boxplot2() requires an x or y aesthetic.")
     }
 
     params$width <- params$width %||% (ggplot2::resolution(data$x %||% 0) * 0.75)
 
-    if (is.double(data$x) && !ggplot2::has_groups(data) && any(data$x != data$x[1L])) {
-      warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
+    if (is.double(data$x) && !ggplot2:::has_groups(data) && any(data$x != data$x[1L])) {
+      rlang::warn(glue::glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
     }
 
     params

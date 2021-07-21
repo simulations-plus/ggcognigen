@@ -15,10 +15,11 @@ geom_boxplot2(
   outlier.colour = NULL,
   outlier.color = NULL,
   outlier.fill = NULL,
-  outlier.shape = 19,
+  outlier.shape = 21,
   outlier.size = 1.5,
   outlier.stroke = 0.5,
   outlier.alpha = NULL,
+  whisker.cap = FALSE,
   notch = FALSE,
   notchwidth = 0.5,
   varwidth = FALSE,
@@ -83,6 +84,9 @@ not used in geom_boxplot2. Instead, outliers inherits colors, shapes, sizes from
 aesthetics. These aesthetics were included to maintain code compatibility with
 call to [geom_boxplot()].}
 
+\item{whisker.cap}{If `FALSE` (default), the whiskers are simple segments. If `TRUE`,
+the end of the whiskers are delineated by orthogonal segments.}
+
 \item{notch}{If `FALSE` (default) make a standard box plot. If
 `TRUE`, make a notched box plot. Notches are used to compare groups;
 if the notches of two boxes do not overlap, this suggests that the medians
@@ -123,7 +127,7 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 \description{
 The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
-and two whiskers), and all "outlying" points individually. [geom_boxplot2()]
+and two whiskers), and all "outlying" points individually. `geom_boxplot2()`
 is a variant on the [geom_boxplot()] function from the ggplot2 package.
 It allows users to set whisker limits based upon a confidence interval rather
 than a multiple of the IQR, allows to display outliers with jitter, and
@@ -177,6 +181,7 @@ p + geom_boxplot2(outlier.position = 'identity', coef = 90)
 ggplot(mpg, aes(hwy, class)) + geom_boxplot2()
 
 p + geom_boxplot2(notch = TRUE)
+p + geom_boxplot2(whisker.cap = TRUE)
 p + geom_boxplot2(varwidth = TRUE)
 p + geom_boxplot2(fill = "white", colour = "#3366FF")
 
@@ -193,7 +198,6 @@ ggplot(diamonds, aes(carat, price)) +
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot2(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 
-\donttest{
 # It's possible to draw a boxplot with your own computations if you
 # use stat = "identity":
 y <- rnorm(100)
@@ -210,7 +214,6 @@ ggplot(df, aes(x)) +
    aes(ymin = y0, lower = y25, middle = y50, upper = y75, ymax = y100),
    stat = "identity"
  )
-}
 }
 }
 \references{

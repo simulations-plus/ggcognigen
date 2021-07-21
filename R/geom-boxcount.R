@@ -18,6 +18,7 @@
 #'   assumed to be displayed .
 #'
 #' @seealso [geom_boxplot2()]
+#' @export
 #' @examples
 #' \dontrun{
 #' p <- ggplot(mpg, aes(class, hwy))
@@ -39,6 +40,8 @@ geom_boxcount <- function(
   orientation = NA,
   show.legend = FALSE,
   inherit.aes = TRUE) {
+
+  #position <- ggplot2:::check_subclass(position, "Position", env = parent.frame())
 
   ggplot2::layer(
     data = data,
@@ -66,7 +69,7 @@ GeomBoxcount <- ggplot2::ggproto(
   ggplot2::Geom,
   required_aes = c("x|y"),
   default_aes = ggplot2::aes(
-    colour = "black", size = 3.88, angle = 0, hjust = 0.5,
+    colour = "black", size = 3, angle = 0, hjust = 0.5,
     vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2,
   ),
 
@@ -75,12 +78,10 @@ GeomBoxcount <- ggplot2::ggproto(
   extra_params = c("na.rm", "width", "orientation"),
 
   setup_data = function(data, params) {
-
     data$xmin <- data$xmax <- data$x
+    data$ymin <- data$ymax <- data$y
     data$width <- 0
-
     data
-
   },
 
   draw_group = function(
@@ -92,7 +93,7 @@ GeomBoxcount <- ggplot2::ggproto(
     data <- ggplot2::flip_data(data, flipped_aes)
     # this may occur when using geom_count(stat = "identity")
     if (nrow(data) != 1) {
-      abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
+      rlang::abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
     }
 
     data$y <- ifelse(

@@ -20,7 +20,6 @@
 #'
 #' ggplot(data, aes(x = x, y = y)) +
 #'   geom_point() +
-#'   theme_cognigen() +
 #'   scale_y_continuous(labels = format_continuous_cognigen)
 #'
 #' min <- 0
@@ -42,7 +41,7 @@ format_continuous_cognigen <- function(x){
 
   sciNot.expression <- function(x, digits = 5){
 
-    exponent <- floor(log10(x))
+    exponent <- floor(log10(abs(x)))
     base <- signif(x / 10^exponent, digits)
     res <- vector(mode = 'expression', length = length(x))
 
@@ -55,7 +54,7 @@ format_continuous_cognigen <- function(x){
       }
 
       if ( neg ){
-        if (base[i] == 1){
+        if (base[i] == -1){
           res[i] <- as.expression(
             substitute(
               -10^exponent,
@@ -65,7 +64,7 @@ format_continuous_cognigen <- function(x){
         } else {
           res[i] <- as.expression(
             substitute(
-              -base%.%10^exponent,
+              base%.%10^exponent,
               list(base = base[i], exponent = exponent[i])
             )
           )
@@ -98,7 +97,7 @@ format_continuous_cognigen <- function(x){
     function(xx){
       if ( is.na(xx) ){
         NA
-      } else if ( abs(xx) < 999 ){
+      } else if ( xx == 0 | (abs(xx) > 1e-4 & abs(xx) < 9999) ){
         return(xx)
       } else {
         return(sciNot.expression(xx))
@@ -108,6 +107,25 @@ format_continuous_cognigen <- function(x){
 
 }
 
+#' Returns major breaks for log10 axis scales
+#'
+#' @return Numeric \code{vector} of major axis breaks for log10 axis scales
+#' @export
+#' @rdname format_continuous_cognigen
+#'
+major_breaks_log <- function(x){
+
+  exponents <- min(floor(log10(x)), na.rm = TRUE) : max(ceiling(log10(x)), na.rm = TRUE)
+  10^exponents
+
+}
+
+#' Returns minor breaks for log10 axis scales
+#'
+#' @return Numeric \code{vector} of minor axis breaks for log10 axis scales
+#' @export
+#' @rdname format_continuous_cognigen
+#'
 minor_breaks_log <- function(x){
 
   exponents <- min(floor(log10(x)), na.rm = TRUE) : max(ceiling(log10(x)), na.rm = TRUE)
