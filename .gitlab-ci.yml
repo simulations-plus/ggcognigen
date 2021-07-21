@@ -2,7 +2,7 @@ image: containers.cognigencorp.com/r/361:latest
 
 pages:
   script:
-    - Rscript -e "install.packages('pkgdown'); pkgdown::build_site()"
+    - bash -lc "Rscript -e 'install.packages(\"pkgdown\"); pkgdown::build_site()'"
   artifacts:
     paths:
       - public
