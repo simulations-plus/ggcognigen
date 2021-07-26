@@ -2,22 +2,22 @@
 
 #' Data count for box and whiskers plot
 #'
-#' This function is intended to work in combination with [geom_boxplot2()] and
+#' This function is intended to work in combination with \code{\link{geom_boxplot2}}
 #' to display the number of data points used for the calculation of statistics
 #' which are graphically represented by each box and whiskers.
 #'
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar
 #' @param geom,stat Use to override the default connection between
-#'   `geom_boxcount` and `stat_boxcount`.
+#'   \code{geom_boxcount} and \code{stat_boxcount}.
 #' @param outlier.position
 #'   This controls the placement of the counts above the boxes, depending on
-#'   whether outliers were hidden (`outlier.position = NULL`) or
-#'   displayed (`outlier.position = 'identity'` or `outlier.position = 'jitter'`)
-#'   when the call to [geom_boxplot2()] was made. By default, outliers are
-#'   assumed to be displayed .
+#'   whether outliers were hidden (\code{outlier.position = NULL}) or
+#'   displayed (\code{outlier.position = 'identity'} or \code{outlier.position = 'jitter'})
+#'   when the call to \code{\link{geom_boxplot2}} was made. By default, outliers are
+#'   assumed to be displayed.
 #'
-#' @seealso [geom_boxplot2()]
+#' @seealso \code{\link{geom_boxplot2}}
 #' @export
 #' @examples
 #' \dontrun{

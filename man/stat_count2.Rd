@@ -71,7 +71,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
 \description{
-Adds `percent` to the list of variables computed by [stat_count()] from the ggplot2 package
+Adds \code{percent} to the list of variables computed by \code{\link[ggplot2]{stat_count}}
+from the ggplot2 package
 }
 \section{Computed variables}{
 
@@ -94,11 +95,11 @@ ggplot(diamonds, aes(clarity)) +
 
 }
 \seealso{
-[stat_count()]
+\code{\link[ggplot2]{stat_count}}
 
-[stat_bin2()], which bins data in ranges and counts the
-  cases in each range. It differs from `stat_count2`, which counts the
-  number of cases at each `x` position (without binning into ranges).
-  [stat_bin2()] requires continuous `x` data, whereas
-  `stat_count2` can be used for both discrete and continuous `x` data.
+\code{\link{stat_bin2}}, which bins data in ranges and counts the
+  cases in each range. It differs from \code{stat_count2}, which counts the
+  number of cases at each \code{x} position (without binning into ranges).
+  \code{\link{stat_bin2}} requires continuous \code{x} data, whereas
+  \code{stat_count2} can be used for both discrete and continuous \code{x} data.
 }

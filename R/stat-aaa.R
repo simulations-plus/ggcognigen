@@ -2,12 +2,12 @@
 
 #' Extension of ggplot2::StatBin
 #'
-#' Adds `percent` to the list of variables computed by [stat_bin()] from the ggplot2
-#' package; `percent` represents the percentage of data in the overall data set,
-#' regardless of aesthetics or group.
+#' Adds \code{percent} to the list of variables computed by \code{\link[ggplot2]{stat_bin}}
+#' from the ggplot2 package; \code{percent} represents the percentage of data in
+#' the overall data set, regardless of aesthetics or group.
 #'
 #' @inheritParams ggplot2::stat_bin
-#' @seealso [stat_bin()]
+#' @seealso \code{\link[ggplot2]{stat_bin}}
 #' @examples
 #' \dontrun{
 #' # Count
@@ -121,21 +121,22 @@ StatBin2 <- ggplot2::ggproto(
 
 #' Extension of ggplot2::StatCount
 #'
-#' Adds `percent` to the list of variables computed by [stat_count()] from the ggplot2 package
+#' Adds \code{percent} to the list of variables computed by \code{\link[ggplot2]{stat_count}}
+#' from the ggplot2 package
 #'
 #' @inheritParams ggplot2::stat_count
-#' @seealso [stat_count()]
+#' @seealso \code{\link[ggplot2]{stat_count}}
 #' @section Computed variables:
 #' \describe{
 #'   \item{count}{number of points in bin}
 #'   \item{prop}{groupwise proportion}
 #'   \item{percent}{overall percentage of points in bin}
 #' }
-#' @seealso [stat_bin2()], which bins data in ranges and counts the
-#'   cases in each range. It differs from `stat_count2`, which counts the
-#'   number of cases at each `x` position (without binning into ranges).
-#'   [stat_bin2()] requires continuous `x` data, whereas
-#'   `stat_count2` can be used for both discrete and continuous `x` data.
+#' @seealso \code{\link{stat_bin2}}, which bins data in ranges and counts the
+#'   cases in each range. It differs from \code{stat_count2}, which counts the
+#'   number of cases at each \code{x} position (without binning into ranges).
+#'   \code{\link{stat_bin2}} requires continuous \code{x} data, whereas
+#'   \code{stat_count2} can be used for both discrete and continuous \code{x} data.
 #'
 #' @examples
 #' \dontrun{

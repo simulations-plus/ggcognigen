@@ -16,7 +16,7 @@ theme_cognigen_grid(
 )
 }
 \arguments{
-\item{...}{additional theme elements to override defaults. See \link[ggplot2]{theme}.}
+\item{...}{additional theme elements to override defaults. See \code{\link[ggplot2]{theme}}.}
 
 \item{major.x, major.y, minor.x, minor.y}{\code{logical} indicating whether to
 draw major/minor grid lines on the respective axis}

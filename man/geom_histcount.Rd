@@ -107,7 +107,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-`geom_histcount` and `stat_histcount`.}
+\code{geom_histcount} and \code{stat_histcount}.}
 
 \item{center}{bin position specifiers. Only one, \code{center} or
 \code{boundary}, may be specified for a single plot. \code{center} specifies the
@@ -140,17 +140,16 @@ or left edges of bins are included in the bin.}
 frequency polygons touch 0. Defaults to \code{FALSE}.}
 }
 \description{
-This function is intended to work in combination with [geom_histogram()] and
+This function is intended to work in combination with \code{\link[ggplot2]{geom_histogram}} and
 to display the sum of the values represented by each bar.
-}
-\details{
-The same non-default arguments used in the the [geom_histogram()] call should
-also be used in the `geom_histcount()` call.
 
-Density/percentage can be displayed by setting the `y` aesthetic to
-`..density..` / `..percent..` (which are provided by the `bin2` stat) and the
-`label` aesthetic to `..density_label..` / `..percent_label..` (which are
-provided by the `histcount` stat).
+The same non-default arguments used in the the \code{\link[ggplot2]{geom_histogram}} call should
+also be used in the \code{\link{geom_histcount}} call.
+
+Density/percentage can be displayed by setting the \code{y} aesthetic to
+\code{..density..} / \code{..percent..} (which are provided by the \code{bin2} stat) and the
+\code{label} aesthetic to \code{..density_label..} / \code{..percent_label..} (which are
+provided by the \code{histcount} stat).
 }
 \section{Orientation}{
  
@@ -185,5 +184,5 @@ p +
 }
 }
 \seealso{
-[geom_bar()]
+\code{\link[ggplot2]{geom_bar}}
 }

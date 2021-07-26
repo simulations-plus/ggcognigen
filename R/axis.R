@@ -2,6 +2,15 @@
 
 #' Format continuous values
 #'
+#' @description
+#'
+#' \code{format_continuous_cognigen} can be passed to the \code{labels}
+#' argument of \code{scale_*_continuous} functions to format continuous values.
+#'
+#' \code{major_breaks_log} and \code{minor_breaks_log} can be passed to
+#' \code{major_breaks} and \code{minor_breaks} in \code{scale_*} functions to
+#' format log10 axis scales, respectively.
+#'
 #' @param x breaks
 #'
 #' @return either a \code{numeric} or \code{expression} vector the same length as \code{x}
@@ -107,12 +116,8 @@ format_continuous_cognigen <- function(x){
 
 }
 
-#' Returns major breaks for log10 axis scales
-#'
-#' @return Numeric \code{vector} of major axis breaks for log10 axis scales
 #' @export
 #' @rdname format_continuous_cognigen
-#'
 major_breaks_log <- function(x){
 
   exponents <- min(floor(log10(x)), na.rm = TRUE) : max(ceiling(log10(x)), na.rm = TRUE)
@@ -120,12 +125,8 @@ major_breaks_log <- function(x){
 
 }
 
-#' Returns minor breaks for log10 axis scales
-#'
-#' @return Numeric \code{vector} of minor axis breaks for log10 axis scales
 #' @export
 #' @rdname format_continuous_cognigen
-#'
 minor_breaks_log <- function(x){
 
   exponents <- min(floor(log10(x)), na.rm = TRUE) : max(ceiling(log10(x)), na.rm = TRUE)
