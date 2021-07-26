@@ -2,19 +2,21 @@
 
 #' Vertical intervals: crossbars
 #'
-#' Represent a vertical interval defined by `x`,
-#' `ymin` and `ymax`. Each case draws a single graphical object.
+#' Represent a vertical interval defined by \code{x},
+#' \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 #'
 #' @eval ggplot2:::rd_orientation()
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "crossbar2")
 #' @param fatten A multiplicative factor used to increase the size of the
-#'   middle bar in `geom_crossbar()` and the middle point in
-#'   `geom_pointrange()`.
+#'   middle bar in \code{\link[ggplot2]{geom_crossbar}} and the middle point in
+#'   \code{\link[ggplot2]{geom_pointrange}}.
 #' @seealso
-#'  \link[ggplot2]{stat_summary} for examples of these guys in use,
-#'  \link[ggplot2]{geom_smooth} for continuous analogue,
-#'  \link[ggplot2]{geom_errorbarh} for a horizontal error bar.
+#'  \code{\link[ggplot2]{stat_summary}} for examples of these guys in use,
+#'
+#'  \code{\link[ggplot2]{geom_smooth}} for continuous analogue,
+#'
+#'  \code{\link[ggplot2]{geom_errorbarh}} for a horizontal error bar.
 #' @export
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar

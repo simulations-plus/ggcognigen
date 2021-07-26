@@ -2,7 +2,7 @@
 
 #' Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`
 #'
-#' @param ... additional theme elements to override defaults. See \link[ggplot2]{theme}.
+#' @param ... additional theme elements to override defaults. See \code{\link[ggplot2]{theme}}.
 #'
 #' @export
 #'

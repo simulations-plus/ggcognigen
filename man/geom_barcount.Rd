@@ -93,12 +93,12 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-`geom_barcount` and `stat_barcount`.}
+\code{geom_barcount} and \code{stat_barcount}.}
 }
 \description{
-This function is intended to work in combination with [geom_bar()] and
-to display the sum of the values represented by each bar. Like [geom_bar()]
-this function works if the `x` and/or `y` aesthetics are provided.
+This function is intended to work in combination with \code{\link[ggplot2]{geom_bar}} and
+to display the sum of the values represented by each bar. Like \code{\link[ggplot2]{geom_bar}},
+this function works if the \code{x} and/or \code{y} aesthetics are provided.
 }
 \section{Orientation}{
  
@@ -130,5 +130,5 @@ p + geom_bar(position = 'fillpercent') + geom_barcount(position = position_fillp
 }
 }
 \seealso{
-[ggplot2::geom_bar()]
+\code{\link[ggplot2]{geom_bar}}
 }

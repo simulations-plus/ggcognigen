@@ -2,18 +2,20 @@
 
 #' Save multiple ggplots
 #'
-#' `ggsave_multiple()` extends `ggplot2::ggsave()` to save multiple ggplots to
-#' multiple files. In particular, it is suitable for saving multi-page plots
-#' created using `ggforce::facet_grid_paginate()` or
-#' `ggforce::facet_wrap_paginate()`.
+#' @description
 #'
-#' ggplots are saved in separate files. Therefore, the `filenames` and `plots`
+#' \code{ggsave_multiple()} extends \code{\link[ggplot2]{ggsave}} to save
+#' multiple ggplots to multiple files. In particular, it is suitable for saving
+#' multi-page plots created using \code{\link[ggforce]{facet_grid_paginate}} or
+#' \code{\link[ggforce]{facet_wrap_paginate}} from the ggforce package.
+#'
+#' ggplots are saved in separate files. Therefore, the \code{filenames} and \code{plots}
 #' arguments must have the same length.
 #'
 #' For multi-page ggplots, the filenames can be explicitly provided using a C
-#' integer format expression, such as `figure%03d.png`, to produce successive
-#' filenames `figure001.png`, `figure002.png`, etc. If that is not the case,
-#' `ggsave_multiple()` will automatically detect multi-page plots and amend
+#' integer format expression, such as \code{'figure\%03d.png'}, to produce successive
+#' filenames \code{'figure001.png'}, \code{'figure002.png'}, etc. If that is not the case,
+#' \code{ggsave_multiple()} will automatically detect multi-page plots and amend
 #' filenames using the format mentioned above. The number of digits used for
 #' page identification will depend on the number of pages to be created and will
 #' be 2 at the minimum.
@@ -21,21 +23,21 @@
 #' @param filenames A vector of file names to create on disk.
 #' @param plots A list of plots to save.
 #' @param device Device to use. Can either be a device function
-#'   (e.g. [png()]), or one of "eps", "ps", "tex" (pictex),
+#'   (e.g. \code{\link[grDevices]{png}}), or one of "eps", "ps", "tex" (pictex),
 #'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
-#' @param path Path of the directory to save plot to: `path` and `filename`
+#' @param path Path of the directory to save plot to: \code{path} and \code{filename}
 #'   are combined to create the fully qualified file name. Defaults to the
 #'   working directory.
 #' @param scale Multiplicative scaling factor.
-#' @param width,height,units Plot size in `units` ("in", "cm", or "mm").
+#' @param width,height,units Plot size in \code{units} ("in", "cm", or "mm").
 #'   If not supplied, uses the size of current graphics device.
 #' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
 #'   "print" (300), or "screen" (72). Applies only to raster output types.
-#' @param limitsize When `TRUE` (the default), `ggsave` will not
+#' @param limitsize When \code{TRUE} (the default), \code{ggsave} will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
 #' @param ... Other arguments passed on to the graphics device function,
-#'   as specified by `device`.
+#'   as specified by \code{device}.
 #' @export
 #' @examples
 #' \dontrun{

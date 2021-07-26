@@ -8,9 +8,9 @@
 set_default_style(style = cognigen_style())
 }
 \arguments{
-\item{style}{\code{list} of style elements, liked one return by [cognigen_style()] or
-[read_style()]. Alternatively, `style` can be set to `ggplot2` to revert to the
-defaults of the `ggplot2` package.}
+\item{style}{\code{list} of style elements, liked one return by \code{\link{cognigen_style}}
+or \code{\link{read_style}}. Alternatively, \code{style} can be set to \code{'ggplot2'} to revert to the
+defaults of the ggplot2 package.}
 }
 \value{
 updates elements of default ggplot2 style then invisibly returns \code{NULL}

@@ -50,8 +50,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{fatten}{A multiplicative factor used to increase the size of the
-middle bar in `geom_crossbar()` and the middle point in
-`geom_pointrange()`.}
+middle bar in \code{\link[ggplot2]{geom_crossbar}} and the middle point in
+\code{\link[ggplot2]{geom_pointrange}}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -73,8 +73,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
 \description{
-Represent a vertical interval defined by `x`,
-`ymin` and `ymax`. Each case draws a single graphical object.
+Represent a vertical interval defined by \code{x},
+\code{ymin} and \code{ymax}. Each case draws a single graphical object.
 }
 \section{Orientation}{
  
@@ -117,7 +117,9 @@ p + geom_crossbar2(aes(ymin = lower, ymax = upper), width = 0.2)
 }
 }
 \seealso{
-\link[ggplot2]{stat_summary} for examples of these guys in use,
- \link[ggplot2]{geom_smooth} for continuous analogue,
- \link[ggplot2]{geom_errorbarh} for a horizontal error bar.
+\code{\link[ggplot2]{stat_summary}} for examples of these guys in use,
+
+ \code{\link[ggplot2]{geom_smooth}} for continuous analogue,
+
+ \code{\link[ggplot2]{geom_errorbarh}} for a horizontal error bar.
 }

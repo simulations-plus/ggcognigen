@@ -1,10 +1,10 @@
 #' Variant of ggplot2::position_fill
 #'
-#' This function perform the same data transformation as [position_fill()],
-#' except that number of normalized to 100 instead of 1.
+#' This function performs the same data transformation as \code{\link[ggplot2]{position_fill}},
+#' but is normalized to 100 instead of 1.
 #'
 #' @inheritParams ggplot2::position_stack
-#' @seealso [position_fill()]
+#' @seealso \code{\link[ggplot2]{position_fill}}
 #' @export
 #' @rdname position_fillpercent
 position_fillpercent <- function(vjust = 1, reverse = FALSE) {
