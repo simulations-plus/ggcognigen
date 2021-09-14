@@ -23,7 +23,7 @@ either a \code{numeric} or \code{expression} vector the same length as \code{x}
 argument of \code{scale_*_continuous} functions to format continuous values.
 
 \code{major_breaks_log} and \code{minor_breaks_log} can be passed to
-\code{major_breaks} and \code{minor_breaks} in \code{scale_*} functions to
+\code{breaks} and \code{minor_breaks} in \code{scale_*} functions to
 format log10 axis scales, respectively.
 }
 \examples{

@@ -45,7 +45,7 @@ New stat functions:
 
 New position function:
 
-- `position_fillpercent()`: a variant of `ggplot2::position_Fill()` wich normalizes the data to 100 instead of 1. Mostly intended for use with `ggplot2::geom_bar()` and `geom_barcount()` for display of data in percentages.
+- `position_fillpercent()`: a variant of `ggplot2::position_fill()` which normalizes the data to 100 instead of 1. Mostly intended for use with `ggplot2::geom_bar()` and `geom_barcount()` for display of data in percentages.
 
 ## Style and scale functions for mapping aesthetics
 
@@ -54,9 +54,9 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
 - `cognigen_style()`
 - `scale_discrete_cognigen()`
 - `set_default_style()`
-- `read_style_theme()`
+- `read_style()`
 
 ## Miscellaneous helper functions
-- `ggsave_multiple()`: extension of `ggsave` to save multiple plots and multi-page plots like those created using `ggforce::facet_grid_paginate()` or `ggforce::facet_wrap_paginate()`.
+- `ggsave_multiple()`: extension of `ggplot2::ggsave` to save multiple plots and multi-page plots like those created using `ggforce::facet_grid_paginate()` or `ggforce::facet_wrap_paginate()`.
 - `get_device_size()`: a utility function returning default device dimensions based upon a number of plots/panels per page.
 - `format_continuous_cognigen()`: a utility function be passed to the `labels` argument of a `scale_` function in order to automatically format axis ticks numerical labels in default or scientific notation (beyond pre-defined value limits)
