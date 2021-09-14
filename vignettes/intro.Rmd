@@ -256,7 +256,7 @@ ggpubr::ggarrange(
 
 ## `read_style()` {#read_style}
 
-The `style` argument of `scale_discrete_cognigen()` and `set_default_style()` can also be used to set a custom style. For this purpose, one could save the output of `cognigen_style()` into a list variable, modify its content (but not its structure), then call `scale_discrete_cognigen` and set the `style` argument to the custin style list.
+The `style` argument of `scale_discrete_cognigen()` and `set_default_style()` can also be used to set a custom style. For this purpose, one could save the output of `cognigen_style()` into a list variable, modify its content (but not its structure), then call `scale_discrete_cognigen` and set the `style` argument to the custom style list.
 
 Alternatively, if this custom style list must be re-used, it can be saved as a JSON file (see `?jsonlite::wrtie_json`). Later, one can use `read_style()` to read the content of the JSON file and re-construct the appropriate style object.
 
