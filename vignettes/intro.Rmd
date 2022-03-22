@@ -39,11 +39,10 @@ version <- gsub(
 install_cmd <- glue::glue("install.packages('ggcognigen_{version}.tar.gz', type = 'source')")
 
 knitr::asis_output(
-  paste(
+  c(
     "```{r, eval = FALSE}",
     install_cmd,
-    "```",
-    sep = "\n"
+    "```"
   )
 )
 ```
