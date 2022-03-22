@@ -1,7 +1,7 @@
 Package: ggcognigen
 Type: Package
 Title: Cognigen Corporation ggplot2 Functions
-Version: 1.0.0
+Version: 1.0.1
 Date: $date$
 Authors@R: c(person("Sebastien","Bihorel",role=c("aut","cre"),email="sebastien.bihorel@cognigencorp.com"),
              person("Nash","Delcamp",role=c("aut"),email="nash.delcamp@cognigencorp.com"),
