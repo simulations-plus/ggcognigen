@@ -36,15 +36,8 @@ version <- gsub(
   replacement = "\\1",
   x = description[grepl("^Version", description)]
 )
-install_cmd <- glue::glue("install.packages('ggcognigen_{version}.tar.gz', type = 'source')")
-
-knitr::asis_output(
-  c(
-    "```{r, eval = FALSE}",
-    install_cmd,
-    "```"
-  )
-)
+install_cmd <- glue::glue("`install.packages('ggcognigen_{version}.tar.gz', type = 'source')`")
+knitr::asis_output(install_cmd)
 ```
 
 Dependencies of the `ggcognigen` package are listed in the package DESCRIPTION file.
