@@ -29,8 +29,23 @@ knitr::opts_chunk$set(
 
 Installation of the `ggcognigen` package can be performed using the source code provided in the compressed .tar.gz file which Cognigen Corporation sent you. For instance: 
 
-```{r, eval = FALSE}
-install.packages('ggcognigen_$version$.tar.gz', type = 'source')
+```{r, echo=FALSE}
+description <- readLines(system.file("DESCRIPTION", package = "ggcognigen"))
+version <- gsub(
+  pattern = "Version: (.*)$",
+  replacement = "\\1",
+  x = description[grepl("^Version", description)]
+)
+install_cmd <- glue::glue("install.packages('ggcognigen_{version}.tar.gz', type = 'source')")
+
+knitr::asis_output(
+  paste(
+    "```{r, eval = FALSE}",
+    install_cmd,
+    "```",
+    sep = "\n"
+  )
+)
 ```
 
 Dependencies of the `ggcognigen` package are listed in the package DESCRIPTION file.
