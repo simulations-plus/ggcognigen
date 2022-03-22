@@ -2,7 +2,7 @@ image: containers.cognigencorp.com/r/361:latest
 
 pages:
   script:
-    - bash -lc "v=`sed -n \"s/Version:\s*\([^ ]*\)/\1/p\" DESCRIPTION`; sed -i \"s/\$version\$/1.0.1/g\" vignettes/intro.Rmd; Rscript -e 'install.packages(\"pkgdown\"); pkgdown::build_site()'"
+    - bash -lc "v=`sed -n \"s/Version:\s*\([^ ]*\)/\1/p\" DESCRIPTION`; sed -i \"s/\\$version\\$/1.0.1/g\" vignettes/intro.Rmd; Rscript -e 'install.packages(\"pkgdown\"); pkgdown::build_site()'"
   artifacts:
     paths:
       - public
