@@ -12,7 +12,7 @@ build: examples-as-tests
 	# set tags
 	{ \
 		cd /tmp/$(PKGNAME) ;\
-		for f in `ls R/*.R man/*.Rd DESCRIPTION LICENSE`; do \
+		for f in `ls R/*.R man/*.Rd vignettes/intro.Rmd DESCRIPTION LICENSE`; do \
 			echo "processing $$f" ;\
 			sed \
 				-e "s/\$$version\$$\?/$(PKGVERS)/g" \
