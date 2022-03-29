@@ -54,7 +54,7 @@ get_device_size <- function(
   dpi <- as.integer(dpi[1])
 
   # Assume letter-size page and typical Cognigen template margins (in inches)
-  width <- 8 - 2.5
+  width <- 8.5 - 2.5
   height <- 11 - 3.32
 
 
