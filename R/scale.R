@@ -3,7 +3,7 @@
 #' Discrete scale constructor
 #'
 #' @param n number of values to be mapped
-#' @param geom name of the geom; either 'point', 'line', or 'bar'
+#' @param geom name of the geom; either 'point', 'line', 'bar', 'boxplot', or 'histogram'
 #' @param style \code{list} of style elements
 #' @param grayscale \code{logical} indicating whether the plot should be grayscale
 #'
@@ -11,6 +11,8 @@
 #'
 #' @examples
 #' \dontrun{
+#' # Use the xydata dataset provided in the ggcognigen package
+#'
 #' xydata$DOSE <- as.factor(xydata$DOSE)
 #'
 #' # scatter plot
@@ -90,6 +92,10 @@ scale_discrete_cognigen <- function(
 ) {
 
   # Input check
+  if( is.numeric(n) & !is.integer(n) ) {
+    n <- as.integer(ceiling(n))
+  }
+
   if ( ! (is.integer(n) & n > 0) ){
     n <- 10
   }

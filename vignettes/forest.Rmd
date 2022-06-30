@@ -1,0 +1,685 @@
+---
+title: "Forest plot creation with ggcognigen"
+author:
+  - name: "Sebastien Bihorel"
+  - name: "for Cognigen Corporation, a SimulationsPlus Company"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Forest plot creation with ggcognigen}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{ggpubr}
+  %\VignetteDepends{dplyr}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<style>
+#TOC {
+  background: url("../man/figures/simulations-favicon-100x100.png");
+  background-size: contain;
+  padding-top: 100px !important;
+  background-repeat: no-repeat;
+}
+</style>
+
+<br>
+
+The creation of forest plots with `ggcognigen` is supported by 3 functions:
+
+* `make_gmr_data`: to calculate the geometric means (GM) and geometric mean ratios (GMR) of selected variables for a select list of covariates;
+* `make_forestplot`: to create forest plots based upon a data object that is typically returned by the previous function; and
+* `make_gmr_table`: to create corresponding report-ready tables in HTML, Microsoft Word, or PharmTeX-compliant format.
+
+# `make_gmr_data`
+
+The data to be processed by `make_gmr_data` must meet the following expectations:
+
+1. The data object must a single data.frame object.
+2. The data in this data.frame object must be provided in wide format.
+3. It must contain a variable that uniquely identify individuals.
+4. It must contain one record per individual and, if requested, per stratification variable. In any cases, `make_gmr_data` internally filters the provided data.frame to the first record per individual and, if requested, per stratification variable.
+5. The variables for which the GMs and GMRs are calculated must be continuous variables.
+6. The covariates defining the groups according to which the GMs and GMRs are calculated must be factor variables.
+
+The creation of such data objects is out of the scope of this vignette. 
+
+The operation of the `make_gmr_data` is explained in the examples shown below, starting from a basic case and finishing with the use of advanced settings. All examples rely on a dataset called `expo` which is distributed within the `ggcognigen` package. The `expo` dataset provides 3 steady-state exposures (AUCSS, CMAXSS, and CMINSS) that were predicted in a small population of individuals at 3 different dose levels (25, 50, and 100 mg), using a 1-compartment model with dose-dependent absorption. The dataset also includes the individual values of  pharmacokinetic parameters (CL, V, KA, and F1) and several covariate values.
+
+```{r echo=FALSE, message=FALSE}
+library(tidyverse)
+library(ggcognigen)
+```
+```{r class.source = 'fold-show'}
+glimpse(expo)
+```
+
+## Case 1: Basic use
+
+The following example illustrates the simplest use case for `make_gmr_data` in which GMs and GMRs are calculated for a single exposure variable without data stratification and using default settings. By default, a 90% confidence interval is calculated for each GM and GMR. A subset of the data corresponding to the exposures obtained at 25 mg is used.
+
+Note that, by default, the function prints information to the console while it executes. In case the call exits prematurely, this information should help the users identify which part of the data is not compatible with `make_gmr_data` expectations.
+
+```{r class.source = 'fold-show'}
+expo25 <- expo %>% filter(DOSE == '25 mg')
+gmr25_aucss <- make_gmr_data(
+  data = expo25,
+  x_var = 'AUCSS',
+  id_var = 'ID',
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT', 'HFM')
+)
+```
+
+`make_gmr_data` returns a data.frame with one row per variable provided in the `covariates` argument and per level in these variables. The variables in this data.frame are:
+
+* `x_var`: the variable(s) defined in the `x_var` argument;
+* `y_var`: one of the variables defined in the `covariates` argument;
+* `y_label`: the labels associated with each variable defined in the `covariates` argument. It could be either the name of the variables or their 'label' attributes if they are defined in the input data; Alternatively, it could be one of the user-provided labels (see Case 4);
+* `by`: one of the level of the variable defined in the optional `by` argument (see Case 3);
+* `value`: one of the level of the `covariates` variables;
+* `n`: the number of individuals included in this particular level of `y_var` and `by`; records with missing value of `x_var` are excluded);
+* `reference`: a logical variable defining whether this particular level of `y_var` is the reference for the calculation of GMRs. By default, the first level of the factor is assumed to be the reference level. Alternatively, users can defines the reference levels (see Case 4);
+* gm: the GM value for this particular level of `y_var` and `by`;
+* gm_lo: the lower limit of the GM confidence interval;
+* gm_hi: the upper limit of the GM confidence interval;
+* gm_label: the GM label; structured as X1 [X2, X3], where X1 is gm}, X2 is `gm_lo`, X3 is `gm_hi`. By default, X1, X2, and X3 are formatted to 3 significant digits; alternatively, users can set the number of significant digits to use (see Case 4);
+* gmr: the GMR value for this particular level of `y_var` and `by`with respect to the reference level;
+* gmr_lo: the lower limit of the GMR confidence interval;
+* gmr_hi: the upper limit of the GMR confidence interval;
+* gmr_label: the GMR label; structured as X1 [X2, X3], where X1 is `gmr`, X2 is `gmr_lo`, X3 is `gmr_hi`. By default, X1, X2, and X3 are formatted to 3 significant digits;
+* gmr_n_label: the GMR label with `n`; structured as X1 [X2, X3] n = X4, where X1 is `gmr`, X2 is `gmr_lo`, X3 is `gmr_hi`, X4 is `n`. By default, X1, X2, and X3 are formatted to 3 significant digits. This label also includes a dynamically set number of tab characters to vertically align the display of the n's in the forest plot. 
+
+`y_var`, `y_label`, and `value` are coerced to factors to facilitate plotting using `make_forestplot`.
+
+```{r class.source = 'fold-show'}
+glimpse(gmr25_aucss)
+```
+
+## Case 2: Multiple exposures
+
+GMs and GMRs can be  calculated for multiple exposure variables at the same call. In the example below, the `silent` argument is set to TRUE to suppress the display of information during execution.
+
+```{r class.source = 'fold-show', collapse=TRUE}
+gmr25_all <- make_gmr_data(
+  data = expo25,
+  x_var = c('AUCSS', 'CMAXSS', 'CMINSS'),
+  id_var = 'ID',
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT', 'HFM'),
+  silent = TRUE
+)
+glimpse(gmr25_all)
+unique(gmr25_all$x_var)
+```
+
+## Case 3: Stratification
+
+GMs and GMRs can be calculated using stratification if necessary. A single stratification variable can be set in the `by` argument. In the example below, the whole `expo` data.frame is used and the calculation are stratification by DOSE.
+
+```{r class.source = 'fold-show'}
+gmr_all <- make_gmr_data(
+  data = expo,
+  x_var = c('AUCSS', 'CMAXSS', 'CMINSS'),
+  id_var = 'ID',
+  by = 'DOSE',
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT', 'HFM'),
+  silent = TRUE
+)
+glimpse(gmr_all)
+unique(gmr_all[, c('x_var', 'by')])
+```
+
+## Case 4: Advanced settings
+
+This example illustrates the use of advanced settings. 
+
+* First, a vector of integers are passed to the `ref_levels` argument: this vector provides the positions of the reference levels among the possible levels in each covariate variable; this vector must have the same length as the `covariates` argument.
+* Second, custom labels are provided of the `covariates` variable using the `labels` argument. This must be a vector of of `character` objects or `expression` objects with the same length as the `covariates` argument. 
+* Third, a custom number of significant digit for the formatting of GM and GMR labels is set using the `digits` argument. 
+* Last, a 95% CI is requested using the `ci` argument.
+
+Note that all labels must be set as expression objects, if at least one of the label must be an expression. Also note the use of the `~` character to include spaces between label words. This is technically not necessary to define expressions, but the renderer function used in `make_forestplot` makes this syntax necessary.
+
+```{r class.source = 'fold-show'}
+gmr_all <- make_gmr_data(
+  data = expo,
+  x_var = c('AUCSS', 'CMAXSS', 'CMINSS'),
+  id_var = 'ID',
+  by = 'DOSE',
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT', 'HFM'),
+  ref_levels = c(2, 3, 2, 1, 1, 1, 1),
+  labels = c(
+    expression('Age'~'(y)'),
+    expression('Body'~'Weight'~'(kg)'),
+    expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+    expression('Sex'),
+    expression('Renal'~'Function'),
+    expression('Hepatic'~'Function'~'(Child-Pugh)'),
+    expression('Meal'~'Status')
+  ),
+  digits = 4,
+  ci = 0.95,
+  silent = TRUE
+)
+glimpse(gmr_all)
+unique(gmr_all[, c('x_var', 'by')])
+```
+
+## Additional settings
+
+The `paired` argument can be set to TRUE if the values of the `x_var` variables were observed in the same individuals in all levels of each covariates. In this case, the calculation of the GMR CIs is based upon a paired t-test rather than an unpaired t-test. Study designs in which individuals are their own control could provide data amenable to the use of the `paired` argument.
+
+The `sep` argument can be set to an alternative character, in the unforeseen case where tab characters between the CI's and n's are not desirable in the GM and GMR labels.
+
+# `make_forestplot`
+
+Although the `make_forestplot` function ultimately returns a `ggplot` object, it does not rely upon the classic layer-based syntax of `ggplot2`. Users must call it once per plot and provide the appropriate arguments defining the properties of the plot. Nevertheless, the output of `make_forestplot` can be modified by standard `ggplot2` functions, since it is a `ggplot` object.
+
+The use and meaning of the different arguments of `make_forestplot` are illustrated in the examples below. Note that the code sections are hidden by default. Click on the Show / Hide button on the upper right side of each plot to display or hide the corresponding R code sections.
+
+## Basic design
+
+In the example below, the `gmr25_aucss` object is re-created using custom reference levels and labels. In the call to `make_forestplot`:
+  
+* The `x`, `xmin`, and `xmax` arguments are set to the variables storing the GMRs and the associated lower and upper limits of CI in the `data` object;
+* The `y` variable is set to the variable storing the different covariate levels;
+* The `facet` variable is set to the variable storing the covariate labels;
+* The `label` variable is set to the variable storing the GMR labels (in this case GMR + n labels);
+* The `vline_primary` and `vline_secondary` arguments define some primary and secondary values of references;
+* The `fatten` argument control the thickness of symbols and lines on the plots;
+* The `small_font` argument is passed down to a call to `theme_cognigen_grid` and controls whether a smaller font size is used for text displays;
+* The `xlb`, `ylb` (not used below), and `title` are character or expression objects defining axis and plot titles.
+
+```{r, fig.height=7, fig.width=7, class.source = 'fold-hide'}
+gmr25_aucss <- make_gmr_data(
+  data = expo25,
+  x_var = 'AUCSS',
+  id_var = 'ID',
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT', 'HFM'),
+  ref_levels = c(2, 3, 2, 1, 1, 1, 1),
+  labels = c(
+    expression('Age'~'(y)'),
+    expression('Body'~'Weight'~'(kg)'),
+    expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+    expression('Sex'),
+    expression('Renal'~'Function'),
+    expression('Hepatic'~'Function'~'(Child-Pugh)'),
+    expression('Meal'~'Status')
+  ),
+  silent = TRUE
+)
+p1 <- make_forestplot(
+  data = gmr25_aucss,
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(AUC[ss*','~0 ~'-'~24~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+)
+p1
+```
+
+**Note that, although the alignment of the n counts appears incorrect on the right of the plot shown above, it will be correct once the plot in save to a png file.**
+
+When GMR labels are not desired, the `label` argument can be set to NULL or simply not included in the call.
+
+```{r, fig.height=7, fig.width=7, class.source = 'fold-hide'}
+make_forestplot(
+  data = gmr25_aucss,
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = NULL,
+  facet = 'y_label',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(AUC[ss*','~0 ~'-'~24~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+)
+```
+
+## Defining what `n` is
+
+By default, forest plots created with `make_forestplot` identify a data point as an individual (see footnote of the 1st plot in the previous section). You can use the `n_label` argument to change this default if necessary:
+
+```{r, fig.height=7, fig.width=7, class.source = 'fold-hide'}
+
+make_forestplot(
+  data = gmr25_aucss,
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(AUC[ss*','~0 ~'-'~24~h]~'(nmol' %*% 'h/L)'),
+  n_label = 'patient',
+  fatten = 2,
+  small_font = TRUE
+)
+```
+
+## Logarithmic scale for x-axis
+
+The scale of the X-axis can be changed to logarithmic scale as follows (see stratification section below if log scale and stratification are simultaneously needed):
+
+```{r, fig.height=7, fig.width=7, class.source = 'fold-hide'}
+p1 + scale_x_continuous(
+  trans = 'log10',
+  breaks = c(0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4),
+  labels = format_continuous_cognigen
+)
+```
+
+## Highlight reference group
+
+The reference group can be displayed with a unique symbol when the `reference` argument is set to the logical variable storing with information in `data`
+
+```{r, fig.height=7, fig.width=7}
+make_forestplot(
+  data = gmr25_aucss,
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  reference = 'reference',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(AUC[ss*','~0 ~'-'~24~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+)
+```
+
+## Reordering covariate groups
+
+As mentioned above, the `y_var`, `y_label`, and `value` variables in the output of `make_gmr_data` are coerced to factors to facilitate plotting using `make_forestplot`. Within a series of covariate levels, the reference level is always listed first in the output data.frame. This may not always be desirable.
+
+Users can modify the reorder the levels of the `value` factor to modify the 
+
+```{r, fig.height=7, fig.width=7, class.source = 'fold-hide'}
+gmr25_aucss <- gmr25_aucss %>% 
+  mutate(
+    value_mod = factor(value, levels(value)[c(2, 1, 3, 5, 6, 4, 7, 8, 10, 9, 11:20)])
+  )
+levels(gmr25_aucss$value)
+levels(gmr25_aucss$value_mod)
+
+make_forestplot(
+  data = gmr25_aucss,
+  y = 'value_mod', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  reference = 'reference',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(AUC[ss*','~0 ~'-'~24~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+)
+```
+
+## Coloring
+
+If the `color` argument is added to the call to `make_forestplot`, the data shown in the forest plot can be colored according to the value of the defined variable. This requires that the data object passed to the function include a relevant value, which typically has to be created after execution of the `make_gmr_data` function. For instance, it may be useful to color the GMR based upon their location with respect to the `vline_secondary` boundaries as shown below.
+
+```{r, fig.height=7, fig.width=7}
+gmr25_aucss <- gmr25_aucss %>% 
+  mutate(
+    group = factor(
+      ifelse(
+        is.na(gmr),
+        1,
+        ifelse(
+          gmr >= 0.8 & gmr <= 1.25,
+          ifelse( gmr_lo < 0.8 | gmr_hi > 1.25, 2, 1),
+          ifelse( gmr_hi < 0.8 | gmr_lo > 1.25, 4, 3)
+        )
+      ),
+      labels = c('CI inside limits', 'CI partially outside limits', 'GMR outside limits', 'CI fully ouside limits')
+    )
+  )
+
+make_forestplot(
+  data = gmr25_aucss,
+  y = 'value_mod', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  color = 'group',
+  facet = 'y_label',
+  reference = 'reference',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(AUC[ss*','~0 ~'-'~24~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+) + 
+  scale_color_manual(values = c('#008000', '#0000FF', '#FFA000', '#FF0000')) +
+  labs(color = '')  # to remove the legend title
+```
+
+## Stratification
+
+If the `data` object passed to `make_forestplot` contains multiple records per combinations of the `y` and `color` variables, the function automatically detects that the data must be stratified and colored in the forest plot.
+
+```{r, fig.height=10, fig.width=7, class.source = 'fold-hide'}
+gmr_all <- make_gmr_data(
+  data = expo,
+  x_var = c('AUCSS', 'CMAXSS', 'CMINSS'),
+  id_var = 'ID',
+  by = 'DOSE',
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT', 'HFM'),
+  ref_levels = c(2, 3, 2, 1, 1, 1, 1),
+  labels = c(
+    expression('Age'~'(y)'),
+    expression('Body'~'Weight'~'(kg)'),
+    expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+    expression('Sex'),
+    expression('Renal'~'Function'),
+    expression('Hepatic'~'Function'~'(Child-Pugh)'),
+    expression('Meal'~'Status')
+  ),
+  silent = TRUE
+)
+p2 <- make_forestplot(
+  data = subset(gmr_all, x_var == 'AUCSS'),
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  color = 'by',
+  facet = 'y_label',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(AUC[ss*','~0 ~'-'~24~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+) +
+  scale_discrete_cognigen() +
+  labs(color = '')  # to remove the legend title
+p2
+```
+
+Because the implementation of stratification requires the use of facet-specific scales, 
+the X-axis scale cannot be change globally. If a logarithmic scale is required, users must apply the approach illustrated in the example below. In brief, a `scale_x_continuous` function is created and applied to each panel using the `ggh4x::facetted_pos_scales` function. A list with as many levels as there are panels must be created.
+
+```{r, fig.height=10, fig.width=7, class.source = 'fold-hide'}
+logscale <- scale_x_continuous(
+  trans = 'log10',
+  breaks = c(0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4),
+)
+p2 +
+  ggh4x::facetted_pos_scales(
+    x = list(
+      # one element per panel
+      logscale,
+      logscale,
+      logscale,
+      logscale,
+      logscale,
+      logscale,
+      logscale
+    )
+  )
+```
+
+## Multiple exposures
+
+Displaying GMRs for multiple exposures on the same plots is not directly possible with `make_forestplot` but this design can be achieved using the following approach:
+
+1. Users must create one forest plot per exposure;
+2. All N plots must share the same X-axis limits and the same `vline_primary` and `vline_secondary` settings;
+3. For all plots above the bottom one, the title of the X-axis and the footnote must be turned off;
+4. The Y-axis title is used to information about the exposures associated which each individual forest plots;
+5. An empty ggplot plot object must be created; and
+6. A Nx2 layout must be created and the plots arranged with `ggpubr::ggarrange` as shown below (not that the second column of plot is necessary to circumvent a bug with `ggarrange` with does not properly process the secondary y-axis axis showing the GMR labels).
+
+```{r, fig.height=7, fig.width=7, class.source = 'fold-hide'}
+gmr25_all <- make_gmr_data(
+  data = expo25,
+  x_var = c('AUCSS', 'CMAXSS', 'CMINSS'),
+  id_var = 'ID',
+  covariates = c('AGE', 'WTKG', 'HFM'),
+  ref_levels = c(2, 3, 1),
+  labels = c(
+    expression('Age'~'(y)'),
+    expression('Body'~'Weight'~'(kg)'),
+    expression('Meal'~'Status')
+  ),
+  silent = TRUE
+)
+p1_1 <- make_forestplot(
+  data = subset(gmr25_all, x_var == 'CMINSS'),
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = NULL,
+  ylb = expression(C[ss*','*trough]~'(nmol/L)'),
+  fatten = 2,
+  small_font = TRUE
+) +
+  ggplot2::xlim( c(0.5, 1.3) ) +
+  ggplot2::labs( caption = NULL )
+
+p1_2 <- make_forestplot(
+  data = subset(gmr25_all, x_var == 'AUCSS'),
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  ylb = expression(AUC[0 ~'-'~12~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+) +
+  ggplot2::xlim( c(0.5, 1.3) )
+
+p2_1 <- ggplot() + theme_void()
+
+suppressWarnings(
+  ggpubr::ggarrange(
+    p1_1, p2_1, p1_2,
+    nrow = 2, ncol = 2,
+    widths = c(0.95, 0.05),
+    heights = c(0.45, 0.55)
+  )
+)
+
+```
+
+## All-at-once
+
+In this example, all possible options are use. The combination of data stratification, display of multiple exposures, and logarithmic scale requires additional tricks:
+
+1. `ggh4x::facetted_pos_scales` must be called to apply the logarithmic scale to each forest plot;
+2. The legend must be suppressed in each forest plot. However, it must be extracted with `ggpubr::get_legend` in at least 1 forest plot before being suppressed;
+3. A nest layout must be used to vertically center the legend: in the case below, a 2x2 layout within a 1x2 layout.
+
+```{r, fig.height=9, fig.width=7, class.source = 'fold-hide'}
+gmr_all <- make_gmr_data(
+  data = expo,
+  x_var = c('AUCSS', 'CMAXSS', 'CMINSS'),
+  id_var = 'ID',
+  covariates = c('AGE', 'WTKG', 'HFM'),
+  ref_levels = c(2, 3, 1),
+  by = 'DOSE',
+  labels = c(
+    expression('Age'~'(y)'),
+    expression('Body'~'Weight'~'(kg)'),
+    expression('Meal'~'Status')
+  ),
+  silent = TRUE
+)
+p1_1 <- make_forestplot(
+  data = subset(gmr_all, x_var == 'CMINSS'),
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  color = 'by',
+  reference = 'reference',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = NULL,
+  ylb = expression(C[ss*','*trough]~'(nmol/L)'),
+  fatten = 2,
+  small_font = TRUE
+) +
+  ggh4x::facetted_pos_scales(
+    x = list(
+      logscale,
+      logscale,
+      logscale
+    )
+  ) +
+  ggplot2::scale_color_manual(
+    values = get_style_colors(cognigen_style())[-1]
+  ) + 
+  ggplot2::xlim( c(0.5, 1.3) ) +
+  ggplot2::labs( caption = NULL ) +
+  labs(color = '')
+
+# Extract the legend before suppressing it
+plegend <- ggpubr::get_legend(p1_1)
+p1_1 <- p1_1 +
+  theme(legend.position = 'none')
+
+p1_2 <- make_forestplot(
+  data = subset(gmr_all, x_var == 'AUCSS'),
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  color = 'by',
+  reference = 'reference',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  ylb = expression(AUC[0 ~'-'~12~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+)  +
+  ggh4x::facetted_pos_scales(
+    x = list(
+      logscale,
+      logscale,
+      logscale
+    )
+  ) +
+  ggplot2::scale_color_manual(
+    values = get_style_colors(cognigen_style())[-1]
+  ) +
+  ggplot2::xlim( c(0.5, 1.3) ) +
+  theme(legend.position = 'none')
+
+p2_1 <- ggplot() + theme_void()
+
+suppressWarnings(
+  ggpubr::ggarrange(
+  ggpubr::ggarrange(
+    p1_1, p2_1, p1_2, 
+    nrow = 2, ncol = 2, 
+    widths = c(0.95, 0.05),
+    heights = c(0.475, 0.525)
+  ),
+  plegend,
+  nrow = 1,
+  ncol = 2,
+  widths = c(0.85, 0.15)
+)
+)
+
+```
+
+Note that it is not recommended to use `scale_discrete_cognigen` with `make_forestplot` as it would override some scale settings defined with 
+the function itself. Instead use `scale_color_manual` combined with 
+`get_style_colors` as illustrated above.
+
+# `make_gmr_table`
+
+`make_gmr_table` creates report-ready tables of GMs and GMRs data in HTML, Microsoft Word, or PharmTeX-compliant format. This is a relatively simple function which only makes a few assumptions about the data it processes. It was designed to print the output of the `make_gmr_data` output data.frame but typically requires that data.frame to be slightly modified beforehand. These modifications may include dropping one or more unnecessary variables and converting expression into character objects (using the `expr2char` utility function).
+
+Users will be able to set the name of the output table file, request the desired format, and set custom table headers and add a list of custom abbreviations to those that are automatically included by `make_gmr_table` (eg, CI and n).
+
+`make_gmr_table` can creates one or more table files at a time, as illustrated below.
+
+```{r, eval=FALSE, class.source = 'fold-show'}
+
+# Preprocessing 
+gmr_table_data <- gmr_all[, c('x_var', 'y_label', 'value', 'by', 'n', 'gm_label','gmr_label')]
+levels(gmr_table_data[, 'y_label']) <- expr2char(levels(gmr_table_data[, 'y_label']))
+
+# Request html table
+make_gmr_table(
+  data = gmr_table_data,
+  file = 'gmtable.html',
+  format = 'html',
+  headers = c(
+    'Exposure Measure',
+    'Covariate',
+    'Group',
+    'Dose',
+    'n',
+    'Geometric Mean [90% CI]',
+    'Geometric Mean Ratio [90% CI]'
+  ),
+  abbreviations = list(
+    ABC = 'Some custom variable',
+    XYZ = 'Another custom variable'
+  )
+)
+
+# Request Word table
+make_gmr_table(
+  data = gmr_table_data,
+  file = 'gmtable.docx',
+  format = 'word',
+  title = 'Mouh',
+  headers = c(
+    'Exposure Measure',
+    'Covariate',
+    'Group',
+    'n',
+    'Geometric Mean [90% CI]',
+    'Geometric Mean Ratio [90% CI]'
+  ),
+  abbreviations = list(
+    ABC = 'Some custom variable',
+    XYZ = 'Another custom variable'
+  )
+)
+
+# Request both with one call
+make_gmr_table(
+  data = gmr_table_data,
+  file = c('gmtable.html, gmtable.docx'),
+  format = c('html', 'word'),
+  title = 'Mouh',
+  headers = c(
+    'Exposure Measure',
+    'Covariate',
+    'Group',
+    'n',
+    'Geometric Mean [90% CI]',
+    'Geometric Mean Ratio [90% CI]'
+  ),
+  abbreviations = list(
+    ABC = 'Some custom variable',
+    XYZ = 'Another custom variable'
+  )
+)
+
+```

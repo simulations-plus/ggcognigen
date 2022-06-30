@@ -83,9 +83,9 @@ cognigen_style <- function(){
     box.sym = list(
       color = data.frame(
         bwdotpch = c('|', '3', '0', '1', '2', '4', '5', '19', '15', '8', '17'),
-        bwdotcol = c('#000000', '#FF0000', '#0000FF', '#008080', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+        bwdotcol = c('#000000', '#FF0000', '#0000FF', '#008000', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
                      '#888888', '#50E050', '#8F308F'),
-        bwdotfill = c('#000000', '#FF0000', '#0000FF', '#008080', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
+        bwdotfill = c('#000000', '#FF0000', '#0000FF', '#008000', '#FFA000', '#FF00A0', '#00DDFF', '#C76A0C',
                       '#888888', '#50E050', '#8F308F'),
         bwdotcex = rep(0.45, 11),
         stringsAsFactors = FALSE
@@ -167,7 +167,7 @@ cognigen_style <- function(){
       color = data.frame(
         value = c(
           # Observed data
-          '1', '#000000', '0.5',
+          '1', '#5B5B5B', '0.5',
           'solid', '#FF0000', '1.5', 'solid', '#FF0000', '1.5', 'solid', '#FF0000', '1.5',
           # Simulated data
           '#90ee90', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
@@ -176,7 +176,7 @@ cognigen_style <- function(){
         ),
         value2 = c(
           # Observed data
-          '3', '#000000', '0.5',
+          '3', '#5B5B5B', '0.5',
           'solid', '#FF0000', '1.5', 'dashed', '#FF0000', '1.5', 'dashed', '#FF0000', '1.5',
           # Simulated data
           '#90ee90', 'solid', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
@@ -185,7 +185,7 @@ cognigen_style <- function(){
         ),
         value3 = c(
           # Observed data
-          '3', '#000000', '0.5',
+          '3', '#5B5B5B', '0.5',
           'solid', '#FF0000', '1.5', 'solid', '#0000FF', '1.5', 'solid', '#0000FF', '1.5',
           # Simulated data
           '#90ee90', 'solid', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5', 'dashed', '#0000FF', '1.5',
@@ -211,7 +211,7 @@ cognigen_style <- function(){
       grayscale = data.frame(
         value = c(
           # Observed data
-          '3', '#000000', '0.5',
+          '3', '#5B5B5B', '0.5',
           'solid', '#000000', '1.5', 'solid', '#000000', '1.5', 'solid', '#000000', '1.5',
           # Simulated data
           '#D1D1D1', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5',
@@ -220,7 +220,7 @@ cognigen_style <- function(){
         ),
         value2 = c(
           # Observed data
-          '3', '#000000', '0.5',
+          '3', '#5B5B5B', '0.5',
           'dotted', '#000000', '3', 'F8', '#000000', '1.5', 'F8', '#000000', '1.5',
           # Simulated data
           '#D1D1D1', 'solid', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5', 'dashed', '#5F5F5F', '1.5',
@@ -229,7 +229,7 @@ cognigen_style <- function(){
         ),
         value3 = c(
           # Observed data
-          '3', '#000000', '0.5',
+          '3', '#5B5B5B', '0.5',
           'solid', '#000000', '1.5', 'F8', '#000000', '1.5', 'F8', '#000000', '1.5',
           # Simulated data
           '#90ee90', 'solid', '#000000', '1.5', 'dashed', '#000000', '1.5', 'dashed', '#000000', '1.5',
@@ -915,6 +915,44 @@ new_cognigen_style <- function(){
       )
     )
   )
+}
+
+#' Get colors from ggplot2 style
+#'
+#' @description
+#' Extracts \code{color$col} from the user-defined level of a ggplot2 style.
+#'
+#' @param style \code{list} of style elements, liked one return by \code{\link{cognigen_style}}
+#' or \code{\link{read_style}}. Alternatively, \code{style} can be set to \code{'ggplot2'} to revert to the
+#' defaults of the ggplot2 package.
+#' @param element Either 'scatter' (default), 'ramp', 'bar', 'box.sym', 'box.rec', 'hist',
+#' 'hist.dens', 'vpc', 'vpc.style', 'vpc.tte.style', 'spline', 'hline', 'vline', 'abline', 'error',
+#' 'background'
+#'
+#' @export
+#'
+#' @seealso \code{\link{cognigen_style}}
+#' @return
+#' A vector of characters, typically RGB colors in hex format.
+#'
+#' @examples
+#' get_style_colors()
+#' get_style_colors(element = 'bar')
+#' get_style_colors(style = cognigen_purple_style())
+
+get_style_colors <- function(
+  style = cognigen_style(),
+  element = 'scatter'
+){
+
+  element <- element[1]
+
+  if ( !element %in% names(style) ){
+    element <- 'scatter'
+  }
+
+  style[[element]]$color$col
+
 }
 
 #' Set default ggplot2 style when no aesthetics are used. Run by default at startup of

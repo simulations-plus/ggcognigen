@@ -43,3 +43,29 @@
 #'   \item{DOSE}{Dose amoung for stratification}
 #' }
 "histdata"
+
+#' Model-prediction exposures
+#'
+#' @format A data frame with 2436 rows and 17 variables, providing the exposures
+#' for 812 individuals at 3 different dose levels
+#' \describe{
+#'   \item{ID}{Subject ID}
+#'   \item{DOSE}{Dose (mg)}
+#'   \item{AGE}{Age (y)}
+#'   \item{WTKG}{Body weight (kg)}
+#'   \item{BMI}{Body mass index (kg/m2)}
+#'   \item{SEXF}{Sex}
+#'   \item{RFCAT}{Renal function category}
+#'   \item{CPCAT}{Child-Pugh category}
+#'   \item{HFM}{Meal status}
+#'   \item{CL}{Elimination clearance (L/h)}
+#'   \item{V}{Volume of distribution (L)}
+#'   \item{KA}{First-order absorption rate (1/h)}
+#'   \item{F1}{Relative bioavailability (-)}
+#'   \item{AUCSS}{Steady-state area under the curve (nmol*h/L)}
+#'   \item{TMAXSS}{Steady-state time to maximum concentration (h)}
+#'   \item{CMAXSS}{Steady-state maximum concentration (nmol/L)}
+#'   \item{CMINSS}{Steady-state trough concentration (nmol/L)}
+#' }
+"expo"
+

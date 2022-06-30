@@ -14,7 +14,7 @@ scale_discrete_cognigen(
 \arguments{
 \item{n}{number of values to be mapped}
 
-\item{geom}{name of the geom; either 'point', 'line', or 'bar'}
+\item{geom}{name of the geom; either 'point', 'line', 'bar', 'boxplot', or 'histogram'}
 
 \item{style}{\code{list} of style elements}
 
@@ -25,6 +25,8 @@ Discrete scale constructor
 }
 \examples{
 \dontrun{
+# Use the xydata dataset provided in the ggcognigen package
+
 xydata$DOSE <- as.factor(xydata$DOSE)
 
 # scatter plot

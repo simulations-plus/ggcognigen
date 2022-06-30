@@ -119,6 +119,8 @@ ggsave_multiple <- function(
 
   nplots <- length(plots)
 
+  units <- match.arg(units)
+
   build_plots <- lapply(
     seq_along(plots),
     function(iplot, plots){
@@ -185,10 +187,11 @@ ggsave_multiple <- function(
           )
         )
       }
+
       dim <- get_device_size(
         nplots = n_panels,
         layout = ifelse(ncol_panels > nrow_panels, 'landscape', 'portrait'),
-        units = match.arg(units),
+        units = units,
         dpi = dpi
       )
     } else {
@@ -220,7 +223,7 @@ ggsave_multiple <- function(
 
     # Save image
     full_path <- Reduce(file.path, c(path, filename))
-    msg <- glue::glue("Saving {dim[1]} x {dim[2]} {match.arg(units)} image to '{full_path}'")
+    msg <- glue::glue("Saving {dim[1]} x {dim[2]} {units} image to '{full_path}'")
 
     if ( nplots > 1L ){
       msg <- glue::glue("[{iplot}/{nplots}] {msg}")

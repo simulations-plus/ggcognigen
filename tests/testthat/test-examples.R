@@ -176,6 +176,12 @@ ggsave(filename = 'plot.png',
        dpi = 300)
 
 
+# example(s) from: man/get_style_colors.Rd
+
+get_style_colors()
+get_style_colors(element = 'bar')
+get_style_colors(style = cognigen_purple_style())
+
 # example(s) from: man/ggsave_multiple.Rd
 
 
@@ -215,6 +221,122 @@ ggsave_multiple(
 
 
 
+# example(s) from: man/make_forestplot.Rd
+
+
+# Use expo dataset provided in the ggcognigen package
+
+gmrs <- make_gmr_data(
+  x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
+  data = expo,
+  id_var = 'ID',
+  by = 'DOSE',
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT'),
+  labels = c(
+    expression('Age'~'(y)'),
+    expression('Body'~'Weight'~'(kg)'),
+    expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+    expression('Sex'),
+    expression('Renal'~'Function'),
+    expression('Hepatic'~'Function')
+  ),
+  ref_levels = c(2, 3, 2, 1, 1, 1),
+  digits = 3,
+  silent = TRUE
+)
+
+make_forestplot(
+  data = subset(gmrs, x_var == 'AUCSS'),
+  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
+  label = 'gmr_n_label',
+  facet = 'y_label',
+  color = 'by',
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(C[trough]~'(nmol/L)'),
+  fatten = 2,
+  small_font = TRUE
+) +
+  scale_discrete_cognigen(n = 4, geom = 'point')
+
+
+
+# example(s) from: man/make_gmr_data.Rd
+
+
+# Use expo dataset provided in the ggcognigen package
+
+make_gmr_data(
+  x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
+  data = expo,
+  id_var = 'ID',
+  by = NULL,
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT'),
+  labels = c(
+    expression('Age'~'(y)'),
+    expression('Body'~'Weight'~'(kg)'),
+    expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+    expression('Sex'),
+    expression('Renal'~'Function'),
+    expression('Hepatic'~'Function')
+  ),
+  ref_levels = c(2, 3, 2, 1, 1, 1),
+  digits = 3,
+  silent = TRUE
+)
+
+
+# example(s) from: man/make_gmr_table.Rd
+
+
+# Use expo dataset provided in the ggcognigen package
+
+gmrs <- make_gmr_data(
+  x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
+  data = expo,
+  id_var = 'ID',
+  by = 'DOSE',
+  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT'),
+  labels = c(
+    expression('Age'~'(y)'),
+    expression('Body'~'Weight'~'(kg)'),
+    expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+    expression('Sex'),
+    expression('Renal'~'Function'),
+    expression('Hepatic'~'Function')
+  ),
+  ref_levels = c(2, 3, 2, 1, 1, 1),
+  digits = 3,
+  silent = TRUE
+)
+
+gmrs2 <- gmrs[, c('x_var', 'y_label', 'value', 'by', 'n', 'gm_label','gmr_label')]
+levels(gmrs2[, 'y_label']) <- expr2char(levels(gmrs2[, 'y_label']))
+
+make_gmr_table(
+  data = gmrs2,
+  file = c(
+    file.path(tempdir(), 'gmtable.html'),
+    file.path(tempdir(), 'gmtable.docx')
+ ),
+  format = c('html', 'word'),
+  headers = c(
+    'Exposure Measure',
+    'Covariate',
+    'Group',
+    'Dose',
+    'n',
+    'Geometric Mean [90% CI]',
+    'Geometric Mean Ratio [90% CI]'
+  ),
+  abbreviations = list(
+    CI = 'confidence interval'
+  ),
+  n_label = 'patient'
+)
+
+
 # example(s) from: man/scale_continuous_cognigen.Rd
 
 
@@ -238,6 +360,8 @@ ggplot(df, aes(x = value, y = y)) +
 
 # example(s) from: man/scale_discrete_cognigen.Rd
 
+
+# Use the xydata dataset provided in the ggcognigen package
 
 xydata$DOSE <- as.factor(xydata$DOSE)
 

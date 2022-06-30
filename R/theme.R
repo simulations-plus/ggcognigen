@@ -2,6 +2,7 @@
 
 #' Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`
 #'
+#' @param smaller \code{logical} indicating whether to use smaller font size
 #' @param ... additional theme elements to override defaults. See \code{\link[ggplot2]{theme}}.
 #'
 #' @export
@@ -17,7 +18,7 @@
 #'
 #' p + theme_cognigen_grid()
 #' }
-theme_cognigen <- function(...) {
+theme_cognigen <- function(smaller = FALSE, ...) {
 
   # font is set to "" which will default to "sans"
   font <- ""
@@ -34,45 +35,46 @@ theme_cognigen <- function(...) {
       # text elements
       plot.title = ggplot2::element_text(
         family = font,
-        size = 12,
+        size = ifelse(smaller, 11, 12),
         face = "bold",
         vjust = 1
       ),
 
       plot.subtitle = ggplot2::element_text(
         family = font,
-        size = 11
+        size = ifelse(smaller, 10, 11)
       ),
 
       plot.caption = ggplot2::element_text(
         family = font,
-        size = 9
+        size = ifelse(smaller, 8, 9),
+        hjust = 0
       ),
 
       axis.title = ggplot2::element_text(
         family = font,
-        size = 10,
+        size = ifelse(smaller, 9, 10),
         face = "bold"
       ),
 
       axis.text = ggplot2::element_text(
         family = font,
-        size = 9
+        size = ifelse(smaller, 8, 9)
       ),
 
       legend.title = ggplot2::element_text(
         family = font,
-        size = 9
+        size = ifelse(smaller, 8, 9)
       ),
 
       legend.text = ggplot2::element_text(
         family = font,
-        size = 9
+        size = ifelse(smaller, 8, 9)
       ),
 
       strip.text = ggplot2::element_text(
         family = font,
-        size = 9
+        size = ifelse(smaller, 8, 9)
       ),
 
       # facet elements
@@ -92,6 +94,7 @@ theme_cognigen <- function(...) {
 #'
 #' @param major.x,major.y,minor.x,minor.y \code{logical} indicating whether to
 #' draw major/minor grid lines on the respective axis
+#' @param smaller \code{logical} indicating whether to use smaller font size
 #'
 #' @export
 theme_cognigen_grid <- function(
@@ -99,6 +102,7 @@ theme_cognigen_grid <- function(
   major.y = TRUE,
   minor.x = FALSE,
   minor.y = FALSE,
+  smaller = FALSE,
   ...
 ){
 
@@ -107,7 +111,7 @@ theme_cognigen_grid <- function(
   if ( !is.logical(minor.x) ) minor.x <- TRUE
   if ( !is.logical(minor.y) ) minor.y <- TRUE
 
-  theme_cognigen() %+replace%
+  theme_cognigen(smaller = smaller) %+replace%
 
     ggplot2::theme(
       panel.grid.major.x = if (major.x[1]) {

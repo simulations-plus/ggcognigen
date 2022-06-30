@@ -79,10 +79,7 @@ GeomBoxcount <- ggplot2::ggproto(
 
   setup_data = function(data, params) {
     data$xmin <- data$xmax <- data$x
-    if ( !'ymax' %in% names(data) ) {
-      data$ymax <- data$y
-    }
-    data$ymin <- data$ymax
+    data$ymin <- data$ymax <- data$y
     data$width <- 0
     data
   },
