@@ -54,7 +54,7 @@ in the \code{gmr_n_label} output variable}
 \item{digits}{the number of significant digits to apply when creating result
 labels (see Results)}
 
-\item{silent}{a logicial value indicating whether information messages should
+\item{silent}{a logical value indicating whether information messages should
 be shown (FALSE) or hidden (TRUE)}
 }
 \value{
@@ -105,8 +105,8 @@ the \code{make_forestplot} function.
 # Use expo dataset provided in the ggcognigen package
 
 make_gmr_data(
-  x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
   data = expo,
+  x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
   id_var = 'ID',
   by = NULL,
   covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT'),
@@ -122,5 +122,25 @@ make_gmr_data(
   digits = 3,
   silent = TRUE
 )
+
+# same example with tidyverse syntax
+expo \%>\%
+  make_gmr_data(
+    x_var = c(CMAXSS, AUCSS, CMINSS),
+    id_var = ID,
+    by = NULL,
+    covariates = c(AGE, WTKG, BMI, SEXF, RFCAT, CPCAT),
+    labels = c(
+      expression('Age'~'(y)'),
+      expression('Body'~'Weight'~'(kg)'),
+      expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+      expression('Sex'),
+      expression('Renal'~'Function'),
+      expression('Hepatic'~'Function')
+    ),
+    ref_levels = c(2, 3, 2, 1, 1, 1),
+    digits = 3,
+    silent = TRUE
+  )
 }
 }

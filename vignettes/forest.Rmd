@@ -40,6 +40,8 @@ The creation of forest plots with `ggcognigen` is supported by 3 functions:
 * `make_forestplot`: to create forest plots based upon a data object that is typically returned by the previous function; and
 * `make_gmr_table`: to create corresponding report-ready tables in HTML, Microsoft Word, or PharmTeX-compliant format.
 
+The `make_gmr_data` and `make_forest_plot` functions accept both standard and non-standard evaluation notations. Click [here](#NSE) to see an example.
+
 # `make_gmr_data`
 
 The data to be processed by `make_gmr_data` must meet the following expectations:
@@ -248,6 +250,43 @@ make_forestplot(
   fatten = 2,
   small_font = TRUE
 )
+```
+
+## Non-standard evaluation {#NSE}
+
+Below, tidyverse-style syntax and unquoted variables are used to reproduce the same forest plot as above.
+
+```{r, fig.height=7, fig.width=7, class.source = 'fold-hide'}
+gmr25_aucss <- expo25 %>%
+  make_gmr_data(
+    x_var = AUCSS,
+    id_var = ID,
+    covariates = c(AGE, WTKG, BMI, SEXF, RFCAT, CPCAT, HFM),
+    ref_levels = c(2, 3, 2, 1, 1, 1, 1),
+    labels = c(
+      expression('Age'~'(y)'),
+      expression('Body'~'Weight'~'(kg)'),
+      expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+      expression('Sex'),
+      expression('Renal'~'Function'),
+      expression('Hepatic'~'Function'~'(Child-Pugh)'),
+      expression('Meal'~'Status')
+    ),
+    silent = TRUE
+  )
+p1 <- make_forestplot(
+  data = gmr25_aucss,
+  y = value, x = gmr, xmin = gmr_lo, xmax = gmr_hi,
+  label = NULL,
+  facet = y_label,
+  vline_primary = 1,
+  vline_secondary = c(0.8, 1.25),
+  xlb = 'Geometric Mean Ratio [90% confidence interval]',
+  title = expression(AUC[ss*','~0 ~'-'~24~h]~'(nmol' %*% 'h/L)'),
+  fatten = 2,
+  small_font = TRUE
+)
+p1
 ```
 
 ## Defining what `n` is

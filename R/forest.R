@@ -31,7 +31,7 @@
 #' in the \code{gmr_n_label} output variable
 #' @param digits the number of significant digits to apply when creating result
 #' labels (see Results)
-#' @param silent a logicial value indicating whether information messages should
+#' @param silent a logical value indicating whether information messages should
 #' be shown (FALSE) or hidden (TRUE)
 #'
 #' @export
@@ -78,8 +78,8 @@
 #' # Use expo dataset provided in the ggcognigen package
 #'
 #' make_gmr_data(
-#'   x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
 #'   data = expo,
+#'   x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
 #'   id_var = 'ID',
 #'   by = NULL,
 #'   covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT'),
@@ -95,81 +95,45 @@
 #'   digits = 3,
 #'   silent = TRUE
 #' )
+#'
+#' # same example with tidyverse syntax
+#' expo %>%
+#'   make_gmr_data(
+#'     x_var = c(CMAXSS, AUCSS, CMINSS),
+#'     id_var = ID,
+#'     by = NULL,
+#'     covariates = c(AGE, WTKG, BMI, SEXF, RFCAT, CPCAT),
+#'     labels = c(
+#'       expression('Age'~'(y)'),
+#'       expression('Body'~'Weight'~'(kg)'),
+#'       expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+#'       expression('Sex'),
+#'       expression('Renal'~'Function'),
+#'       expression('Hepatic'~'Function')
+#'     ),
+#'     ref_levels = c(2, 3, 2, 1, 1, 1),
+#'     digits = 3,
+#'     silent = TRUE
+#'   )
 #' }
 
 make_gmr_data <- function(
-  data,
-  x_var,
-  id_var,
-  by = NULL,
-  covariates,
-  labels,
-  ref_levels,
-  paired = FALSE,
-  ci = 0.9,
-  sep = '\t',
-  digits = 3L,
-  silent = FALSE
+    data,
+    x_var,
+    id_var,
+    by = NULL,
+    covariates,
+    labels,
+    ref_levels,
+    paired = FALSE,
+    ci = 0.9,
+    sep = '\t',
+    digits = 3L,
+    silent = FALSE
 ){
 
-  if ( missing(x_var) ){
-    stop('x_var argument is missing')
-  }
-  if ( !is.character(x_var) ){
-    stop('x_var is not a character value')
-  }
-  if ( length(x_var) > 1){
-    tmp <- lapply(
-      x_var,
-      function(x, ...){
-        make_gmr_data(x, ...)
-      },
-      data = data,
-      id_var = id_var,
-      by = by,
-      covariates = covariates,
-      labels = labels,
-      ref_levels = ref_levels,
-      paired = paired,
-      ci = ci,
-      digits = digits,
-      silent = silent
-    )
-
-    res <- do.call( 'rbind', tmp )
-    attr(res$y_label, 'expression') <- attr(tmp[[1]]$y_label, 'expression')
-
-    return(res)
-
-  }
-
-  # Functions
-  gm <- function(x){
-    suppressWarnings(exp(mean(log(x))))
-  }
-  gm_ci <- function(x, ci = 0.9){
-    suppressWarnings(
-      exp(
-        stats::quantile(
-          log(x),
-          probs = c(0.5*(1-ci), 1 - 0.5*(1-ci))
-        )
-      )
-    )
-  }
-  gmr_ci <- function(test, ref, paired = FALSE, ci = 0.9){
-    exp(
-      stats::t.test(
-        y = log(ref),
-        x = log(test),
-        paired = paired,
-        mu = 0,
-        conf.level = ci
-      )$conf.int
-    )
-  }
-
   # Validate arguments
+
   if ( missing(data) ){
     stop('data argument is missing')
   }
@@ -178,33 +142,37 @@ make_gmr_data <- function(
     stop('data argument must be a data.frame')
   }
 
+  # confirm data is a data.frame (not a tibble)
+  data <- as.data.frame(dplyr::ungroup(data))
+
+  if ( missing(x_var) ){
+    stop('x_var argument is missing')
+  }
+  x_var <- names(dplyr::select(data, {{ x_var }}))
+
   if ( missing (id_var) ){
     stop('id_var argument is missing')
   }
-  if ( !is.character(id_var) ){
-    stop('id_var is not a character value')
-  }
+  id_var <- names(dplyr::select(data, {{ id_var }}))
+
   if ( length(id_var) > 1 ){
     warning('Only the first element of id_var will be used')
+    id_var <- id_var[1]
   }
-  id_var <- id_var[1]
 
-  if ( length(by) >0 ){
-    if ( !(is.character(by)) ){
-      stop('by is not a character value')
-    }
-
+  # if by=NULL, dplyr::select will return a data.frame with 0 columns
+  by <- names(dplyr::select(data, {{ by }}))
+  if ( length(by) > 0 ){
     if ( length(by) > 1 ){
       warning('Only the first element of by will be used')
+      by <- by[1]
     }
   }
 
   if ( missing(covariates) ){
     stop('covariates argument is missing')
   }
-  if ( !is.character(covariates) ){
-    stop('covariates is not a character vector')
-  }
+  covariates <- names(dplyr::select(data, {{ covariates }}))
 
   if ( missing(labels)){
     # Use label attributes if present, else use the variable names
@@ -269,6 +237,59 @@ make_gmr_data <- function(
     stop('silent is not a logical value')
   }
   silent <- silent[1]
+
+
+  # Functions
+  gm <- function(x){
+    suppressWarnings(exp(mean(log(x))))
+  }
+  gm_ci <- function(x, ci = 0.9){
+    suppressWarnings(
+      exp(
+        stats::quantile(
+          log(x),
+          probs = c(0.5*(1-ci), 1 - 0.5*(1-ci))
+        )
+      )
+    )
+  }
+  gmr_ci <- function(test, ref, paired = FALSE, ci = 0.9){
+    exp(
+      stats::t.test(
+        y = log(ref),
+        x = log(test),
+        paired = paired,
+        mu = 0,
+        conf.level = ci
+      )$conf.int
+    )
+  }
+
+  # Recurse over x_var if necessary
+  if ( length(x_var) > 1){
+    tmp <- lapply(
+      x_var,
+      function(x, ...){
+        make_gmr_data(x, ...)
+      },
+      data = data,
+      id_var = id_var,
+      by = by,
+      covariates = covariates,
+      labels = labels,
+      ref_levels = ref_levels,
+      paired = paired,
+      ci = ci,
+      digits = digits,
+      silent = silent
+    )
+
+    res <- do.call( 'rbind', tmp )
+    attr(res$y_label, 'expression') <- attr(tmp[[1]]$y_label, 'expression')
+
+    return(res)
+
+  }
 
   # Report dimension of data
   nrows <- nrow(data)
@@ -673,31 +694,34 @@ make_gmr_data <- function(
 #' \dontrun{
 #' # Use expo dataset provided in the ggcognigen package
 #'
-#' gmrs <- make_gmr_data(
-#'   x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
-#'   data = expo,
-#'   id_var = 'ID',
-#'   by = 'DOSE',
-#'   covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT'),
-#'   labels = c(
-#'     expression('Age'~'(y)'),
-#'     expression('Body'~'Weight'~'(kg)'),
-#'     expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
-#'     expression('Sex'),
-#'     expression('Renal'~'Function'),
-#'     expression('Hepatic'~'Function')
-#'   ),
-#'   ref_levels = c(2, 3, 2, 1, 1, 1),
-#'   digits = 3,
-#'   silent = TRUE
-#' )
+#' gmrs <- expo %>%
+#'   make_gmr_data(
+#'     x_var = c(CMAXSS, AUCSS, CMINSS),
+#'     id_var = ID,
+#'     by = DOSE,
+#'     covariates = c(AGE, WTKG, BMI, SEXF, RFCAT, CPCAT),
+#'     labels = c(
+#'       expression('Age'~'(y)'),
+#'       expression('Body'~'Weight'~'(kg)'),
+#'       expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+#'       expression('Sex'),
+#'       expression('Renal'~'Function'),
+#'       expression('Hepatic'~'Function')
+#'     ),
+#'     ref_levels = c(2, 3, 2, 1, 1, 1),
+#'     digits = 3,
+#'     silent = TRUE
+#'   )
 #'
 #' make_forestplot(
-#'   data = subset(gmrs, x_var == 'AUCSS'),
-#'   y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
-#'   label = 'gmr_n_label',
-#'   facet = 'y_label',
-#'   color = 'by',
+#'   data = gmrs %>% dplyr::filter(x_var == "AUCSS"),
+#'   x = gmr,
+#'   xmin = gmr_lo,
+#'   xmax = gmr_hi,
+#'   y = value,
+#'   color = by,
+#'   label = gmr_n_label,
+#'   facet = y_label,
 #'   vline_primary = 1,
 #'   vline_secondary = c(0.8, 1.25),
 #'   xlb = 'Geometric Mean Ratio [90% confidence interval]',
@@ -708,29 +732,25 @@ make_gmr_data <- function(
 #'   scale_discrete_cognigen(n = 4, geom = 'point')
 #' }
 #'
-
 make_forestplot <- function(
-  data,
-  x, xmin, xmax, y,
-  color,
-  reference,
-  label,
-  facet,
-  vline_primary = 1,
-  vline_secondary = c(0.8, 1.25),
-  xlb,
-  ylb,
-  title,
-  n_label = 'individual',
-  fatten = 4,
-  small_font = FALSE,
-  is_facet_expression = NULL
+    data,
+    x, xmin, xmax, y,
+    color,
+    reference,
+    label,
+    facet,
+    vline_primary = 1,
+    vline_secondary = c(0.8, 1.25),
+    xlb,
+    ylb,
+    title,
+    n_label = 'individual',
+    fatten = 4,
+    small_font = FALSE,
+    is_facet_expression = NULL
 ){
 
   # Functions
-  check_var <- function(x, data){
-    is.character(x) && length(x) == 1 && x %in% names(data)
-  }
   check_title <- function(x){
     is.character(x) | is.expression(x) | is.null(x)
   }
@@ -744,39 +764,44 @@ make_forestplot <- function(
   }
   # Validate inputs
   if ( missing(data) ){
-    stop('data argment is missing')
+    stop('data argument is missing')
   } else {
     if ( !is.data.frame(data) ){
       stop('data is not a data.frame')
     }
   }
 
+  # confirm data is a data.frame (not a tibble)
+  data <- as.data.frame(dplyr::ungroup(data))
+
+  # required variable arguments
   if ( missing(x) | missing(xmin) | missing(xmax) | missing(y) | missing(facet) ){
     stop('x, xmin, xmax, y, and facet are required arguments')
   }
-  if ( !check_var(x, data) | !check_var(xmin, data) | !check_var(xmax, data) |
-       !check_var(y, data) | !check_var(facet, data) ){
-    stop('x, xmin, xmax, y, and facet must be variables present in data')
-  }
 
-  if ( missing(label) || length(label) == 0 ){
+  x <- names(dplyr::select(data, {{ x }}))
+  xmin <- names(dplyr::select(data, {{ xmin }}))
+  xmax <- names(dplyr::select(data, {{ xmax }}))
+  y <- names(dplyr::select(data, {{ y }}))
+  facet <- names(dplyr::select(data, {{ facet }}))
+
+  # optional variable arguments
+  if ( missing(label) ){
     label <- NULL
-  } else if ( !check_var(label, data) ){
-    stop('label must be a variable present in data')
+  } else {
+    label <- names(dplyr::select(data, {{ label }}))
   }
 
-  if ( missing(color) || length(color) == 0 ){
-      color <- NULL
-  } else if ( !check_var(color, data) ){
-    stop('color must be a variable present in data')
+  if ( missing(color) ){
+    color <- NULL
+  } else {
+    color <- names(dplyr::select(data, {{ color }}))
   }
 
-  if ( missing(reference) || length(reference) == 0 ){
+  if ( missing(reference) ){
     reference <- NULL
   } else {
-    if ( !check_var(reference, data) ){
-      stop('reference must be a variable present in data')
-    }
+    reference <- names(dplyr::select(data, {{ reference }}))
     if ( !is.logical(data[, reference]) ){
       stop('reference must be a logical variable')
     }
@@ -849,7 +874,7 @@ make_forestplot <- function(
   }
 
   # Change label for reference group
-  if ( !missing(label) & length(reference) > 0 ){
+  if ( length(label) > 0 & length(reference) > 0 ){
     data[data$reference, label] <- gsub(
       '1 \\[1, 1\\]\t',
       'Reference',
@@ -1147,14 +1172,14 @@ make_forestplot <- function(
 #' }
 
 make_gmr_table <- function(
-  data,
-  file,
-  format,
-  headers,
-  title,
-  orientation = 'landscape',
-  abbreviations,
-  n_label = 'individual'
+    data,
+    file,
+    format,
+    headers,
+    title,
+    orientation = 'landscape',
+    abbreviations,
+    n_label = 'individual'
 ){
 
   # Create inputs
@@ -1165,6 +1190,9 @@ make_gmr_table <- function(
       stop('data is not a data.frame')
     }
   }
+
+  # confirm data is a data.frame (not a tibble)
+  data <- as.data.frame(dplyr::ungroup(data))
 
   if ( missing(file) ){
     file <- 'R.html'

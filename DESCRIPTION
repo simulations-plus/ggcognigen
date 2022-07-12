@@ -22,7 +22,8 @@ Imports:
     ggforce (>= 0.3.1),
     ggh4x (>= 0.2.0),
     huxtable (>= 4.7.1),
-    kiwiexport (>= 1.1.0)
+    kiwiexport (>= 1.1.0),
+    dplyr
 RoxygenNote: 7.1.2
 Suggests: 
     knitr (>= 1.28),

@@ -1,6 +1,6 @@
 # ggcognigen 1.1.0
 
-* Include new functions supporting the creation of forest plots and associated tables: `make_gmr_data`, `mkae_gmr_table`, and `make_forestplot`.
+* Include new functions supporting the creation of forest plots and associated tables: `make_gmr_data`, `make_gmr_table`, and `make_forestplot`
 
 # ggcognigen 1.0.1
 

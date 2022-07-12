@@ -226,31 +226,34 @@ ggsave_multiple(
 
 # Use expo dataset provided in the ggcognigen package
 
-gmrs <- make_gmr_data(
-  x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
-  data = expo,
-  id_var = 'ID',
-  by = 'DOSE',
-  covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT'),
-  labels = c(
-    expression('Age'~'(y)'),
-    expression('Body'~'Weight'~'(kg)'),
-    expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
-    expression('Sex'),
-    expression('Renal'~'Function'),
-    expression('Hepatic'~'Function')
-  ),
-  ref_levels = c(2, 3, 2, 1, 1, 1),
-  digits = 3,
-  silent = TRUE
-)
+gmrs <- expo %>%
+  make_gmr_data(
+    x_var = c(CMAXSS, AUCSS, CMINSS),
+    id_var = ID,
+    by = DOSE,
+    covariates = c(AGE, WTKG, BMI, SEXF, RFCAT, CPCAT),
+    labels = c(
+      expression('Age'~'(y)'),
+      expression('Body'~'Weight'~'(kg)'),
+      expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+      expression('Sex'),
+      expression('Renal'~'Function'),
+      expression('Hepatic'~'Function')
+    ),
+    ref_levels = c(2, 3, 2, 1, 1, 1),
+    digits = 3,
+    silent = TRUE
+  )
 
 make_forestplot(
-  data = subset(gmrs, x_var == 'AUCSS'),
-  y = 'value', x = 'gmr', xmin = 'gmr_lo', xmax = 'gmr_hi',
-  label = 'gmr_n_label',
-  facet = 'y_label',
-  color = 'by',
+  data = gmrs %>% dplyr::filter(x_var == "AUCSS"),
+  x = gmr,
+  xmin = gmr_lo,
+  xmax = gmr_hi,
+  y = value,
+  color = by,
+  label = gmr_n_label,
+  facet = y_label,
   vline_primary = 1,
   vline_secondary = c(0.8, 1.25),
   xlb = 'Geometric Mean Ratio [90% confidence interval]',
@@ -268,8 +271,8 @@ make_forestplot(
 # Use expo dataset provided in the ggcognigen package
 
 make_gmr_data(
-  x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
   data = expo,
+  x_var = c('CMAXSS', 'AUCSS', 'CMINSS'),
   id_var = 'ID',
   by = NULL,
   covariates = c('AGE', 'WTKG', 'BMI', 'SEXF', 'RFCAT', 'CPCAT'),
@@ -285,6 +288,26 @@ make_gmr_data(
   digits = 3,
   silent = TRUE
 )
+
+# same example with tidyverse syntax
+expo %>%
+  make_gmr_data(
+    x_var = c(CMAXSS, AUCSS, CMINSS),
+    id_var = ID,
+    by = NULL,
+    covariates = c(AGE, WTKG, BMI, SEXF, RFCAT, CPCAT),
+    labels = c(
+      expression('Age'~'(y)'),
+      expression('Body'~'Weight'~'(kg)'),
+      expression('Body'~'Mass'~'Index'~'(kg/'*m^2*')'),
+      expression('Sex'),
+      expression('Renal'~'Function'),
+      expression('Hepatic'~'Function')
+    ),
+    ref_levels = c(2, 3, 2, 1, 1, 1),
+    digits = 3,
+    silent = TRUE
+  )
 
 
 # example(s) from: man/make_gmr_table.Rd
