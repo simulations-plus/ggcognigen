@@ -13,6 +13,7 @@ make_gmr_data(
   labels,
   ref_levels,
   paired = FALSE,
+  var.equal = TRUE,
   ci = 0.9,
   sep = "\\t",
   digits = 3L,
@@ -44,6 +45,9 @@ to have the same length as \code{covariates}}
 
 \item{paired}{a logical value indicating if the results to be compared in the
 calculation of GMRs are paired (TRUE) or not (FALSE, default)}
+
+\item{var.equal}{a logical value indicating if equal variance on the linear
+scale must be assumed (TRUE, default) or not (FALSE)}
 
 \item{ci}{a numerical value between 0 and 1 defining the width of the
 confidence interval around the calculated GMRs}

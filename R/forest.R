@@ -25,6 +25,8 @@
 #' to have the same length as \code{covariates}
 #' @param paired a logical value indicating if the results to be compared in the
 #' calculation of GMRs are paired (TRUE) or not (FALSE, default)
+#' @param var.equal a logical value indicating if equal variance on the linear
+#' scale must be assumed (TRUE, default) or not (FALSE)
 #' @param ci a numerical value between 0 and 1 defining the width of the
 #' confidence interval around the calculated GMRs
 #' @param sep the character that separates counts from GMR + confidence interval
@@ -126,6 +128,7 @@ make_gmr_data <- function(
     labels,
     ref_levels,
     paired = FALSE,
+    var.equal = TRUE,
     ci = 0.9,
     sep = '\t',
     digits = 3L,
@@ -253,14 +256,15 @@ make_gmr_data <- function(
       )
     )
   }
-  gmr_ci <- function(test, ref, paired = FALSE, ci = 0.9){
+  gmr_ci <- function(test, ref, paired = FALSE, var.equal = TRUE, ci = 0.9){
     exp(
       stats::t.test(
         y = log(ref),
         x = log(test),
         paired = paired,
+        var.equal = var.equal,
         mu = 0,
-        conf.level = ci
+        conf.level = ci,
       )$conf.int
     )
   }
@@ -522,7 +526,7 @@ make_gmr_data <- function(
         } else {
           tmp_gm_ci <- gm_ci(test)
           tmp_ci <- try(
-            {gmr_ci(test, ref, paired = paired, ci = ci)},
+            { gmr_ci(test, ref, paired = paired, var.equal = var.equal, ci = ci) },
             silent = TRUE
           )
           if ( class(tmp_ci) == 'try-error'){

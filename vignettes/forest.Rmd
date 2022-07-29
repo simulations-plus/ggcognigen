@@ -179,6 +179,8 @@ unique(gmr_all[, c('x_var', 'by')])
 
 The `paired` argument can be set to TRUE if the values of the `x_var` variables were observed in the same individuals in all levels of each covariates. In this case, the calculation of the GMR CIs is based upon a paired t-test rather than an unpaired t-test. Study designs in which individuals are their own control could provide data amenable to the use of the `paired` argument.
 
+The `var.equal` argument cane be set to FALSE if equal variance between the test and reference groups should NOT be assumed during the t-test.
+
 The `sep` argument can be set to an alternative character, in the unforeseen case where tab characters between the CI's and n's are not desirable in the GM and GMR labels.
 
 # `make_forestplot`
