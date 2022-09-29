@@ -69,7 +69,8 @@ stacked bars or if the counts of each individual component of the
 stacked bars should be displayed.}
 
 \item{digits}{Integer indicating the number of significant digits to be used.
-Recognized values are \code{0..22}. Use \code{digits = 0} to display as integers.}
+Recognized values are \code{0..22}. Use \code{digits = 0} to display as
+integers.}
 
 \item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
 
@@ -96,9 +97,10 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 \code{geom_barcount} and \code{stat_barcount}.}
 }
 \description{
-This function is intended to work in combination with \code{\link[ggplot2]{geom_bar}} and
-to display the sum of the values represented by each bar. Like \code{\link[ggplot2]{geom_bar}},
-this function works if the \code{x} and/or \code{y} aesthetics are provided.
+This function is intended to work in combination with
+\code{\link[ggplot2]{geom_bar}} to display the sum of the values represented
+by each bar. Like \code{\link[ggplot2]{geom_bar}}, this function works if the
+\code{x} and/or \code{y} aesthetics are provided.
 }
 \section{Orientation}{
  

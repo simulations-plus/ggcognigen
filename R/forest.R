@@ -1,5 +1,3 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' Calculate and report geometric means (GM) and geometric mean ratios (GMR)
 #'
 #' @description
@@ -8,39 +6,40 @@
 #' geometric mean ratios (GMR) into a data.frame suitable for plotting using
 #' the \code{make_forestplot} function.
 #'
-#' @param data a data.frame of data provided in wide-form and expected to contain
-#' one record per individual
+#' @param data a data.frame of data provided in wide-form and expected to
+#'   contain one record per individual
 #' @param x_var the variable(s) in \code{data} for which the GM and GMRs must be
-#' calculated
+#'   calculated
 #' @param id_var the variable in \code{data} differentiating individual data
 #' @param by a stratification variable in \code{data}
 #' @param covariates a vector of variables in \code{data}. They are expected to
-#' be categorical variables (either logical, character, or factor) and define
-#' the group for which the GM and GMRs of \code{x_var} are calculated
-#' @param labels a vector of character or expression which defines the labels for
-#' the variables set in \code{covariates}. Expected to have the same length as
-#' \code{covariates}
+#'   be categorical variables (either logical, character, or factor) and define
+#'   the group for which the GM and GMRs of \code{x_var} are calculated
+#' @param labels a vector of character or expression which defines the labels
+#'   for the variables set in \code{covariates}. Expected to have the same
+#'   length as \code{covariates}
 #' @param ref_levels a vector of integer defining the reference level to be used
-#' in the calculation of GMRs for the variables set in \code{covariates}. Expected
-#' to have the same length as \code{covariates}
+#'   in the calculation of GMRs for the variables set in \code{covariates}.
+#'   Expected to have the same length as \code{covariates}
 #' @param paired a logical value indicating if the results to be compared in the
-#' calculation of GMRs are paired (TRUE) or not (FALSE, default)
+#'   calculation of GMRs are paired (TRUE) or not (FALSE, default)
 #' @param var.equal a logical value indicating if equal variance on the linear
-#' scale must be assumed (TRUE, default) or not (FALSE)
+#'   scale must be assumed (TRUE, default) or not (FALSE)
 #' @param ci a numerical value between 0 and 1 defining the width of the
-#' confidence interval around the calculated GMRs
+#'   confidence interval around the calculated GMRs
 #' @param sep the character that separates counts from GMR + confidence interval
-#' in the \code{gmr_n_label} output variable
+#'   in the \code{gmr_n_label} output variable
 #' @param digits the number of significant digits to apply when creating result
-#' labels (see Results)
+#'   labels (see Results)
 #' @param silent a logical value indicating whether information messages should
-#' be shown (FALSE) or hidden (TRUE)
+#'   be shown (FALSE) or hidden (TRUE)
 #'
 #' @export
 #'
 #' @return This function returns a data.frame with one row per variable in
-#' \code{covariates} and level in these variables. The variables in this
-#' data.frame are: \describe{
+#'   \code{covariates} and level in these variables. The variables in this
+#'   data.frame are:
+#' \describe{
 #' \item{x_var}{one of the variables defined in \code{x_var},}
 #' \item{y_var}{one of the variables defined in \code{covariates},}
 #' \item{y_label}{the label associated with each variables defined in
@@ -54,22 +53,24 @@
 #' excluded}
 #' \item{reference}{a logical variable defining whether this particular
 #' level of \code{y_var} is the reference for the calculation of GMRs}
-#' \item{gm}{the GM value for this particular level of \code{y_var} and \code{by}}
+#' \item{gm}{the GM value for this particular level of \code{y_var} and
+#' \code{by}}
 #' \item{gm_lo}{the lower limit of the GM confidence interval}
 #' \item{gm_hi}{the upper limit of the GM confidence interval}
-#' \item{gm_label}{the GM label; structured as X1 [X2, X3], where X1
-#' is \code{gm}, X2 is \code{gm_lo}, X3 is \code{gm_hi}, and
-#' X1, X2, and X3 are formatted to \code{digits} significant digits}
-#' \item{gmr}{the GMR value for this particular level of \code{y_var} and \code{by}
+#' \item{gm_label}{the GM label; structured as X1 [X2, X3], where X1 is
+#' \code{gm}, X2 is \code{gm_lo}, X3 is \code{gm_hi}, and X1, X2, and X3 are
+#' formatted to \code{digits} significant digits} \item{gmr}{the GMR value for
+#' this particular level of \code{y_var} and \code{by}
 #' with respect to the reference level}
 #' \item{gmr_lo}{the lower limit of the GMR confidence interval}
 #' \item{gmr_hi}{the upper limit of the GMR confidence interval}
-#' \item{gmr_label}{the GMR label; structured as X1 [X2, X3], where X1
-#' is \code{gmr}, X2 is \code{gmr_lo}, X3 is \code{gmr_hi}, and
-#' X1, X2, and X3 are formatted to \code{digits} significant digits}
-#' \item{gmr_n_label}{the GMR label with n; structured as X1 [X2, X3] n = X4, where X1
-#' is \code{gmr}, X2 is \code{gmr_lo}, X3 is \code{gmr_hi}, X4 is \code{n}, and
-#' X1, X2, and X3 are formatted to \code{digits} significant digits}
+#' \item{gmr_label}{the GMR label; structured as X1 [X2, X3], where X1 is
+#' \code{gmr}, X2 is \code{gmr_lo}, X3 is \code{gmr_hi}, and X1, X2, and X3 are
+#' formatted to \code{digits} significant digits}
+#' \item{gmr_n_label}{the GMR label with n; structured as X1 [X2, X3] n = X4,
+#' where X1 is \code{gmr}, X2 is \code{gmr_lo}, X3 is \code{gmr_hi}, X4 is
+#' \code{n}, and X1, X2, and X3 are formatted to \code{digits} significant
+#' digits}
 #' }
 #'
 #' \code{y_var}, \code{y_label}, and \code{value} are coerced to factors to
@@ -1422,7 +1423,7 @@ make_gmr_table <- function(
 #'
 #' @description
 #' \code{expr2char} is a utility function to convert expression into character
-#' values which can be called prior to calling \code{make_grm_table} (see examples)
+#' values which can be called prior to calling \code{make_gmr_table} (see examples)
 #'
 #' @param x a vector of expressions
 #'

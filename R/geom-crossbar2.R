@@ -1,5 +1,3 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' Vertical intervals: crossbars
 #'
 #' Represent a vertical interval defined by \code{x},

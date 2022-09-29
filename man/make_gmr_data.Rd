@@ -21,8 +21,8 @@ make_gmr_data(
 )
 }
 \arguments{
-\item{data}{a data.frame of data provided in wide-form and expected to contain
-one record per individual}
+\item{data}{a data.frame of data provided in wide-form and expected to
+contain one record per individual}
 
 \item{x_var}{the variable(s) in \code{data} for which the GM and GMRs must be
 calculated}
@@ -35,13 +35,13 @@ calculated}
 be categorical variables (either logical, character, or factor) and define
 the group for which the GM and GMRs of \code{x_var} are calculated}
 
-\item{labels}{a vector of character or expression which defines the labels for
-the variables set in \code{covariates}. Expected to have the same length as
-\code{covariates}}
+\item{labels}{a vector of character or expression which defines the labels
+for the variables set in \code{covariates}. Expected to have the same
+length as \code{covariates}}
 
 \item{ref_levels}{a vector of integer defining the reference level to be used
-in the calculation of GMRs for the variables set in \code{covariates}. Expected
-to have the same length as \code{covariates}}
+in the calculation of GMRs for the variables set in \code{covariates}.
+Expected to have the same length as \code{covariates}}
 
 \item{paired}{a logical value indicating if the results to be compared in the
 calculation of GMRs are paired (TRUE) or not (FALSE, default)}
@@ -63,8 +63,9 @@ be shown (FALSE) or hidden (TRUE)}
 }
 \value{
 This function returns a data.frame with one row per variable in
-\code{covariates} and level in these variables. The variables in this
-data.frame are: \describe{
+  \code{covariates} and level in these variables. The variables in this
+  data.frame are:
+\describe{
 \item{x_var}{one of the variables defined in \code{x_var},}
 \item{y_var}{one of the variables defined in \code{covariates},}
 \item{y_label}{the label associated with each variables defined in
@@ -78,22 +79,24 @@ attributes in \code{data},}
 excluded}
 \item{reference}{a logical variable defining whether this particular
 level of \code{y_var} is the reference for the calculation of GMRs}
-\item{gm}{the GM value for this particular level of \code{y_var} and \code{by}}
+\item{gm}{the GM value for this particular level of \code{y_var} and
+\code{by}}
 \item{gm_lo}{the lower limit of the GM confidence interval}
 \item{gm_hi}{the upper limit of the GM confidence interval}
-\item{gm_label}{the GM label; structured as X1 [X2, X3], where X1
-is \code{gm}, X2 is \code{gm_lo}, X3 is \code{gm_hi}, and
-X1, X2, and X3 are formatted to \code{digits} significant digits}
-\item{gmr}{the GMR value for this particular level of \code{y_var} and \code{by}
+\item{gm_label}{the GM label; structured as X1 [X2, X3], where X1 is
+\code{gm}, X2 is \code{gm_lo}, X3 is \code{gm_hi}, and X1, X2, and X3 are
+formatted to \code{digits} significant digits} \item{gmr}{the GMR value for
+this particular level of \code{y_var} and \code{by}
 with respect to the reference level}
 \item{gmr_lo}{the lower limit of the GMR confidence interval}
 \item{gmr_hi}{the upper limit of the GMR confidence interval}
-\item{gmr_label}{the GMR label; structured as X1 [X2, X3], where X1
-is \code{gmr}, X2 is \code{gmr_lo}, X3 is \code{gmr_hi}, and
-X1, X2, and X3 are formatted to \code{digits} significant digits}
-\item{gmr_n_label}{the GMR label with n; structured as X1 [X2, X3] n = X4, where X1
-is \code{gmr}, X2 is \code{gmr_lo}, X3 is \code{gmr_hi}, X4 is \code{n}, and
-X1, X2, and X3 are formatted to \code{digits} significant digits}
+\item{gmr_label}{the GMR label; structured as X1 [X2, X3], where X1 is
+\code{gmr}, X2 is \code{gmr_lo}, X3 is \code{gmr_hi}, and X1, X2, and X3 are
+formatted to \code{digits} significant digits}
+\item{gmr_n_label}{the GMR label with n; structured as X1 [X2, X3] n = X4,
+where X1 is \code{gmr}, X2 is \code{gmr_lo}, X3 is \code{gmr_hi}, X4 is
+\code{n}, and X1, X2, and X3 are formatted to \code{digits} significant
+digits}
 }
 
 \code{y_var}, \code{y_label}, and \code{value} are coerced to factors to

@@ -1,14 +1,14 @@
 Package: ggcognigen
 Type: Package
-Title: Cognigen Corporation ggplot2 Functions
-Version: 1.0.1.9000
+Title: Cognigen ggplot2 Functions
+Version: 1.1.0
 Date: $date$
 Authors@R: c(person("Sebastien","Bihorel",role=c("aut","cre"),email="sebastien.bihorel@cognigencorp.com"),
              person("Nash","Delcamp",role=c("aut"),email="nash.delcamp@cognigencorp.com"),
-             person("Cognigen Corporation",role="cph"))
+             person("Cognigen",role="cph"))
 URL: https://gitlab.cognigencorp.com/r/ggcognigen
 BugReports: https://gitlab.cognigencorp.com/r/ggcognigen/-/issues
-Description: Geom, themes, styles, and helper functions for ggplot2 at Cognigen Corporation.
+Description: Geom, themes, styles, and helper functions for ggplot2 at Cognigen.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

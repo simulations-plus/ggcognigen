@@ -1,18 +1,21 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' @rdname geom_boxplot2
-#' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 50). Defaults to 1.5.
+#'
+#' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a
+#'   confidence interval (if greater than or equal to 50). Defaults to 1.5.
+#'
 #' @inheritParams ggplot2::stat_identity
 #' @section Computed variables:
 #' \describe{
 #'   \item{width}{width of boxplot}
-#'   \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR or lower limit of the confidence interval}
+#'   \item{ymin}{lower whisker = smallest observation greater than or equal to
+#'   lower hinge - 1.5 * IQR or lower limit of the confidence interval}
 #'   \item{lower}{lower hinge, 25\% quantile}
 #'   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
 #'   \item{middle}{median, 50\% quantile}
 #'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
 #'   \item{upper}{upper hinge, 75\% quantile}
-#'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR  or upper limit of the confidence interval}
+#'   \item{ymax}{upper whisker = largest observation less than or equal to upper
+#'   hinge + 1.5 * IQR  or upper limit of the confidence interval}
 #' }
 #' @export
 

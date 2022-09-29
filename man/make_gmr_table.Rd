@@ -58,7 +58,7 @@ a character vector
 mean rations (GMRs) into a report-ready table in various formats.
 
 \code{expr2char} is a utility function to convert expression into character
-values which can be called prior to calling \code{make_grm_table} (see examples)
+values which can be called prior to calling \code{make_gmr_table} (see examples)
 }
 \examples{
 \dontrun{

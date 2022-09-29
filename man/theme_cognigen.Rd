@@ -3,7 +3,7 @@
 \name{theme_cognigen}
 \alias{theme_cognigen}
 \alias{theme_cognigen_grid}
-\title{Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`}
+\title{Cognigen ggplot2 themes. Run by default at startup of \code{ggcognigen}}
 \usage{
 theme_cognigen(smaller = FALSE, ...)
 
@@ -19,13 +19,14 @@ theme_cognigen_grid(
 \arguments{
 \item{smaller}{\code{logical} indicating whether to use smaller font size}
 
-\item{...}{additional theme elements to override defaults. See \code{\link[ggplot2]{theme}}.}
+\item{...}{additional theme elements to override defaults. See
+\code{\link[ggplot2]{theme}}.}
 
 \item{major.x, major.y, minor.x, minor.y}{\code{logical} indicating whether to
 draw major/minor grid lines on the respective axis}
 }
 \description{
-Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`
+Cognigen ggplot2 themes. Run by default at startup of \code{ggcognigen}
 }
 \examples{
 \dontrun{

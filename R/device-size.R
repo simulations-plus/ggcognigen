@@ -1,10 +1,10 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
-#' Generate width and height of a device based upon a given number of plots per page
+#' Generate width and height of a device based upon a given number of plots per
+#' page
 #'
 #' @param nplots Number of plots per page.
 #' @param layout Either 'portrait' or 'landscape'.
-#' @param units One of ('in', 'cm', 'mm', 'px'). If not supplied, defaults to 'in'.
+#' @param units One of ('in', 'cm', 'mm', 'px'). If not supplied, defaults to
+#'   'in'.
 #' @param dpi Plot resolution in dot per inch.
 #'
 #' @return A named \code{numeric} vector of width and height

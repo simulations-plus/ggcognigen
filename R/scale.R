@@ -1,11 +1,11 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' Discrete scale constructor
 #'
 #' @param n number of values to be mapped
-#' @param geom name of the geom; either 'point', 'line', 'bar', 'boxplot', or 'histogram'
+#' @param geom name of the geom; either 'point', 'line', 'bar', 'boxplot', or
+#'   'histogram'
 #' @param style \code{list} of style elements
-#' @param grayscale \code{logical} indicating whether the plot should be grayscale
+#' @param grayscale \code{logical} indicating whether the plot should be
+#'   grayscale
 #'
 #' @export
 #'
@@ -258,8 +258,8 @@ scale_discrete_cognigen <- function(
 
     aes_setting <- switch(
       geom,
-      'point' = 'pch',
-      'line' = 'pch',
+      'point' = 'lty',
+      'line' = 'lty',
       'boxplot' = 'value',
       'histogram' = 'hidlty'
     )

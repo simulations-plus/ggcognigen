@@ -70,7 +70,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{digits}{Integer indicating the number of significant digits to be used.
-Recognized values are \code{0..22}. Use \code{digits = 0} to display as integers.}
+Recognized values are \code{0..22}. Use \code{digits = 0} to display as
+integers.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
 or as a function that calculates width from unscaled x. Here, "unscaled x"
@@ -140,16 +141,18 @@ or left edges of bins are included in the bin.}
 frequency polygons touch 0. Defaults to \code{FALSE}.}
 }
 \description{
-This function is intended to work in combination with \code{\link[ggplot2]{geom_histogram}} and
-to display the sum of the values represented by each bar.
+This function is intended to work in combination with
+\code{\link[ggplot2]{geom_histogram}} to display the sum of the values
+represented by each bar.
 
-The same non-default arguments used in the the \code{\link[ggplot2]{geom_histogram}} call should
-also be used in the \code{\link{geom_histcount}} call.
+The same non-default arguments used in the the
+\code{\link[ggplot2]{geom_histogram}} call should also be used in the
+\code{\link{geom_histcount}} call.
 
 Density/percentage can be displayed by setting the \code{y} aesthetic to
-\code{..density..} / \code{..percent..} (which are provided by the \code{bin2} stat) and the
-\code{label} aesthetic to \code{..density_label..} / \code{..percent_label..} (which are
-provided by the \code{histcount} stat).
+\code{..density..} / \code{..percent..} (which are provided by the
+\code{bin2} stat) and the \code{label} aesthetic to \code{..density_label..}
+/ \code{..percent_label..} (which are provided by the \code{histcount} stat).
 }
 \section{Orientation}{
  

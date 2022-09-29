@@ -1,10 +1,9 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' Extension of ggplot2::StatBin
 #'
-#' Adds \code{percent} to the list of variables computed by \code{\link[ggplot2]{stat_bin}}
-#' from the ggplot2 package; \code{percent} represents the percentage of data in
-#' the overall data set, regardless of aesthetics or group.
+#' Adds \code{percent} to the list of variables computed by
+#' \code{\link[ggplot2]{stat_bin}} from the ggplot2 package; \code{percent}
+#' represents the percentage of data in the overall data set, regardless of
+#' aesthetics or group.
 #'
 #' @inheritParams ggplot2::stat_bin
 #' @seealso \code{\link[ggplot2]{stat_bin}}

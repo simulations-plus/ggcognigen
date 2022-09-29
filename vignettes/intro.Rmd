@@ -2,7 +2,7 @@
 title: "Introduction to ggcognigen"
 author:
   - name: "Nash Delcamp, Sebastien Bihorel"
-  - name: "for Cognigen Corporation, a SimulationsPlus Company"
+  - name: "for Cognigen, a SimulationsPlus Company"
 output: 
   html_document:
     toc: true
@@ -31,13 +31,11 @@ knitr::opts_chunk$set(
 
 <br>
 
-`ggcognigen` is a package intended to provide graphical standards for the creation of plots at Cognigen Corporation using a plotting workflow based upon the `ggplot2` package.
+`ggcognigen` is a package intended to provide graphical standards for the creation of plots at Cognigen using a plotting workflow based upon the `ggplot2` package.
 
 # Installing `ggcognigen`
 
-`ggcognigen` is a proprietary package developed by Cognigen Corporation. Its installation, use, copy, and re-distribution are subject to terms specified in the license file included with this package.
-
-Installation of the `ggcognigen` package can be performed using the source code provided in the compressed .tar.gz file which Cognigen Corporation sent you. For instance: 
+Installation of the `ggcognigen` package can be performed using the source code provided in the compressed .tar.gz file which Cognigen sent you. For instance: 
 
 ```{r, eval = FALSE}
 install.packages('ggcognigen_$version$.tar.gz', type = 'source')
@@ -171,9 +169,9 @@ ggpubr::ggarrange(
 
 `scale_discrete_cognigen()` accepts multiple arguments:  
     - `n`: defines the number of distinct data groups in the discrete scale. It is only important to set this argument if there are > 10 distinct groups; in this case, graphical elements get recycled.  
-    - `geom`: defines the type of geoms on which the scale will apply.  
+    - `geom`: defines the type of geom on which the scale will apply.  
     - `style`: a list of graphical settings set to `cognigen_style` by default (see next section).  
-    - `grayscale`: set this argument to FALSE to apply graphical settings using grayscale colors.  
+    - `grayscale`: set this argument to `TRUE` to apply graphical settings using grayscale colors.  
 * for scatter plots, it is important to use both `colour` and `fill` aesthetics so that the different data groups can be distinguishable when the plot is printed in black and white.
 
 
@@ -268,7 +266,7 @@ ggpubr::ggarrange(
 
 The `style` argument of `scale_discrete_cognigen()` and `set_default_style()` can also be used to set a custom style. For this purpose, one could save the output of `cognigen_style()` into a list variable, modify its content (but not its structure), then call `scale_discrete_cognigen` and set the `style` argument to the custom style list.
 
-Alternatively, if this custom style list must be re-used, it can be saved as a JSON file (see `?jsonlite::wrtie_json`). Later, one can use `read_style()` to read the content of the JSON file and re-construct the appropriate style object.
+Alternatively, if this custom style list must be re-used, it can be saved as a JSON file (see `?jsonlite::write_json`). Later, one can use `read_style()` to read the content of the JSON file and re-construct the appropriate style object.
 
 ```{r eval=FALSE}
 ggplot(data = xydata) +

@@ -1,15 +1,10 @@
 # ggcognigen
 
-{ggcognigen} provides geoms, themes, styles, and helper functions for {ggplot2} at Cognigen Corporation.
+`ggcognigen` provides geoms, themes, styles, and helper functions for {ggplot2} at Cognigen.
 
-This package has not been released for production use. When it is available for production use, load it with:
+Load it with:
 ```r
 library(ggcognigen)
-```
-
-Install the development version with:
-```r
-remotes::install_gitlab(repo = "r/ggcognigen", host = "gitlab.cognigencorp.com")
 ```
 
 # Functionality
@@ -27,7 +22,7 @@ Additional geom functions:
 
 - `geom_barcount()`: a utility function working in combination with `geom_bar()` and allowing the display of the (possibly cumulative) count, normalized count, or percentages of the data represented by each bar.
 - `geom_boxplot2()`: a variant on `ggplot2::geom_boxplot()` allowing users to set whisker limits based upon a confidence interval rather than a multiple of the IQR, display outliers with jitter, and providing a slightly different graphical styles for grouping/coloring.
-- `geom_boxcount()`: a utility function working in combination with `geom_boxplot2()` allowing the display of the number of data points used for the calculation of statistics which are graphically represented by each box and whiskers
+- `geom_boxcount()`: a utility function working in combination with `geom_boxplot2()` allowing the display of the number of data points used for the calculation of statistics which are graphically represented by each box and whiskers.
 - `geom_histcount()`: a utility function working in combination with `geom_histogram()` and allowing the display of the cumulative count, density, or percentage of data in each histogram bar.
 
 ## Stats

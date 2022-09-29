@@ -1,5 +1,3 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 # get.structure
 # utility function for style checks
 get.structure <- function(x){
@@ -956,11 +954,12 @@ get_style_colors <- function(
 }
 
 #' Set default ggplot2 style when no aesthetics are used. Run by default at startup of
-#' `ggcognigen`
+#' \code{ggcognigen}
 #'
-#' @param style \code{list} of style elements, liked one return by \code{\link{cognigen_style}}
-#' or \code{\link{read_style}}. Alternatively, \code{style} can be set to \code{'ggplot2'} to revert to the
-#' defaults of the ggplot2 package.
+#' @param style \code{list} of style elements, liked one return by
+#'   \code{\link{cognigen_style}} or \code{\link{read_style}}. Alternatively,
+#'   \code{style} can be set to \code{'ggplot2'} to revert to the defaults of
+#'   the ggplot2 package.
 #'
 #' @return updates elements of default ggplot2 style then invisibly returns \code{NULL}
 #' @export

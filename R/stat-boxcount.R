@@ -1,7 +1,6 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' @rdname geom_boxcount
-#' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 50). Defaults to 1.5.
+#' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a
+#'   confidence interval (if greater than or equal to 50). Defaults to 1.5.
 #' @inheritParams ggplot2::stat_identity
 #' @export
 

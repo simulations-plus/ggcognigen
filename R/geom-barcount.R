@@ -1,10 +1,9 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' Data count for barcounts
 #'
-#' This function is intended to work in combination with \code{\link[ggplot2]{geom_bar}} and
-#' to display the sum of the values represented by each bar. Like \code{\link[ggplot2]{geom_bar}},
-#' this function works if the \code{x} and/or \code{y} aesthetics are provided.
+#' This function is intended to work in combination with
+#' \code{\link[ggplot2]{geom_bar}} to display the sum of the values represented
+#' by each bar. Like \code{\link[ggplot2]{geom_bar}}, this function works if the
+#' \code{x} and/or \code{y} aesthetics are provided.
 #'
 #' @eval ggplot2:::rd_orientation()
 #'
@@ -14,7 +13,8 @@
 #'   stacked bars or if the counts of each individual component of the
 #'   stacked bars should be displayed.
 #' @param digits Integer indicating the number of significant digits to be used.
-#'   Recognized values are \code{0..22}. Use \code{digits = 0} to display as integers.
+#'   Recognized values are \code{0..22}. Use \code{digits = 0} to display as
+#'   integers.
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_barcount} and \code{stat_barcount}.
 #'

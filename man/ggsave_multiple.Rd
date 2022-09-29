@@ -27,9 +27,9 @@ ggsave_multiple(
 (e.g. \code{\link[grDevices]{png}}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 
-\item{path}{Path of the directory to save plot to: \code{path} and \code{filename}
-are combined to create the fully qualified file name. Defaults to the
-working directory.}
+\item{path}{Path of the directory to save plot to: \code{path} and
+\code{filename} are combined to create the fully qualified file name.
+Defaults to the working directory.}
 
 \item{scale}{Multiplicative scaling factor.}
 
@@ -52,16 +52,16 @@ multiple ggplots to multiple files. In particular, it is suitable for saving
 multi-page plots created using \code{\link[ggforce]{facet_grid_paginate}} or
 \code{\link[ggforce]{facet_wrap_paginate}} from the ggforce package.
 
-ggplots are saved in separate files. Therefore, the \code{filenames} and \code{plots}
-arguments must have the same length.
+ggplots are saved in separate files. Therefore, the \code{filenames} and
+\code{plots} arguments must have the same length.
 
 For multi-page ggplots, the filenames can be explicitly provided using a C
-integer format expression, such as \code{'figure\%03d.png'}, to produce successive
-filenames \code{'figure001.png'}, \code{'figure002.png'}, etc. If that is not the case,
-\code{ggsave_multiple()} will automatically detect multi-page plots and amend
-filenames using the format mentioned above. The number of digits used for
-page identification will depend on the number of pages to be created and will
-be 2 at the minimum.
+integer format expression, such as \code{'figure\%03d.png'}, to produce
+successive filenames \code{'figure001.png'}, \code{'figure002.png'}, etc. If
+that is not the case, \code{ggsave_multiple()} will automatically detect
+multi-page plots and amend filenames using the format mentioned above. The
+number of digits used for page identification will depend on the number of
+pages to be created and will be 2 at the minimum.
 }
 \examples{
 \dontrun{

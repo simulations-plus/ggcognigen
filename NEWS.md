@@ -1,6 +1,7 @@
 # ggcognigen 1.1.0
 
 * Include new functions supporting the creation of forest plots and associated tables: `make_gmr_data`, `make_gmr_table`, and `make_forestplot`
+* Update `scale_discrete_cognigen` so linetype aesthetics are respected.
 
 # ggcognigen 1.0.1
 

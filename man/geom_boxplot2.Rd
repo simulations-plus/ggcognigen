@@ -74,18 +74,21 @@ to the paired geom/stat.}
 \item{outlier.position}{By default, outliers are displayed with a small degree of jitter. Sometimes
 it can be useful to hide the outliers, for example when overlaying the raw
 data points on top of the boxplot. Hiding the outliers can be achieved by
-setting \code{outlier.position = NULL}. Importantly, this does not remove the outliers,
-it only hides them, so the range calculated for the y-axis will be the
-same with outliers shown and outliers hidden. If needed, outliers can be
-displayed without jitter by setting \code{outlier.position = 'identity'}.}
+setting \code{outlier.position = NULL}. Importantly, this does not remove
+the outliers, it only hides them, so the range calculated for the y-axis
+will be the same with outliers shown and outliers hidden. If needed,
+outliers can be displayed without jitter by setting \code{outlier.position
+= 'identity'}.}
 
-\item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Aesthetics for outliers inherited from the original \code{\link[ggplot2]{geom_boxplot}} function but that are
-not used in \code{geom_boxplot2}. Instead, outliers inherits colors, shapes, sizes from the box
-aesthetics. These aesthetics were included to maintain code compatibility with
-call to \code{\link[ggplot2]{geom_boxplot}}.}
+\item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Aesthetics for outliers inherited from the original
+\code{\link[ggplot2]{geom_boxplot}} function but that are not used in
+\code{geom_boxplot2}. Instead, outliers inherits colors, shapes, sizes from
+the box aesthetics. These aesthetics were included to maintain code
+compatibility with call to \code{\link[ggplot2]{geom_boxplot}}.}
 
-\item{whisker.cap}{If \code{FALSE} (default), the whiskers are simple segments. If \code{TRUE},
-the end of the whiskers are delineated by orthogonal segments.}
+\item{whisker.cap}{If \code{FALSE} (default), the whiskers are simple
+segments. If \code{TRUE}, the end of the whiskers are delineated by
+orthogonal segments.}
 
 \item{notch}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
@@ -122,53 +125,55 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 \item{geom, stat}{Use to override the default connection between
 \code{geom_boxplot2} and \code{stat_boxplot2}.}
 
-\item{coef}{Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 50). Defaults to 1.5.}
+\item{coef}{Length of the whiskers as multiple of IQR (if lower than 50) or a
+confidence interval (if greater than or equal to 50). Defaults to 1.5.}
 }
 \description{
-The boxplot compactly displays the distribution of a continuous variable.
-It displays five summary statistics (the median, two hinges
-and two whiskers), and all "outlying" points individually. \code{geom_boxplot2()}
-is a variant on the \code{\link[ggplot2]{geom_boxplot}} function from the ggplot2 package.
+The boxplot compactly displays the distribution of a continuous variable. It
+displays five summary statistics (the median, two hinges and two whiskers),
+and all "outlying" points individually. \code{geom_boxplot2()} is a variant
+on the \code{\link[ggplot2]{geom_boxplot}} function from the ggplot2 package.
 It allows users to set whisker limits based upon a confidence interval rather
 than a multiple of the IQR, allows to display outliers with jitter, and
-provides slightly different graphical styles when grouping/coloring is
-used.
+provides slightly different graphical styles when grouping/coloring is used.
 }
 \section{Summary statistics}{
 
-The lower and upper hinges correspond to the first and third quartiles
-(the 25th and 75th percentiles). This differs slightly from the method used
-by the \code{\link[graphics]{boxplot}} function, and may be apparent with small samples.
-See \code{\link[grDevices]{boxplot.stats}} for for more information on how hinge
-positions are calculated for \code{\link[graphics]{boxplot}}.
+The lower and upper hinges correspond to the first and third quartiles (the
+25th and 75th percentiles). This differs slightly from the method used by the
+\code{\link[graphics]{boxplot}} function, and may be apparent with small
+samples. See \code{\link[grDevices]{boxplot.stats}} for for more information
+on how hinge positions are calculated for \code{\link[graphics]{boxplot}}.
 
 By default, the upper whisker extends from the hinge to the largest value no
 further than 1.5 * IQR from the hinge (where IQR is the inter-quartile range,
 or distance between the first and third quartiles). The lower whisker extends
-from the hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond
-the end of the whiskers are called "outlying" points and are plotted
+from the hinge to the smallest value at most 1.5 * IQR of the hinge. Data
+beyond the end of the whiskers are called "outlying" points and are plotted
 individually. If a \code{coef} argument is provided to the function call, the
-whiskers may extend to alternative limits. If \code{coef} is set to a value lower
-than 50, the value is used a multiplier to the IQR (default is 1.5 as explained
-above). If \code{coef} is set to value greater than or equal to 50, the whiskers
-extend to the limit of the \code{coef} confidence interval.
+whiskers may extend to alternative limits. If \code{coef} is set to a value
+lower than 50, the value is used a multiplier to the IQR (default is 1.5 as
+explained above). If \code{coef} is set to value greater than or equal to 50,
+the whiskers extend to the limit of the \code{coef} confidence interval.
 
-In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
-This gives a roughly 95% confidence interval for comparing medians.
-See McGill et al. (1978) for more details.
+In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}. This
+gives a roughly 95% confidence interval for comparing medians. See McGill et
+al. (1978) for more details.
 }
 
 \section{Computed variables}{
 
 \describe{
   \item{width}{width of boxplot}
-  \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR or lower limit of the confidence interval}
+  \item{ymin}{lower whisker = smallest observation greater than or equal to
+  lower hinge - 1.5 * IQR or lower limit of the confidence interval}
   \item{lower}{lower hinge, 25\% quantile}
   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
   \item{middle}{median, 50\% quantile}
   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
   \item{upper}{upper hinge, 75\% quantile}
-  \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR  or upper limit of the confidence interval}
+  \item{ymax}{upper whisker = largest observation less than or equal to upper
+  hinge + 1.5 * IQR  or upper limit of the confidence interval}
 }
 }
 
@@ -221,5 +226,6 @@ McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
     box plots. The American Statistician 32, 12-16.
 }
 \seealso{
-\code{\link[ggplot2]{geom_boxplot}} for original ggplot2 geom function.
+\code{\link[ggplot2]{geom_boxplot}} for original ggplot2 geom
+  function.
 }

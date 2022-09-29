@@ -3,7 +3,8 @@
 \name{get_device_size}
 \alias{get_device_size}
 \alias{get_device_size_pixel}
-\title{Generate width and height of a device based upon a given number of plots per page}
+\title{Generate width and height of a device based upon a given number of plots per
+page}
 \usage{
 get_device_size(
   nplots = 1,
@@ -19,7 +20,8 @@ get_device_size_pixel(nplots = 1, layout = "portrait", dpi = 300)
 
 \item{layout}{Either 'portrait' or 'landscape'.}
 
-\item{units}{One of ('in', 'cm', 'mm', 'px'). If not supplied, defaults to 'in'.}
+\item{units}{One of ('in', 'cm', 'mm', 'px'). If not supplied, defaults to
+'in'.}
 
 \item{dpi}{Plot resolution in dot per inch.}
 }
@@ -29,7 +31,8 @@ A named \code{numeric} vector of width and height
 A named \code{numeric} vector of width and height
 }
 \description{
-Generate width and height of a device based upon a given number of plots per page
+Generate width and height of a device based upon a given number of plots per
+page
 
 Generate width and height in pixels of a device based upon a given number of plots per page
 }

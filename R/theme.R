@@ -1,9 +1,8 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
-#' Cognigen ggplot2 themes. Run by default at startup of `ggcognigen`
+#' Cognigen ggplot2 themes. Run by default at startup of \code{ggcognigen}
 #'
 #' @param smaller \code{logical} indicating whether to use smaller font size
-#' @param ... additional theme elements to override defaults. See \code{\link[ggplot2]{theme}}.
+#' @param ... additional theme elements to override defaults. See
+#'   \code{\link[ggplot2]{theme}}.
 #'
 #' @export
 #'

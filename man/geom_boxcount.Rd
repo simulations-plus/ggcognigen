@@ -61,10 +61,10 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{outlier.position}{This controls the placement of the counts above the boxes, depending on
-whether outliers were hidden (\code{outlier.position = NULL}) or
-displayed (\code{outlier.position = 'identity'} or \code{outlier.position = 'jitter'})
-when the call to \code{\link{geom_boxplot2}} was made. By default, outliers are
-assumed to be displayed.}
+whether outliers were hidden (\code{outlier.position = NULL}) or displayed
+(\code{outlier.position = 'identity'} or \code{outlier.position =
+'jitter'}) when the call to \code{\link{geom_boxplot2}} was made. By
+default, outliers are assumed to be displayed.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -88,12 +88,14 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 \item{geom, stat}{Use to override the default connection between
 \code{geom_boxcount} and \code{stat_boxcount}.}
 
-\item{coef}{Length of the whiskers as multiple of IQR (if lower than 50) or a confidence interval (if greater than or equal to 50). Defaults to 1.5.}
+\item{coef}{Length of the whiskers as multiple of IQR (if lower than 50) or a
+confidence interval (if greater than or equal to 50). Defaults to 1.5.}
 }
 \description{
-This function is intended to work in combination with \code{\link{geom_boxplot2}}
-to display the number of data points used for the calculation of statistics
-which are graphically represented by each box and whiskers.
+This function is intended to work in combination with
+\code{\link{geom_boxplot2}} to display the number of data points used for the
+calculation of statistics which are graphically represented by each box and
+whiskers.
 }
 \examples{
 \dontrun{

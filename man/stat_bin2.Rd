@@ -120,9 +120,10 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 }
 \description{
-Adds \code{percent} to the list of variables computed by \code{\link[ggplot2]{stat_bin}}
-from the ggplot2 package; \code{percent} represents the percentage of data in
-the overall data set, regardless of aesthetics or group.
+Adds \code{percent} to the list of variables computed by
+\code{\link[ggplot2]{stat_bin}} from the ggplot2 package; \code{percent}
+represents the percentage of data in the overall data set, regardless of
+aesthetics or group.
 }
 \examples{
 \dontrun{

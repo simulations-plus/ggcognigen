@@ -3,21 +3,22 @@
 \name{set_default_style}
 \alias{set_default_style}
 \title{Set default ggplot2 style when no aesthetics are used. Run by default at startup of
-`ggcognigen`}
+\code{ggcognigen}}
 \usage{
 set_default_style(style = cognigen_style())
 }
 \arguments{
-\item{style}{\code{list} of style elements, liked one return by \code{\link{cognigen_style}}
-or \code{\link{read_style}}. Alternatively, \code{style} can be set to \code{'ggplot2'} to revert to the
-defaults of the ggplot2 package.}
+\item{style}{\code{list} of style elements, liked one return by
+\code{\link{cognigen_style}} or \code{\link{read_style}}. Alternatively,
+\code{style} can be set to \code{'ggplot2'} to revert to the defaults of
+the ggplot2 package.}
 }
 \value{
 updates elements of default ggplot2 style then invisibly returns \code{NULL}
 }
 \description{
 Set default ggplot2 style when no aesthetics are used. Run by default at startup of
-`ggcognigen`
+\code{ggcognigen}
 }
 \examples{
 \dontrun{

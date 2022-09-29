@@ -14,11 +14,13 @@ scale_discrete_cognigen(
 \arguments{
 \item{n}{number of values to be mapped}
 
-\item{geom}{name of the geom; either 'point', 'line', 'bar', 'boxplot', or 'histogram'}
+\item{geom}{name of the geom; either 'point', 'line', 'bar', 'boxplot', or
+'histogram'}
 
 \item{style}{\code{list} of style elements}
 
-\item{grayscale}{\code{logical} indicating whether the plot should be grayscale}
+\item{grayscale}{\code{logical} indicating whether the plot should be
+grayscale}
 }
 \description{
 Discrete scale constructor

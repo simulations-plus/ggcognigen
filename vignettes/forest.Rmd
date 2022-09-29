@@ -2,7 +2,7 @@
 title: "Forest plot creation with ggcognigen"
 author:
   - name: "Sebastien Bihorel"
-  - name: "for Cognigen Corporation, a SimulationsPlus Company"
+  - name: "for Cognigen, a SimulationsPlus Company"
 output: 
   html_document:
     code_folding: hide
@@ -55,7 +55,7 @@ The data to be processed by `make_gmr_data` must meet the following expectations
 
 The creation of such data objects is out of the scope of this vignette. 
 
-The operation of the `make_gmr_data` is explained in the examples shown below, starting from a basic case and finishing with the use of advanced settings. All examples rely on a dataset called `expo` which is distributed within the `ggcognigen` package. The `expo` dataset provides 3 steady-state exposures (AUCSS, CMAXSS, and CMINSS) that were predicted in a small population of individuals at 3 different dose levels (25, 50, and 100 mg), using a 1-compartment model with dose-dependent absorption. The dataset also includes the individual values of  pharmacokinetic parameters (CL, V, KA, and F1) and several covariate values.
+The operation of the `make_gmr_data` is explained in the examples shown below, starting from a basic case and finishing with the use of advanced settings. All examples rely on a dataset called `expo` which is distributed within the `ggcognigen` package. The `expo` dataset provides 3 steady-state exposures (AUCSS, CMAXSS, and CMINSS) that were predicted in a small population of individuals at 3 different dose levels (25, 50, and 100 mg), using a 1-compartment model with dose-dependent absorption. The dataset also includes the individual values of pharmacokinetic parameters (CL, V, KA, and F1) and several covariate values.
 
 ```{r echo=FALSE, message=FALSE}
 library(tidyverse)
@@ -653,7 +653,7 @@ the function itself. Instead use `scale_color_manual` combined with
 
 `make_gmr_table` creates report-ready tables of GMs and GMRs data in HTML, Microsoft Word, or PharmTeX-compliant format. This is a relatively simple function which only makes a few assumptions about the data it processes. It was designed to print the output of the `make_gmr_data` output data.frame but typically requires that data.frame to be slightly modified beforehand. These modifications may include dropping one or more unnecessary variables and converting expression into character objects (using the `expr2char` utility function).
 
-Users will be able to set the name of the output table file, request the desired format, and set custom table headers and add a list of custom abbreviations to those that are automatically included by `make_gmr_table` (eg, CI and n).
+Users will be able to set the name of the output table file, request the desired format, and set custom table headers and add a list of custom abbreviations to those that are automatically included by `make_gmr_table` (i.e., CI and n).
 
 `make_gmr_table` can creates one or more table files at a time, as illustrated below.
 

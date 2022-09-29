@@ -1,10 +1,9 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' Data count for box and whiskers plot
 #'
-#' This function is intended to work in combination with \code{\link{geom_boxplot2}}
-#' to display the number of data points used for the calculation of statistics
-#' which are graphically represented by each box and whiskers.
+#' This function is intended to work in combination with
+#' \code{\link{geom_boxplot2}} to display the number of data points used for the
+#' calculation of statistics which are graphically represented by each box and
+#' whiskers.
 #'
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar
@@ -12,10 +11,10 @@
 #'   \code{geom_boxcount} and \code{stat_boxcount}.
 #' @param outlier.position
 #'   This controls the placement of the counts above the boxes, depending on
-#'   whether outliers were hidden (\code{outlier.position = NULL}) or
-#'   displayed (\code{outlier.position = 'identity'} or \code{outlier.position = 'jitter'})
-#'   when the call to \code{\link{geom_boxplot2}} was made. By default, outliers are
-#'   assumed to be displayed.
+#'   whether outliers were hidden (\code{outlier.position = NULL}) or displayed
+#'   (\code{outlier.position = 'identity'} or \code{outlier.position =
+#'   'jitter'}) when the call to \code{\link{geom_boxplot2}} was made. By
+#'   default, outliers are assumed to be displayed.
 #'
 #' @seealso \code{\link{geom_boxplot2}}
 #' @export

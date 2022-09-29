@@ -1,5 +1,3 @@
-# Copyright 2020-$date Cognigen Corporation, a Simulations Plus Company
-
 #' @rdname geom_histcount
 #' @inheritParams ggplot2::stat_identity
 #' @export

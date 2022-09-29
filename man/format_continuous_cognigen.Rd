@@ -16,15 +16,16 @@ minor_breaks_log(x)
 \item{x}{breaks}
 }
 \value{
-either a \code{numeric} or \code{expression} vector the same length as \code{x}
+either a \code{numeric} or \code{expression} vector the same length
+  as \code{x}
 }
 \description{
-\code{format_continuous_cognigen} can be passed to the \code{labels}
-argument of \code{scale_*_continuous} functions to format continuous values.
+\code{format_continuous_cognigen} can be passed to the \code{labels} argument
+of \code{scale_*_continuous} functions to format continuous values.
 
 \code{major_breaks_log} and \code{minor_breaks_log} can be passed to
-\code{breaks} and \code{minor_breaks} in \code{scale_*} functions to
-format log10 axis scales, respectively.
+\code{breaks} and \code{minor_breaks} in \code{scale_*} functions to format
+log10 axis scales, respectively.
 }
 \examples{
 \dontrun{
