@@ -41,4 +41,5 @@ and form a matrix shape within the main table.
 \author{
 Sebastien Bihorel
 }
+\keyword{internal}
 \keyword{methods}

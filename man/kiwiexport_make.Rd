@@ -44,4 +44,5 @@ containing one or more tables.
 \author{
 Sebastien Bihorel
 }
+\keyword{internal}
 \keyword{methods}

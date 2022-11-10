@@ -21,7 +21,7 @@
 #' @return \code{merge_repeated_cells} returns a huxtable object with merged
 #' cells.
 #' @author Sebastien Bihorel
-#' @keywords methods
+#' @keywords methods internal
 merge_repeated_cells <- function(
     ht,
     row,
@@ -190,7 +190,7 @@ merge_repeated_cells <- function(
 #' for export into .docx (Microsoft Word) documents.
 #' @author Sebastien Bihorel
 #' @seealso \code{\link[huxtable]{position}},
-#' @keywords methods
+#' @keywords methods internal
 NULL
 
 theme_border <- function(ht, bold_rows = 1, bold_cols = 1, position = 'left', format){
@@ -312,7 +312,7 @@ theme_border_flextable <- function(ht, header_rows) {
 #' parameter estimates and standard errors table (TRUE) or not (FALSE).
 #' }
 #' @author Sebastien Bihorel
-#' @keywords methods
+#' @keywords methods internal
 NULL
 
 make_html <- function (

@@ -38,4 +38,5 @@ object prior to applying the same theme.
 \author{
 Sebastien Bihorel
 }
+\keyword{internal}
 \keyword{methods}
