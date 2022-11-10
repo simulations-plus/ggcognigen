@@ -1072,7 +1072,7 @@ read_style <- function(path){
   invalid <- FALSE
   default <- cognigen_style()
 
-  if ( class(json) == 'try-error') {
+  if ( inherits(json, 'try-error') ) {
     invalid <- TRUE
   }
 

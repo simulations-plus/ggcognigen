@@ -1,3 +1,8 @@
+# ggcognigen 1.1.1
+* Update various `class` checks to use `inherits`.
+* Remove dependency on kiwiexport package.
+* Fix bug in `make_forestplot` where labels on the right side were wrongly ordered when data was re-ordered and stratified.
+
 # ggcognigen 1.1.0
 
 * Include new functions supporting the creation of forest plots and associated tables: `make_gmr_data`, `make_gmr_table`, and `make_forestplot`

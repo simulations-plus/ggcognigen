@@ -1,14 +1,14 @@
 Package: ggcognigen
 Type: Package
 Title: Cognigen ggplot2 Functions
-Version: 1.1.0
+Version: 1.1.1
 Date: $date$
 Authors@R: c(person("Sebastien","Bihorel",role=c("aut","cre"),email="sebastien.bihorel@cognigencorp.com"),
              person("Nash","Delcamp",role=c("aut"),email="nash.delcamp@cognigencorp.com"),
              person("Cognigen",role="cph"))
 URL: https://gitlab.cognigencorp.com/r/ggcognigen
 BugReports: https://gitlab.cognigencorp.com/r/ggcognigen/-/issues
-Description: Geom, themes, styles, and helper functions for ggplot2 at Cognigen.
+Description: Geoms, themes, styles, and helper functions for ggplot2 at Cognigen.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -22,8 +22,10 @@ Imports:
     ggforce (>= 0.3.1),
     ggh4x (>= 0.2.0),
     huxtable (>= 4.7.1),
-    kiwiexport (>= 1.1.0),
-    dplyr
+    dplyr,
+    officer,
+    flextable,
+    assertthat
 RoxygenNote: 7.1.2
 Suggests: 
     knitr (>= 1.28),

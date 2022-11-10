@@ -325,8 +325,8 @@ make_gmr_data <- function(
   is_categorical <- sapply(
     covariates,
     function(x, data){
-      all(class(data[, x]) == 'character') |
-        all(class(data[, x]) == 'logical') |
+      inherits(data[, x], 'character') |
+        inherits(data[, x], 'logical') |
         inherits(data[, x], 'factor')
     },
     data
@@ -530,7 +530,7 @@ make_gmr_data <- function(
             { gmr_ci(test, ref, paired = paired, var.equal = var.equal, ci = ci) },
             silent = TRUE
           )
-          if ( class(tmp_ci) == 'try-error'){
+          if ( inherits(tmp_ci, 'try-error') ){
             tmp_ci <- rep(NA, 2)
           }
           if (ilevel == 1){
@@ -922,6 +922,12 @@ make_forestplot <- function(
         fac_breaks1 <- seq_along(fac_labels1)
 
         fac_labels2 <- data[data[, facet]==fac, label]
+        fac_labels2 <- fac_labels2[
+          do.call(
+            base::order,
+            data[data[, facet]==fac, c('by', 'y_mod')]
+          )
+        ]
         fac_range <- 0.9*(nstrata-1)/nstrata
         fac_breaks2 <- as.vector(
           outer(
@@ -1343,7 +1349,7 @@ make_gmr_table <- function(
         after = 0
       )
       names(ht) <- tmp
-      ht <- kiwiexport::merge_repeated_cells(ht, 1, 1:ncol(ht))
+      ht <- merge_repeated_cells(ht, 1, 1:ncol(ht))
     }
   }
 
@@ -1367,15 +1373,15 @@ make_gmr_table <- function(
   ht <- huxtable::set_align(ht, row = nrow(ht), col = 1:ncol(ht), value = 'left')
 
   # Merge cells
-  ht <- kiwiexport::merge_repeated_cells(ht, 1:nrow(ht), 1)
-  ht <- kiwiexport::merge_repeated_cells(ht, 1:nrow(ht), 2)
-  ht <- kiwiexport::merge_repeated_cells(ht, nrow(ht), 1:ncol(ht))
+  ht <- merge_repeated_cells(ht, 1:nrow(ht), 1)
+  ht <- merge_repeated_cells(ht, 1:nrow(ht), 2)
+  ht <- merge_repeated_cells(ht, nrow(ht), 1:ncol(ht))
 
   # Formatting
   if ( format %in% c('html', 'latex') ){
     huxtable::wrap(ht) <- TRUE
     huxtable::position(ht) <- 'center'
-    ht <- kiwiexport::theme_border(
+    ht <- theme_border(
       ht,
       bold_rows = 1,
       bold_cols = 1,
@@ -1385,26 +1391,26 @@ make_gmr_table <- function(
     huxtable::width(ht) <- ifelse( format == 'html', 0.75, 1 )
   } else {
     if ( !missing(title) ){
-      ht <- kiwiexport::theme_border_flextable(ht, header_rows = 1:2)
+      ht <- theme_border_flextable(ht, header_rows = 1:2)
     } else {
-      ht <- kiwiexport::theme_border_flextable(ht, header_rows = 1)
+      ht <- theme_border_flextable(ht, header_rows = 1)
     }
   }
 
   # Create table file
   if ( format == 'html' ){
-    kiwiexport::make_html(
+    make_html(
       ht,
       file = file
     )
   } else if ( format == 'word' ){
-    kiwiexport::make_docx(
+    make_docx(
       ht,
       file = file,
       orientation = orientation
     )
   } else {
-    kiwiexport::make_latex(
+    make_latex(
       ht,
       file = file,
       options = list(

@@ -103,7 +103,7 @@ ggsave_multiple <- function(
     stop('plots argument is empty.')
   }
 
-  if ( !all(class(plots) == 'list') ){
+  if ( !inherits(plots, 'list') ){
     plots <- list(plots)
   }
 
