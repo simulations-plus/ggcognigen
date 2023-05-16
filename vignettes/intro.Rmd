@@ -397,6 +397,8 @@ ggplot(mpg, aes(class, hwy)) +
   scale_y_continuous(trans = 'log10')
 ```
 
+See `?geom_boxcount` for more information about the `spacing` argument that controls the amount of margin used between the boxplot whisker limits or maximum outlier values and the displayed counts.
+
 ## `geom_barcount()`
 
 This function is intended to work in combination with `geom_bar()` and to display, by default, the sum of the values represented by each bar. Note that any non-default argument set in the `geom_bar()` call should also be set in the `geom_barcount()` call.

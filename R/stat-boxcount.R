@@ -1,20 +1,28 @@
 #' @rdname geom_boxcount
 #' @param coef Length of the whiskers as multiple of IQR (if lower than 50) or a
 #'   confidence interval (if greater than or equal to 50). Defaults to 1.5.
+#' @param spacing Fraction of the panel range used as the margin between the
+#'   boxplot and the count. If spacing is positive, counts are displayed using a
+#'   margin that is relative to the maximum value of each boxplot. If spacing is
+#'   negative, counts are displayed using a margin that is relative to the
+#'   minimum value of each boxplot. If spacing is Inf, all counts are displayed
+#'   at the top of the data range. If spacing if -Inf, all counts are displayed
+#'   at the bottom of the data range. Defaults to 0.05.
 #' @inheritParams ggplot2::stat_identity
 #' @export
 
 stat_boxcount <- function(
-  mapping = NULL,
-  data = NULL,
-  geom = "boxcount",
-  position = "dodge2",
-  ...,
-  coef = 1.5,
-  na.rm = FALSE,
-  orientation = NA,
-  show.legend = FALSE,
-  inherit.aes = TRUE) {
+    mapping = NULL,
+    data = NULL,
+    geom = "boxcount",
+    position = "dodge2",
+    ...,
+    coef = 1.5,
+    spacing = 0.05,
+    na.rm = FALSE,
+    orientation = NA,
+    show.legend = FALSE,
+    inherit.aes = TRUE) {
   ggplot2::layer(
     data = data,
     mapping = mapping,
@@ -24,6 +32,7 @@ stat_boxcount <- function(
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      spacing = spacing,
       na.rm = na.rm,
       orientation = orientation,
       coef = coef,
@@ -50,7 +59,6 @@ StatBoxcount <- ggplot2::ggproto(
       vars = "x",
       name = "stat_boxcount"
     )
-    data$y <- data$y + 0.05 * diff(range(data$y, na.rm = TRUE))
     ggplot2::flip_data(data, params$flipped_aes)
   },
 
@@ -66,17 +74,25 @@ StatBoxcount <- ggplot2::ggproto(
       rlang::abort("stat_boxcount() requires an x or y aesthetic.")
     }
 
-    if (is.double(data$x) && !ggplot2::has_groups(data) && any(data$x != data$x[1L])) {
-      warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
+    if (is.double(data$x) && !ggplot2:::has_groups(data) && any(data$x != data$x[1L])) {
+      rlang::warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
     }
 
     params
   },
 
-  extra_params = c("na.rm", "orientation", "coef"),
+  extra_params = c("spacing", "na.rm", "orientation", "coef"),
 
-  compute_group = function(data, scales, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
+  compute_group = function(data, scales, spacing = 0.05, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
+
+    if ( any(is.na(spacing)) ){
+      spacing <- 0.05
+    }
+
+    if ( is.finite(spacing) ){
+      data$y <- data$y + spacing * diff(scales$y$range$range)
+    }
 
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
@@ -104,10 +120,22 @@ StatBoxcount <- ggplot2::ggproto(
       stats[c(1,5)] <- ci
     }
 
+    # update ymin and ymax if spacing is +/- Inf
+    if ( !is.finite(spacing) ){
+      stats[c(1,5)] <- c(
+        scales$y$range$range[1] - 0.05*diff(scales$y$range$range),
+        scales$y$range$range[2] + 0.05*diff(scales$y$range$range)
+      )
+    }
+
     df <- data.frame(
       x = if (is.factor(data$x)) data$x[1] else mean(range(data$x)),
-      y = max(data$y, na.rm = TRUE),
-      ymax = stats[5],
+      y = if ( !is.finite(spacing) ){
+        if (spacing < 0) stats[1] else stats[5]
+      } else {
+        if (spacing < 0) min(data$y, na.rm = TRUE) else max(data$y, na.rm = TRUE)
+      },
+      ymax = if (spacing < 0) stats[1] else stats[5],
       label = nrow(data[which(!is.na(data$x) & !is.na(data$y)), ])
     )
 

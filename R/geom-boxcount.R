@@ -29,16 +29,17 @@
 #' }
 
 geom_boxcount <- function(
-  mapping = NULL,
-  data = NULL,
-  stat = "boxcount",
-  position = "dodge2",
-  ...,
-  outlier.position = 'jitter',
-  na.rm = FALSE,
-  orientation = NA,
-  show.legend = FALSE,
-  inherit.aes = TRUE) {
+    mapping = NULL,
+    data = NULL,
+    stat = "boxcount",
+    position = "dodge2",
+    ...,
+    spacing = 0.05,
+    outlier.position = 'jitter',
+    na.rm = FALSE,
+    orientation = NA,
+    show.legend = FALSE,
+    inherit.aes = TRUE) {
 
   #position <- ggplot2:::check_subclass(position, "Position", env = parent.frame())
 
@@ -51,6 +52,7 @@ geom_boxcount <- function(
     show.legend = FALSE,
     inherit.aes = inherit.aes,
     params = list(
+      spacing = spacing,
       outlier.position = outlier.position,
       na.rm = na.rm,
       orientation = orientation,
@@ -74,11 +76,9 @@ GeomBoxcount <- ggplot2::ggproto(
 
   # need to declare `width` here in case this geom is used with a stat that
   # doesn't have a `width` parameter (e.g., `stat_identity`).
-  extra_params = c("na.rm", "width", "orientation"),
+  extra_params = c("spacing", "na.rm", "width", "orientation"),
 
   setup_data = function(data, params) {
-    data$xmin <- data$xmax <- data$x
-    data$ymin <- data$ymax <- data$y
     data$width <- 0
     data
   },

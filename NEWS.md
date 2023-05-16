@@ -1,3 +1,7 @@
+# ggcognigen 1.1.2
+* Added `spacing` argument to `geom_boxcount` to control the placement of the counts.
+* Exported `make_gmr_table`.
+
 # ggcognigen 1.1.1
 * Update various `class` checks to use `inherits`.
 * Remove dependency on kiwiexport package.

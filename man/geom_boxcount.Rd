@@ -11,6 +11,7 @@ geom_boxcount(
   stat = "boxcount",
   position = "dodge2",
   ...,
+  spacing = 0.05,
   outlier.position = "jitter",
   na.rm = FALSE,
   orientation = NA,
@@ -25,6 +26,7 @@ stat_boxcount(
   position = "dodge2",
   ...,
   coef = 1.5,
+  spacing = 0.05,
   na.rm = FALSE,
   orientation = NA,
   show.legend = FALSE,
@@ -59,6 +61,14 @@ a call to a position adjustment function.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{spacing}{Fraction of the panel range used as the margin between the
+boxplot and the count. If spacing is positive, counts are displayed using a
+margin that is relative to the maximum value of each boxplot. If spacing is
+negative, counts are displayed using a margin that is relative to the
+minimum value of each boxplot. If spacing is Inf, all counts are displayed
+at the top of the data range. If spacing if -Inf, all counts are displayed
+at the bottom of the data range. Defaults to 0.05.}
 
 \item{outlier.position}{This controls the placement of the counts above the boxes, depending on
 whether outliers were hidden (\code{outlier.position = NULL}) or displayed

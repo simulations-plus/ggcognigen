@@ -42,8 +42,7 @@ definition}
 \item{n_label}{a character value defining how individuals are defined
 in the abbreviation in the table footnote, that is, what is used in the
 definition of 'n' (eg, 'n, number of individuals'). By default, a 's'
-will be added to the entered value.
-#' @export}
+will be added to the entered value.}
 
 \item{x}{a vector of expressions}
 }

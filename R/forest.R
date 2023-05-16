@@ -1128,7 +1128,8 @@ make_forestplot <- function(
 #' in the abbreviation in the table footnote, that is, what is used in the
 #' definition of 'n' (eg, 'n, number of individuals'). By default, a 's'
 #' will be added to the entered value.
-#' #' @export
+#'
+#' @export
 #'
 #' @return this function is used for its side-effects and does not return
 #' any object
