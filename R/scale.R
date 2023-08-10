@@ -64,7 +64,11 @@
 #'     na.rm = TRUE
 #'   ) +
 #'   theme_cognigen() +
-#'   scale_discrete_cognigen(style = cognigen_purple_style(), n = 10, geom = 'boxplot')
+#'   scale_discrete_cognigen(
+#'     style = cognigen_purple_style(),
+#'     n = 10,
+#'     geom = 'boxplot'
+#'   )
 #'
 #' ggplot(data = boxdata) +
 #'   aes(x = GROUP, y = CONTINUOUS, colour = CATEGORICAL) +

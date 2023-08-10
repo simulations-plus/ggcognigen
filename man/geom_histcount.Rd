@@ -164,13 +164,22 @@ This geom treats each axis differently and, thus, can thus have two orientations
 p <- ggplot(diamonds)
 
 # Histogram for continuous variable count
-p + aes(x = price) + geom_histogram() + geom_histcount()
+p +
+  aes(x = price) +
+  geom_histogram() +
+  geom_histcount()
 
 # Map class to y instead to flip the orientation
-p + aes(y = price) + geom_histogram() + geom_histcount()
+p +
+  aes(y = price) +
+  geom_histogram() +
+  geom_histcount()
 
 # Histogram with a fill aesthetic
-p + aes(x = price, fill = clarity) + geom_histogram() + geom_histcount()
+p +
+  aes(x = price, fill = clarity) +
+  geom_histogram() +
+  geom_histcount()
 
 # Histogram for continuous variable density
 p +

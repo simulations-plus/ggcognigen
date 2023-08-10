@@ -57,12 +57,12 @@
 #'   facet_grid_paginate(color ~ cut, ncol = 3, nrow = 3, page = NULL)
 #'
 #' g4 <- ggplot(data = diamonds) +
-#'   aes(x = carat, y = price, color = clarity, alpha = 0.2) +
-#'   geom_point()
+#'   aes(x = carat, y = price, color = clarity) +
+#'   geom_point(alpha = 0.2)
 #'
 #' g5 <- ggplot(data = diamonds) +
-#'   aes(x = carat, y = price, color = cut, alpha = 0.2) +
-#'   geom_point()
+#'   aes(x = carat, y = price, color = cut) +
+#'   geom_point(alpha = 0.2)
 #'
 #' gs <- ggpubr::ggarrange(g1, g4, g5, nrow = 2, ncol = 2)
 #'
