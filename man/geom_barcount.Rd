@@ -110,24 +110,41 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \examples{
 \dontrun{
 p <- ggplot(mpg)
-p + aes(x = class) + geom_bar() + geom_barcount()
+p +
+  aes(x = class) +
+  geom_bar() +
+  geom_barcount()
 
 # Map class to y instead to flip the orientation
-p + aes(y = class) + geom_bar() + geom_barcount()
+p +
+  aes(y = class) +
+  geom_bar() +
+  geom_barcount()
 
 # For stacked position
 p <- ggplot(diamonds, aes(color, fill = cut))
-p + geom_bar(position = 'stack') + geom_barcount()
-p + geom_bar(position = 'stack') + geom_barcount(overall.stack = FALSE)
+p +
+  geom_bar(position = 'stack') +
+  geom_barcount()
+p +
+  geom_bar(position = 'stack') +
+  geom_barcount(overall.stack = FALSE)
 
 # For dodged position
-p + geom_bar(position = 'dodge') + geom_barcount(position = position_dodge(width = 0.9))
+p +
+  geom_bar(position = 'dodge') +
+  geom_barcount(position = position_dodge(width = 0.9))
 
 # For fill position
-p + geom_bar(position = 'fill') + geom_barcount(position = position_fill())
+p +
+  geom_bar(position = 'fill') +
+  geom_barcount(position = position_fill())
 
 # For fillpercent position
-p + geom_bar(position = 'fillpercent') + geom_barcount(position = position_fillpercent()) + ylab('count (\%)')
+p +
+  geom_bar(position = 'fillpercent') +
+  geom_barcount(position = position_fillpercent()) +
+  ylab('count (\%)')
 
 }
 }

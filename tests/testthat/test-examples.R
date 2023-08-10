@@ -36,24 +36,41 @@ ggplot(data, aes(x = x, y = y)) +
 
 
 p <- ggplot(mpg)
-p + aes(x = class) + geom_bar() + geom_barcount()
+p +
+  aes(x = class) +
+  geom_bar() +
+  geom_barcount()
 
 # Map class to y instead to flip the orientation
-p + aes(y = class) + geom_bar() + geom_barcount()
+p +
+  aes(y = class) +
+  geom_bar() +
+  geom_barcount()
 
 # For stacked position
 p <- ggplot(diamonds, aes(color, fill = cut))
-p + geom_bar(position = 'stack') + geom_barcount()
-p + geom_bar(position = 'stack') + geom_barcount(overall.stack = FALSE)
+p +
+  geom_bar(position = 'stack') +
+  geom_barcount()
+p +
+  geom_bar(position = 'stack') +
+  geom_barcount(overall.stack = FALSE)
 
 # For dodged position
-p + geom_bar(position = 'dodge') + geom_barcount(position = position_dodge(width = 0.9))
+p +
+  geom_bar(position = 'dodge') +
+  geom_barcount(position = position_dodge(width = 0.9))
 
 # For fill position
-p + geom_bar(position = 'fill') + geom_barcount(position = position_fill())
+p +
+  geom_bar(position = 'fill') +
+  geom_barcount(position = position_fill())
 
 # For fillpercent position
-p + geom_bar(position = 'fillpercent') + geom_barcount(position = position_fillpercent()) + ylab('count (%)')
+p +
+  geom_bar(position = 'fillpercent') +
+  geom_barcount(position = position_fillpercent()) +
+  ylab('count (%)')
 
 
 
@@ -61,11 +78,16 @@ p + geom_bar(position = 'fillpercent') + geom_barcount(position = position_fillp
 
 
 p <- ggplot(mpg, aes(class, hwy))
-p + geom_boxplot2() + geom_boxcount()
+p +
+  geom_boxplot2() +
+  geom_boxcount()
 
 # For display on log axis scale, use the scale_y_continuous function
 # Using coord_trans(y ='log10') would display the counts at the wrong place
-p + geom_boxplot2() + geom_boxcount() + scale_y_continuous(trans = 'log10')
+p +
+  geom_boxplot2() +
+  geom_boxcount() +
+  scale_y_continuous(trans = 'log10')
 
 
 # example(s) from: man/geom_boxplot2.Rd
@@ -135,13 +157,22 @@ p + geom_crossbar2(aes(ymin = lower, ymax = upper), width = 0.2)
 p <- ggplot(diamonds)
 
 # Histogram for continuous variable count
-p + aes(x = price) + geom_histogram() + geom_histcount()
+p +
+  aes(x = price) +
+  geom_histogram() +
+  geom_histcount()
 
 # Map class to y instead to flip the orientation
-p + aes(y = price) + geom_histogram() + geom_histcount()
+p +
+  aes(y = price) +
+  geom_histogram() +
+  geom_histcount()
 
 # Histogram with a fill aesthetic
-p + aes(x = price, fill = clarity) + geom_histogram() + geom_histcount()
+p +
+  aes(x = price, fill = clarity) +
+  geom_histogram() +
+  geom_histcount()
 
 # Histogram for continuous variable density
 p +
@@ -437,7 +468,11 @@ ggplot(data = boxdata) +
     na.rm = TRUE
   ) +
   theme_cognigen() +
-  scale_discrete_cognigen(style = cognigen_purple_style(), n = 10, geom = 'boxplot')
+  scale_discrete_cognigen(
+    style = cognigen_purple_style(),
+    n = 10,
+    geom = 'boxplot'
+  )
 
 ggplot(data = boxdata) +
   aes(x = GROUP, y = CONTINUOUS, colour = CATEGORICAL) +

@@ -16,8 +16,8 @@ and \code{1} (the default) for the top.}
 This is useful if you're rotating both the plot and legend.}
 }
 \description{
-This function performs the same data transformation as \code{\link[ggplot2]{position_fill}},
-but is normalized to 100 instead of 1.
+This function performs the same data transformation as
+\code{\link[ggplot2]{position_fill}}, but is normalized to 100 instead of 1.
 }
 \seealso{
 \code{\link[ggplot2]{position_fill}}

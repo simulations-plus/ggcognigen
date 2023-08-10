@@ -21,11 +21,16 @@
 #' @examples
 #' \dontrun{
 #' p <- ggplot(mpg, aes(class, hwy))
-#' p + geom_boxplot2() + geom_boxcount()
+#' p +
+#'   geom_boxplot2() +
+#'   geom_boxcount()
 #'
 #' # For display on log axis scale, use the scale_y_continuous function
 #' # Using coord_trans(y ='log10') would display the counts at the wrong place
-#' p + geom_boxplot2() + geom_boxcount() + scale_y_continuous(trans = 'log10')
+#' p +
+#'   geom_boxplot2() +
+#'   geom_boxcount() +
+#'   scale_y_continuous(trans = 'log10')
 #' }
 
 geom_boxcount <- function(

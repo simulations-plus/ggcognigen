@@ -1,7 +1,7 @@
 #' Variant of ggplot2::position_fill
 #'
-#' This function performs the same data transformation as \code{\link[ggplot2]{position_fill}},
-#' but is normalized to 100 instead of 1.
+#' This function performs the same data transformation as
+#' \code{\link[ggplot2]{position_fill}}, but is normalized to 100 instead of 1.
 #'
 #' @inheritParams ggplot2::position_stack
 #' @seealso \code{\link[ggplot2]{position_fill}}
