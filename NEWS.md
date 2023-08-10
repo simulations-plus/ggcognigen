@@ -1,3 +1,7 @@
+# ggcognigen (development version)
+
+* Updated to host publicly on GitHub.
+
 # ggcognigen 1.1.2
 * Added `spacing` argument to `geom_boxcount` to control the placement of the counts.
 * Exported `make_gmr_table`.

@@ -1,6 +1,0 @@
-destination: public
-repo:
-  url:
-    home: https://gitlab.cognigencorp.com/r/ggcognigen/
-    source: https://gitlab.cognigencorp.com/r/ggcognigen/-/tree/master/
-    issue: https://gitlab.cognigencorp.com/r/ggcognigen/-/issues/
