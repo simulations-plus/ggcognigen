@@ -17,7 +17,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  error = FALSE
 )
 ```
 <style>
@@ -496,20 +497,20 @@ ggplot(data = histdata) +
   scale_discrete_cognigen(geom = 'histogram')
 ```
 
-To display the data distribution as density or percentages, we suggest that you use the `bin2` stat and set the `y` aesthetic to either `..density..` and `..percent..` variable (note that the `bin` stat only export `..density..`). For `geom_histcount()`, you must also set the `label` aesthetic to `..density_label..` or `..percent_label..`.
+To display the data distribution as density or percentages, we suggest that you use the `bin2` stat and set the `y` aesthetic to either `after_stat(density)` and `after_stat(percent)` variable (note that the `bin` stat only export `after_stat(density)`). For `geom_histcount()`, you must also set the `label` aesthetic to `after_stat(density_label)` or `after_stat(percent_label)`.
 
 ```{r, fig.dim = c(6, 7)}
 ggpubr::ggarrange(
   ggplot(data = histdata) +
     aes(x = RANDOM, fill = GROUP) +
-    geom_histogram(aes(y = ..density..), stat = 'bin2', bins = 15) +
-    geom_histcount(aes(y = ..density.., label = ..density_label..), bins = 15)  +
+    geom_histogram(aes(y = after_stat(density)), stat = 'bin2', bins = 15) +
+    geom_histcount(aes(y = after_stat(density), label = after_stat(density_label)), bins = 15)  +
     scale_discrete_cognigen(geom = 'histogram') +
     ylab('Density'),
   ggplot(data = histdata) +
     aes(x = RANDOM, fill = GROUP) +
-    geom_histogram(aes(y = ..percent..), stat = 'bin2', bins = 15) +
-    geom_histcount(aes(y = ..percent.., label = ..percent_label..), bins = 15) +
+    geom_histogram(aes(y = after_stat(percent)), stat = 'bin2', bins = 15) +
+    geom_histcount(aes(y = after_stat(percent), label = after_stat(percent_label)), bins = 15) +
     ylab('Percent (%)') +
     scale_discrete_cognigen(geom = 'histogram'),
   nrow = 2,

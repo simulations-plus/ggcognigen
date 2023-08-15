@@ -4,4 +4,5 @@
 #' @importFrom quantreg rq
 #' @importFrom utils page
 #' @importFrom grDevices col2rgb
+#' @importFrom vctrs data_frame
 NULL

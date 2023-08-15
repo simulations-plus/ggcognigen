@@ -132,7 +132,7 @@ ggplot(diamonds, aes(carat)) +
   geom_histogram()
 # Percent
 ggplot(diamonds, aes(carat)) +
-  geom_histogram(aes(y=..percent..), stat = 'bin2')
+  geom_histogram(aes(y = after_stat(percent)), stat = 'bin2')
 }
 }
 \seealso{

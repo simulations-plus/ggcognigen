@@ -133,7 +133,7 @@ StatBoxplot2 <- ggplot2::ggproto(
     if (length(unique(data$x)) > 1)
       width <- diff(range(data$x)) * 0.9
 
-    df <- ggplot2:::new_data_frame(as.list(stats))
+    df <- vctrs::data_frame(!!!as.list(stats), .name_repair = "minimal")
     df$outliers <- list(data$y[outliers])
 
     if (is.null(data$weight)) {

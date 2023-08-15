@@ -177,14 +177,14 @@ p +
 # Histogram for continuous variable density
 p +
   aes(x = price) +
-  geom_histogram(aes(y = ..density..), stat = 'bin2', bins = 15) +
-  geom_histcount(aes(y = ..density.., label = ..density_label..), bins = 15)
+  geom_histogram(aes(y = after_stat(density)), stat = 'bin2', bins = 15) +
+  geom_histcount(aes(y = after_stat(density), label = after_stat(density_label)), bins = 15)
 
 # Histogram for continuous variable percentage using the bin2 stat
 p +
   aes(x = price) +
-  geom_histogram(aes(y = ..percent..), stat = 'bin2', bins = 15) +
-  geom_histcount(aes(y = ..percent.., label = ..percent_label..), bins = 15) +
+  geom_histogram(aes(y = after_stat(percent)), stat = 'bin2', bins = 15) +
+  geom_histcount(aes(y = after_stat(percent), label = after_stat(percent_label)), bins = 15) +
   ylab('percent (%)')
 
 
@@ -514,7 +514,7 @@ ggplot(diamonds, aes(carat)) +
   geom_histogram()
 # Percent
 ggplot(diamonds, aes(carat)) +
-  geom_histogram(aes(y=..percent..), stat = 'bin2')
+  geom_histogram(aes(y = after_stat(percent)), stat = 'bin2')
 
 
 # example(s) from: man/stat_count2.Rd
@@ -525,7 +525,7 @@ ggplot(diamonds, aes(clarity)) +
   geom_bar()
 # Percent
 ggplot(diamonds, aes(clarity)) +
-  geom_bar(aes(y=..percent..), stat = 'count2')
+  geom_bar(aes(y = after_stat(percent)), stat = 'count2')
 
 
 
