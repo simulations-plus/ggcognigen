@@ -6,9 +6,9 @@ The same non-default arguments used in the the
 geom_histogram call should also be used in the
 geom_histcount call.
 Density/percentage can be displayed by setting the y aesthetic to
-..density.. / ..percent.. (which are provided by the
-bin2 stat) and the label aesthetic to ..density_label..
-/ ..percent_label.. (which are provided by the histcount stat)."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+after_stat(density / after_stat(percent) (which are provided by the
+bin2 stat) and the label aesthetic to after_stat(density_label)
+/ after_stat(percent_label) (which are provided by the histcount stat)."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -26,7 +26,7 @@ bin2 stat) and the label aesthetic to ..density_label..
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggcognigen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
       </span>
     </div>
 
@@ -78,9 +78,9 @@ represented by each bar.</p>
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></code> call should also be used in the
 <code>geom_histcount</code> call.</p>
 <p>Density/percentage can be displayed by setting the <code>y</code> aesthetic to
-<code>..density..</code> / <code>..percent..</code> (which are provided by the
-<code>bin2</code> stat) and the <code>label</code> aesthetic to <code>..density_label..</code>
-/ <code>..percent_label..</code> (which are provided by the <code>histcount</code> stat).</p>
+<code>after_stat(density</code> / <code>after_stat(percent)</code> (which are provided by the
+<code>bin2</code> stat) and the <code>label</code> aesthetic to <code>after_stat(density_label)</code>
+/ <code>after_stat(percent_label)</code> (which are provided by the <code>histcount</code> stat).</p>
     </div>
 
     <div id="ref-usage">
@@ -288,14 +288,14 @@ frequency polygons touch 0. Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-in"><span><span class="co"># Histogram for continuous variable density</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">..density..</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">'bin2'</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">..density..</span>, label <span class="op">=</span> <span class="va">..density_label..</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">'bin2'</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density_label</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Histogram for continuous variable percentage using the bin2 stat</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">..percent..</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">'bin2'</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">..percent..</span>, label <span class="op">=</span> <span class="va">..percent_label..</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">percent</span><span class="op">)</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">'bin2'</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">percent</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">percent_label</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">'percent (%)'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
