@@ -107,6 +107,30 @@ This function is intended to work in combination with
 calculation of statistics which are graphically represented by each box and
 whiskers.
 }
+\section{Orientation}{
+ 
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
+\section{Aesthetics}{
+
+\code{geom_boxcount()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+  \item \strong{\code{x} \emph{or} \code{y}}
+  \item \code{alpha}
+  \item \code{angle}
+  \item \code{colour}
+  \item \code{family}
+  \item \code{fontface}
+  \item \code{group}
+  \item \code{hjust}
+  \item \code{lineheight}
+  \item \code{size}
+  \item \code{vjust}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
 \examples{
 \dontrun{
 p <- ggplot(mpg, aes(class, hwy))

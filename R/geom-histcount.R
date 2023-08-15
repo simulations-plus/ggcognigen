@@ -17,6 +17,8 @@
 #'
 #' @eval ggplot2:::rd_orientation()
 #'
+#' @eval ggplot2:::rd_aesthetics("geom", "histcount")
+#'
 #' @inheritParams ggplot2::geom_histogram
 #' @inheritParams geom_barcount
 #' @param geom,stat Use to override the default connection between

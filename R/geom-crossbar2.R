@@ -6,6 +6,7 @@
 #' @eval ggplot2:::rd_orientation()
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "crossbar2")
+#'
 #' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in \code{\link[ggplot2]{geom_crossbar}} and the middle point in
 #'   \code{\link[ggplot2]{geom_pointrange}}.
