@@ -232,6 +232,12 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
 confidence interval (if greater than or equal to 50). Defaults to 1.5.</p></dd>
 
 </dl></div>
+    <div id="orientation">
+    <h2>Orientation</h2>
+    
+ 
+<p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
+    </div>
     <div id="summary-statistics">
     <h2>Summary statistics</h2>
     
@@ -254,6 +260,27 @@ the whiskers extend to the limit of the <code>coef</code> confidence interval.</
 <p>In a notched box plot, the notches extend <code>1.58 * IQR / sqrt(n)</code>. This
 gives a roughly 95<!-- % confidence interval for comparing medians. See McGill et -->
 al. (1978) for more details.</p>
+    </div>
+    <div id="aesthetics">
+    <h2>Aesthetics</h2>
+    
+
+<p><code>geom_boxplot2()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul><li><p><strong><code>x</code> <em>or</em> <code>y</code></strong></p></li>
+<li><p><strong><code>lower</code> <em>or</em> <code>xlower</code></strong></p></li>
+<li><p><strong><code>upper</code> <em>or</em> <code>xupper</code></strong></p></li>
+<li><p><strong><code>middle</code> <em>or</em> <code>xmiddle</code></strong></p></li>
+<li><p><strong><code>ymin</code> <em>or</em> <code>xmin</code></strong></p></li>
+<li><p><strong><code>ymax</code> <em>or</em> <code>xmax</code></strong></p></li>
+<li><p><code>alpha</code></p></li>
+<li><p><code>colour</code></p></li>
+<li><p><code>fill</code></p></li>
+<li><p><code>group</code></p></li>
+<li><p><code>linetype</code></p></li>
+<li><p><code>shape</code></p></li>
+<li><p><code>size</code></p></li>
+<li><p><code>stroke</code></p></li>
+<li><p><code>weight</code></p></li>
+</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
     </div>
     <div id="computed-variables">
     <h2>Computed variables</h2>
