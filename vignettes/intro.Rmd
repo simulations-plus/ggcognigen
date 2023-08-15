@@ -2,7 +2,7 @@
 title: "Introduction to ggcognigen"
 author:
   - name: "Nash Delcamp, Sebastien Bihorel"
-  - name: "for Cognigen, a SimulationsPlus Company"
+  - name: "for Cognigen Division of Simulations Plus"
 output: 
   html_document:
     toc: true
@@ -36,10 +36,22 @@ knitr::opts_chunk$set(
 
 # Installing `ggcognigen`
 
-Installation of the `ggcognigen` package can be performed using the source code provided in the compressed .tar.gz file which Cognigen sent you. For instance: 
+To install a particular version of `ggcognigen`, download the respective .tar.gz file from the [builds/](https://github.com/simulations-plus/ggcognigen/tree/main/builds) directory, then install from source. For instance:
 
+```{r, results='asis', echo=FALSE}
+cat(
+  paste(
+    "```r",
+    paste0("install.packages('ggcognigen_", packageVersion("ggcognigen"), ".tar.gz', type = 'source')"),
+    "```",
+    sep = "  \n"
+  )
+)
+```
+
+Or install the latest version:
 ```{r, eval = FALSE}
-install.packages('ggcognigen_$version$.tar.gz', type = 'source')
+remotes::install_github("simulations-plus/ggcognigen")
 ```
 
 Dependencies of the `ggcognigen` package are listed in the package DESCRIPTION file.

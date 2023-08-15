@@ -137,6 +137,11 @@ It allows users to set whisker limits based upon a confidence interval rather
 than a multiple of the IQR, allows to display outliers with jitter, and
 provides slightly different graphical styles when grouping/coloring is used.
 }
+\section{Orientation}{
+ 
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Summary statistics}{
 
 The lower and upper hinges correspond to the first and third quartiles (the
@@ -159,6 +164,29 @@ the whiskers extend to the limit of the \code{coef} confidence interval.
 In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}. This
 gives a roughly 95% confidence interval for comparing medians. See McGill et
 al. (1978) for more details.
+}
+
+\section{Aesthetics}{
+
+\code{geom_boxplot2()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+  \item \strong{\code{x} \emph{or} \code{y}}
+  \item \strong{\code{lower} \emph{or} \code{xlower}}
+  \item \strong{\code{upper} \emph{or} \code{xupper}}
+  \item \strong{\code{middle} \emph{or} \code{xmiddle}}
+  \item \strong{\code{ymin} \emph{or} \code{xmin}}
+  \item \strong{\code{ymax} \emph{or} \code{xmax}}
+  \item \code{alpha}
+  \item \code{colour}
+  \item \code{fill}
+  \item \code{group}
+  \item \code{linetype}
+  \item \code{shape}
+  \item \code{size}
+  \item \code{stroke}
+  \item \code{weight}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{

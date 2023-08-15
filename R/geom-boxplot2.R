@@ -8,6 +8,7 @@
 #' than a multiple of the IQR, allows to display outliers with jitter, and
 #' provides slightly different graphical styles when grouping/coloring is used.
 #'
+#' @eval ggplot2:::rd_orientation()
 #'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles (the
@@ -30,6 +31,8 @@
 #' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}. This
 #' gives a roughly 95% confidence interval for comparing medians. See McGill et
 #' al. (1978) for more details.
+#'
+#' @eval ggplot2:::rd_aesthetics("geom", "boxplot2")
 #'
 #'
 #' @seealso \code{\link[ggplot2]{geom_boxplot}} for original ggplot2 geom

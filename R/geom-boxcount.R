@@ -5,6 +5,10 @@
 #' calculation of statistics which are graphically represented by each box and
 #' whiskers.
 #'
+#' @eval ggplot2:::rd_orientation()
+#'
+#' @eval ggplot2:::rd_aesthetics("geom", "boxcount")
+#'
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar
 #' @param geom,stat Use to override the default connection between

@@ -7,6 +7,8 @@
 #'
 #' @eval ggplot2:::rd_orientation()
 #'
+#' @eval ggplot2:::rd_aesthetics("geom", "barcount")
+#'
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar
 #' @param overall.stack Defines whether an overall count is displayed for
