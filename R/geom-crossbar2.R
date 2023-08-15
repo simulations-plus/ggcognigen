@@ -94,7 +94,7 @@ GeomCrossbar2 <- ggplot2::ggproto(
 
       notchindent <- (1 - data$notchwidth) * (data$xmax - data$xmin) / 2
 
-      box <- ggplot2:::new_data_frame(list(
+      box <- vctrs::data_frame(!!!list(
         x = c(
           data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
           data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
@@ -111,10 +111,12 @@ GeomCrossbar2 <- ggplot2::ggproto(
         linetype = rep(data$linetype, 11),
         fill = rep('white', nrow(data) * 11), #data$fill, 11),
         group = rep(seq_len(nrow(data)), 11)
-      ))
+      ),
+      .name_repair = "minimal"
+    )
     } else {
       # No notch
-      box <- ggplot2:::new_data_frame(list(
+      box <- vctrs::data_frame(list(
         x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
         y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
         alpha = rep(data$alpha, 5),
@@ -123,7 +125,9 @@ GeomCrossbar2 <- ggplot2::ggproto(
         linetype = rep(data$linetype, 5),
         fill = rep('white', nrow(data) * 5), #rep(data$fill, 5),
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
-      ))
+      ),
+      .name_repair = "minimal"
+    )
     }
     box <- ggplot2::flip_data(box, flipped_aes)
     middle <- ggplot2::flip_data(middle, flipped_aes)

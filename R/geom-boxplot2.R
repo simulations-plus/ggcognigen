@@ -246,8 +246,8 @@ GeomBoxplot2 <- ggplot2::ggproto(
       alpha = data$alpha
     )
 
-    whiskers <- ggplot2:::new_data_frame(
-      c(
+    whiskers <- vctrs::data_frame(
+      !!!c(
         list(
           x = c(
             data$x,
@@ -277,12 +277,13 @@ GeomBoxplot2 <- ggplot2::ggproto(
         ),
         common
       ),
-      n = 4
+      .size = 4L,
+      .name_repair = "minimal"
     )
     whiskers <- ggplot2::flip_data(whiskers, flipped_aes)
 
-    box <- ggplot2:::new_data_frame(
-      c(
+    box <- vctrs::data_frame(
+      !!!c(
         list(
           xmin = data$xmin,
           xmax = data$xmax,
@@ -295,7 +296,8 @@ GeomBoxplot2 <- ggplot2::ggproto(
           alpha = data$alpha
         ),
         common
-      )
+      ),
+      .name_repair = "minimal"
     )
     box <- ggplot2::flip_data(box, flipped_aes)
 
@@ -303,8 +305,8 @@ GeomBoxplot2 <- ggplot2::ggproto(
 
     if (!is.null(data$outliers) && length(data$outliers[[1]]) >= 1 && !is.null(outlier.position) ) {
 
-      outliers <- ggplot2:::new_data_frame(
-        list(
+      outliers <- vctrs::data_frame(
+        !!!list(
           y = data$outliers[[1]],
           x = if (all(outlier.position == 'jitter')){
             jitter(
@@ -321,7 +323,8 @@ GeomBoxplot2 <- ggplot2::ggproto(
           stroke = coords$stroke[1],
           alpha = coords$alpha[1]
         ),
-        n = length(data$outliers[[1]])
+        .size = length(data$outliers[[1]]),
+        .name_repair = "minimal"
       )
       outliers <- ggplot2::flip_data(outliers, flipped_aes)
       outliers_grob <- ggplot2::GeomPoint$draw_panel(outliers, panel_params, coord)

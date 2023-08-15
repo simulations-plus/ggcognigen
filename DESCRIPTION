@@ -25,7 +25,8 @@ Imports:
     dplyr,
     officer,
     flextable,
-    assertthat
+    assertthat,
+    vctrs
 RoxygenNote: 7.1.2
 Suggests: 
     knitr (>= 1.28),
