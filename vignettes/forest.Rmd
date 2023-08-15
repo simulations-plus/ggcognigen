@@ -2,7 +2,7 @@
 title: "Forest plot creation with ggcognigen"
 author:
   - name: "Sebastien Bihorel"
-  - name: "for Cognigen, a SimulationsPlus Company"
+  - name: "for Cognigen Division of Simulations Plus"
 output: 
   html_document:
     code_folding: hide

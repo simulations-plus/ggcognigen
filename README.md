@@ -55,9 +55,9 @@ These control aesthetics that are mapped to data such as color, fill, linetype, 
 
 Additional functions for creation of forest plots:
 
-- `make_gmr_data`: a function to calculate and report geometric means (GM) and geometric mean ratios (GMR).
-- `make_gmr_table`: a function to format and write GMR table (typically created by `make_gmr_data`) to html, docx, or tex files.
-- `make_forestplot`: a function to create a forest plot as a `ggplot2` object and based upon the GRM table created by `make_gmr_data`.
+- `make_gmr_data()`: a function to calculate and report geometric means (GM) and geometric mean ratios (GMR).
+- `make_gmr_table()`: a function to format and write GMR table (typically created by `make_gmr_data()`) to html, docx, or tex files.
+- `make_forestplot()`: a function to create a forest plot as a `ggplot2` object and based upon the GRM table created by `make_gmr_data()`.
 
 ## Miscellaneous helper functions
 - `ggsave_multiple()`: extension of `ggplot2::ggsave` to save multiple plots and multi-page plots like those created using `ggforce::facet_grid_paginate()` or `ggforce::facet_wrap_paginate()`.

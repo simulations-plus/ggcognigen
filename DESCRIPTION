@@ -33,7 +33,8 @@ Suggests:
     rmarkdown (>= 2.2),
     ggpubr (>= 0.3.0),
     testthat (>= 2.3.2),
-    tidyverse (>= 1.3.0)
+    tidyverse (>= 1.3.0),
+    remotes
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.5)
