@@ -90,7 +90,7 @@ ggplot(diamonds, aes(clarity)) +
   geom_bar()
 # Percent
 ggplot(diamonds, aes(clarity)) +
-  geom_bar(aes(y=..percent..), stat = 'count2')
+  geom_bar(aes(y = after_stat(percent)), stat = 'count2')
 }
 
 }

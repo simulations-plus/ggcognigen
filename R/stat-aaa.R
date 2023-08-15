@@ -14,7 +14,7 @@
 #'   geom_histogram()
 #' # Percent
 #' ggplot(diamonds, aes(carat)) +
-#'   geom_histogram(aes(y=..percent..), stat = 'bin2')
+#'   geom_histogram(aes(y = after_stat(percent)), stat = 'bin2')
 #' }
 #' @export
 #' @rdname stat_bin2
@@ -144,7 +144,7 @@ StatBin2 <- ggplot2::ggproto(
 #'   geom_bar()
 #' # Percent
 #' ggplot(diamonds, aes(clarity)) +
-#'   geom_bar(aes(y=..percent..), stat = 'count2')
+#'   geom_bar(aes(y = after_stat(percent)), stat = 'count2')
 #' }
 #'
 #' @export

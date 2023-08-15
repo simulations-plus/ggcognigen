@@ -150,9 +150,9 @@ The same non-default arguments used in the the
 \code{\link{geom_histcount}} call.
 
 Density/percentage can be displayed by setting the \code{y} aesthetic to
-\code{..density..} / \code{..percent..} (which are provided by the
-\code{bin2} stat) and the \code{label} aesthetic to \code{..density_label..}
-/ \code{..percent_label..} (which are provided by the \code{histcount} stat).
+\code{after_stat(density} / \code{after_stat(percent)} (which are provided by the
+\code{bin2} stat) and the \code{label} aesthetic to \code{after_stat(density_label)}
+/ \code{after_stat(percent_label)} (which are provided by the \code{histcount} stat).
 }
 \section{Orientation}{
  
@@ -184,14 +184,14 @@ p +
 # Histogram for continuous variable density
 p +
   aes(x = price) +
-  geom_histogram(aes(y = ..density..), stat = 'bin2', bins = 15) +
-  geom_histcount(aes(y = ..density.., label = ..density_label..), bins = 15)
+  geom_histogram(aes(y = after_stat(density)), stat = 'bin2', bins = 15) +
+  geom_histcount(aes(y = after_stat(density), label = after_stat(density_label)), bins = 15)
 
 # Histogram for continuous variable percentage using the bin2 stat
 p +
   aes(x = price) +
-  geom_histogram(aes(y = ..percent..), stat = 'bin2', bins = 15) +
-  geom_histcount(aes(y = ..percent.., label = ..percent_label..), bins = 15) +
+  geom_histogram(aes(y = after_stat(percent)), stat = 'bin2', bins = 15) +
+  geom_histcount(aes(y = after_stat(percent), label = after_stat(percent_label)), bins = 15) +
   ylab('percent (\%)')
 }
 }
