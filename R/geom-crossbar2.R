@@ -116,7 +116,7 @@ GeomCrossbar2 <- ggplot2::ggproto(
     )
     } else {
       # No notch
-      box <- vctrs::data_frame(list(
+      box <- vctrs::data_frame(!!!list(
         x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
         y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
         alpha = rep(data$alpha, 5),
