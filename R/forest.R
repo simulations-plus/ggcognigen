@@ -350,7 +350,7 @@ make_gmr_data <- function(
   invalid_rows <- which( is.na(data[, id_var]) | is.na(data[, x_var]) )
 
   if ( length(invalid_rows) > 0 ) {
-    data <- data[ !invalid_rows, ]
+    data <- data[ !(1:nrow(data) %in% invalid_rows), ]
     nrows <- nrow(data)
     if ( !silent ){
       message(
@@ -363,7 +363,7 @@ make_gmr_data <- function(
   invalid_rows <- which( is.na(data[, by]) )
 
   if ( length(invalid_rows) > 0 ) {
-    data <- data[ !invalid_rows, ]
+    data <- data[ !(1:nrow(data) %in% invalid_rows), ]
     nrows <- nrow(data)
     if ( !silent ){
       message(
@@ -398,7 +398,7 @@ make_gmr_data <- function(
   invalid_rows <- which( data[, x_var] <= 0 )
 
   if ( length(invalid_rows) > 0 ) {
-    data <- data[ !invalid_rows, ]
+    data <- data[ !(1:nrow(data) %in% invalid_rows), ]
     nrows <- nrow(data)
     if ( !silent ){
       message(
