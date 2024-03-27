@@ -114,22 +114,22 @@ theme_cognigen_grid <- function(
 
     ggplot2::theme(
       panel.grid.major.x = if (major.x[1]) {
-        ggplot2::element_line(colour = '#dddddd', size = 0.25)
+        ggplot2::element_line(colour = '#dddddd', linewidth = 0.25)
       } else {
         ggplot2::element_blank()
       },
       panel.grid.major.y = if (major.y[1]) {
-        ggplot2::element_line(colour = '#dddddd', size = 0.25)
+        ggplot2::element_line(colour = '#dddddd', linewidth = 0.25)
       } else {
         ggplot2::element_blank()
       },
       panel.grid.minor.x = if (minor.x[1]) {
-        ggplot2::element_line(colour = '#dddddd', size = 0.25)
+        ggplot2::element_line(colour = '#dddddd', linewidth = 0.25)
       } else {
         ggplot2::element_blank()
       },
       panel.grid.minor.y = if (minor.y[1]) {
-        ggplot2::element_line(colour = '#dddddd', size = 0.25)
+        ggplot2::element_line(colour = '#dddddd', linewidth = 0.25)
       } else {
         ggplot2::element_blank()
       }

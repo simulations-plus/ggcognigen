@@ -112,7 +112,7 @@ StatHistcount <- ggplot2::ggproto(
       center = center, boundary = boundary,
       closed = closed, pad = pad, breaks = breaks,
       flipped_aes = flipped_aes, origin = origin,
-      right = right, drop = drop, width = width
+      right = right, drop = drop
     )
     bins <- tmp[[1]]
     bins$count <- bins$ncount <- bins$density <- bins$ndensity <- 0
