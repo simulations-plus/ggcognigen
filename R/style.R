@@ -965,17 +965,22 @@ get_style_colors <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
+#' # set the style to ggcognigen style
 #' set_default_style()
 #'
 #' ggplot(mpg, aes(class, hwy)) +
 #'   geom_point()
 #'
+#' # revert back to ggplot2 style
 #' set_default_style(style = 'ggplot2')
 #' ggplot(mpg, aes(class, hwy)) +
 #'   geom_point()
 #'
-#' }
+#' # again, set the style to ggcognigen style
+#' set_default_style()
+
 set_default_style <- function(style = cognigen_style()){
 
   default <- cognigen_style()

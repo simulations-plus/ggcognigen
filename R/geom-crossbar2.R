@@ -20,7 +20,8 @@
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' # Create a simple example dataset
 #' df <- data.frame(
 #'   trt = factor(c(1, 1, 2, 2)),
@@ -32,7 +33,6 @@
 #'
 #' p <- ggplot(df, aes(trt, resp, colour = group))
 #' p + geom_crossbar2(aes(ymin = lower, ymax = upper), width = 0.2)
-#' }
 geom_crossbar2 <- function(
   mapping = NULL,
   data = NULL,

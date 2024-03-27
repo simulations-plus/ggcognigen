@@ -9,14 +9,14 @@
 #' @importFrom ggplot2 `%+replace%`
 #'
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' p <- ggplot(mpg, aes(class, hwy)) +
 #'   geom_point()
 #'
 #' p + theme_cognigen()
 #'
 #' p + theme_cognigen_grid()
-#' }
 theme_cognigen <- function(smaller = FALSE, ...) {
 
   # font is set to "" which will default to "sans"

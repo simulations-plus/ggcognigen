@@ -64,7 +64,6 @@ number of digits used for page identification will depend on the number of
 pages to be created and will be 2 at the minimum.
 }
 \examples{
-\dontrun{
 library(ggplot2)
 library(ggforce)
 
@@ -97,7 +96,4 @@ ggsave_multiple(
   plots = list(g1, g2, g3, gs),
   path = tempdir()
 )
-
-}
-
 }

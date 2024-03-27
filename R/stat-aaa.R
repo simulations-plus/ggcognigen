@@ -6,18 +6,25 @@
 #' aesthetics or group.
 #'
 #' @inheritParams ggplot2::stat_bin
+#' @param geom Use to override the default connection between
+#'   \code{\link[ggplot2]{geom_histogram}}/\code{\link{geom_histcount}} and
+#'   \code{\link{stat_bin2}}.
+#'
 #' @seealso \code{\link[ggplot2]{stat_bin}}
+#'
+#' @export
+#' @rdname stat_bin2
+#'
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' # Count
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram()
+#'
 #' # Percent
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram(aes(y = after_stat(percent)), stat = 'bin2')
-#' }
-#' @export
-#' @rdname stat_bin2
 
 stat_bin2 <- function(
   mapping = NULL,

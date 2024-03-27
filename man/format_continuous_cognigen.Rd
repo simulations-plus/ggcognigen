@@ -28,7 +28,8 @@ of \code{scale_*_continuous} functions to format continuous values.
 log10 axis scales, respectively.
 }
 \examples{
-\dontrun{
+library(ggplot2)
+
 min <- -5000
 max <- 5000
 set.seed(123)
@@ -56,5 +57,4 @@ ggplot(data, aes(x = x, y = y)) +
   geom_point() +
   theme_cognigen_grid(minor.x = TRUE, minor.y = TRUE) +
   scale_y_log10(minor_breaks = minor_breaks_log, labels = format_continuous_cognigen)
-}
 }

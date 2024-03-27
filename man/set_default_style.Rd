@@ -21,15 +21,19 @@ Set default ggplot2 style when no aesthetics are used. Run by default at startup
 \code{ggcognigen}
 }
 \examples{
-\dontrun{
+library(ggplot2)
+
+# set the style to ggcognigen style
 set_default_style()
 
 ggplot(mpg, aes(class, hwy)) +
   geom_point()
 
+# revert back to ggplot2 style
 set_default_style(style = 'ggplot2')
 ggplot(mpg, aes(class, hwy)) +
   geom_point()
 
-}
+# again, set the style to ggcognigen style
+set_default_style()
 }

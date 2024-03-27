@@ -26,7 +26,8 @@ grayscale}
 Discrete scale constructor
 }
 \examples{
-\dontrun{
+library(ggplot2)
+
 # Use the xydata dataset provided in the ggcognigen package
 
 xydata$DOSE <- as.factor(xydata$DOSE)
@@ -73,9 +74,6 @@ ggplot(data = boxdata) +
     notch = TRUE,
     coef = 90,
     fill = 'white',
-    #outlier.colour = NA,
-    outlier.jitter = TRUE,
-    outlier.size = 3,
     position = position_dodge(width = 0.9),
     na.rm = TRUE
   ) +
@@ -92,15 +90,9 @@ ggplot(data = boxdata) +
     notch = TRUE,
     coef = 90,
     fill = 'white',
-    outlier.jitter = TRUE,
-    outlier.size = 3,
     position = position_dodge(width = 0.9),
     na.rm = TRUE
   ) +
   theme_cognigen() +
   scale_discrete_cognigen(10)
-
-# Histogram
-
-}
 }

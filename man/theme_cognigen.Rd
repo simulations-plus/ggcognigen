@@ -29,12 +29,12 @@ draw major/minor grid lines on the respective axis}
 Cognigen ggplot2 themes. Run by default at startup of \code{ggcognigen}
 }
 \examples{
-\dontrun{
+library(ggplot2)
+
 p <- ggplot(mpg, aes(class, hwy)) +
   geom_point()
 
 p + theme_cognigen()
 
 p + theme_cognigen_grid()
-}
 }

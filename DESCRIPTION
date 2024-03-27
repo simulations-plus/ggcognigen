@@ -27,7 +27,7 @@ Imports:
     flextable,
     assertthat,
     vctrs
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Suggests: 
     knitr (>= 1.28),
     rmarkdown (>= 2.2),

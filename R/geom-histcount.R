@@ -27,7 +27,8 @@
 #' @seealso \code{\link[ggplot2]{geom_bar}}
 #' @export
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' p <- ggplot(diamonds)
 #'
 #' # Histogram for continuous variable count
@@ -60,7 +61,6 @@
 #'   geom_histogram(aes(y = after_stat(percent)), stat = 'bin2', bins = 15) +
 #'   geom_histcount(aes(y = after_stat(percent), label = after_stat(percent_label)), bins = 15) +
 #'   ylab('percent (%)')
-#' }
 
 geom_histcount <- function(
   mapping = NULL,

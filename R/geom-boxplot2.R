@@ -74,7 +74,8 @@
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 #'     box plots. The American Statistician 32, 12-16.
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' p <- ggplot(mpg, aes(class, hwy))
 #' p + geom_boxplot2()
 #' p + geom_boxplot2(outlier.position = 'identity', coef = 90)
@@ -115,7 +116,6 @@
 #'    aes(ymin = y0, lower = y25, middle = y50, upper = y75, ymax = y100),
 #'    stat = "identity"
 #'  )
-#' }
 geom_boxplot2 <- function(
   mapping = NULL,
   data = NULL,

@@ -38,7 +38,6 @@
 #'   as specified by \code{device}.
 #' @export
 #' @examples
-#' \dontrun{
 #' library(ggplot2)
 #' library(ggforce)
 #'
@@ -71,9 +70,6 @@
 #'   plots = list(g1, g2, g3, gs),
 #'   path = tempdir()
 #' )
-#'
-#' }
-#'
 
 ggsave_multiple <- function(
   filenames,

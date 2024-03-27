@@ -23,7 +23,8 @@
 #' @seealso \code{\link{geom_boxplot2}}
 #' @export
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' p <- ggplot(mpg, aes(class, hwy))
 #' p +
 #'   geom_boxplot2() +
@@ -35,7 +36,6 @@
 #'   geom_boxplot2() +
 #'   geom_boxcount() +
 #'   scale_y_continuous(trans = 'log10')
-#' }
 
 geom_boxcount <- function(
     mapping = NULL,

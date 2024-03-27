@@ -10,7 +10,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' # Use the xydata dataset provided in the ggcognigen package
 #'
 #' xydata$DOSE <- as.factor(xydata$DOSE)
@@ -57,9 +58,6 @@
 #'     notch = TRUE,
 #'     coef = 90,
 #'     fill = 'white',
-#'     #outlier.colour = NA,
-#'     outlier.jitter = TRUE,
-#'     outlier.size = 3,
 #'     position = position_dodge(width = 0.9),
 #'     na.rm = TRUE
 #'   ) +
@@ -76,17 +74,11 @@
 #'     notch = TRUE,
 #'     coef = 90,
 #'     fill = 'white',
-#'     outlier.jitter = TRUE,
-#'     outlier.size = 3,
 #'     position = position_dodge(width = 0.9),
 #'     na.rm = TRUE
 #'   ) +
 #'   theme_cognigen() +
 #'   scale_discrete_cognigen(10)
-#'
-#' # Histogram
-#'
-#' }
 
 scale_discrete_cognigen <- function(
   n = 10,
@@ -339,7 +331,8 @@ scale_discrete_cognigen <- function(
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' df <- data.frame(
 #'   value = seq(1, 100),
 #'   x = runif(100),
@@ -356,7 +349,6 @@ scale_discrete_cognigen <- function(
 #' ggplot(df, aes(x = value, y = y)) +
 #'   geom_bar(aes(fill = z), stat = "identity") +
 #'   scale_continuous_cognigen()
-#' }
 scale_continuous_cognigen <- function(..., na.value = "grey50", guide = "colourbar") {
 
   ggplot2::scale_color_gradient(
