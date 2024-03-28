@@ -74,6 +74,7 @@ ymin and ymax. Each case draws a single graphical object."><!-- mathjax --><scri
 <span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  median_symbol <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  fatten <span class="op">=</span> <span class="fl">2.5</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -124,6 +125,12 @@ settings of the adjustment.</p></dd>
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></dd>
+
+
+<dt>median_symbol</dt>
+<dd><p>a logical value indicating whether to use a symbol
+(<code>TRUE</code>) or a line (<code>FALSE</code>) to represent the median when a color
+aesthetic is used.</p></dd>
 
 
 <dt>fatten</dt>
