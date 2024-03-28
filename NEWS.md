@@ -1,3 +1,5 @@
+# ggcognigen (development version)
+
 # ggcognigen 1.2.1
 
 * Added `median_symbol` argument to `geom_boxplot2` to allow for a median line to be used instead of the symbol.
