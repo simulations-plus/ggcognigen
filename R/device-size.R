@@ -44,7 +44,7 @@ get_device_size <- function(
   if ( nplots > 8 ) nplots <- 8
 
   if ( ! (is.character(layout) && layout[1] %in% c('portrait', 'landscape')) )
-    stop('layout must be \'portait\' or \'landscape\'.')
+    stop('layout must be \'portrait\' or \'landscape\'.')
 
   layout <- layout[1]
 
@@ -63,7 +63,7 @@ get_device_size <- function(
     nplots,
     c(width, height*0.5),
     c(width, height),
-    c(width, height),
+    c(width, height*0.5),
     c(width, height*0.5),
     c(width, height*0.75),
     c(width, height*0.75),
