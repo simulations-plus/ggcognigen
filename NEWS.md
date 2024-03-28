@@ -1,4 +1,9 @@
-# ggcognigen (development version)
+# ggcognigen 1.2.1
+
+* Added `median_symbol` argument to `geom_boxplot2` to allow for a median line to be used instead of the symbol.
+* Updates based on changes to dependencies ggplot2 and flextable.
+* Fix height in `get_device_size` for 3 plot per page layout.
+* Fix bug in `make_gmr_data` where invalid rows are removed.
 
 # ggcognigen 1.2.0
 
