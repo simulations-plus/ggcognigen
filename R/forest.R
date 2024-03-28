@@ -755,6 +755,9 @@ make_forestplot <- function(
     is_facet_expression = NULL
 ){
 
+  # set visible bindings
+  .data <- NULL
+
   # Functions
   check_title <- function(x){
     is.character(x) | is.expression(x) | is.null(x)
