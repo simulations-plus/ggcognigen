@@ -41,6 +41,9 @@
 #' @inheritParams ggplot2::geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot2} and \code{stat_boxplot2}.
+#' @param median_symbol a logical value indicating whether to use a symbol
+#'   (\code{TRUE}) or a line (\code{FALSE}) to represent the median when a color
+#'   aesthetic is used.
 #' @param outlier.position
 #'   By default, outliers are displayed with a small degree of jitter. Sometimes
 #'   it can be useful to hide the outliers, for example when overlaying the raw
@@ -88,7 +91,10 @@
 #' p + geom_boxplot2(fill = "white", colour = "#3366FF")
 #'
 #' # Boxplots are automatically dodged when any aesthetic is a factor
-#' p + geom_boxplot2(aes(colour = drv))
+#' p + geom_boxplot2(aes(colour = factor(drv)))
+#'
+#' # Use the median_symbol argument to control how the median is drawn
+#' p + geom_boxplot2(aes(colour = factor(drv)), median_symbol = FALSE)
 #'
 #' # You can also use boxplots with continuous x, as long as you supply
 #' # a grouping variable. cut_width is particularly useful
@@ -122,6 +128,7 @@ geom_boxplot2 <- function(
   stat = "boxplot2",
   position = "dodge2",
   ...,
+  median_symbol = TRUE,
   outlier.position = 'jitter',
   outlier.colour = NULL,
   outlier.color = NULL,
@@ -158,6 +165,7 @@ geom_boxplot2 <- function(
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      median_symbol = median_symbol,
       outlier.position = outlier.position,
       outlier.colour = outlier.color %||% outlier.colour,
       outlier.fill = outlier.fill,
@@ -223,6 +231,7 @@ GeomBoxplot2 <- ggplot2::ggproto(
 
   draw_group = function(
     data, panel_params, coord, fatten = 2.5,
+    median_symbol = TRUE,
     outlier.position = 'jitter',
     outlier.colour = NULL, outlier.fill = NULL,
     outlier.shape = 21,
@@ -335,7 +344,10 @@ GeomBoxplot2 <- ggplot2::ggproto(
       outliers_grob <- NULL
     }
 
-    if ( length(data$ncolours) > 0){
+    # if there is a color aesthetic and median_symbol is TRUE, represent the
+    # median with the corresponding symbol and color. otherwise, represent the
+    # median with a line segment.
+    if ( length(data$ncolours) > 0 && isTRUE(median_symbol) ){
       ggplot2:::ggname(
         "geom_boxplot2",
         grid::grobTree(

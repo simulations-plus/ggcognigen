@@ -105,7 +105,10 @@ p + geom_boxplot2(varwidth = TRUE)
 p + geom_boxplot2(fill = "white", colour = "#3366FF")
 
 # Boxplots are automatically dodged when any aesthetic is a factor
-p + geom_boxplot2(aes(colour = drv))
+p + geom_boxplot2(aes(colour = factor(drv)))
+
+# Use the median_symbol argument to control how the median is drawn
+p + geom_boxplot2(aes(colour = factor(drv)), median_symbol = FALSE)
 
 # You can also use boxplots with continuous x, as long as you supply
 # a grouping variable. cut_width is particularly useful
