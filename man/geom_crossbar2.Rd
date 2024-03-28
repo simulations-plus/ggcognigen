@@ -10,6 +10,7 @@ geom_crossbar2(
   stat = "identity",
   position = "identity",
   ...,
+  median_symbol = TRUE,
   fatten = 2.5,
   na.rm = FALSE,
   orientation = NA,
@@ -52,6 +53,10 @@ settings of the adjustment.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{median_symbol}{a logical value indicating whether to use a symbol
+(\code{TRUE}) or a line (\code{FALSE}) to represent the median when a color
+aesthetic is used.}
 
 \item{fatten}{A multiplicative factor used to increase the size of the
 middle bar in \code{\link[ggplot2]{geom_crossbar}} and the middle point in

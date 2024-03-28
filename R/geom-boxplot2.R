@@ -39,11 +39,9 @@
 #'   function.
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_bar
+#' @inheritParams geom_crossbar2
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot2} and \code{stat_boxplot2}.
-#' @param median_symbol a logical value indicating whether to use a symbol
-#'   (\code{TRUE}) or a line (\code{FALSE}) to represent the median when a color
-#'   aesthetic is used.
 #' @param outlier.position
 #'   By default, outliers are displayed with a small degree of jitter. Sometimes
 #'   it can be useful to hide the outliers, for example when overlaying the raw
@@ -347,13 +345,20 @@ GeomBoxplot2 <- ggplot2::ggproto(
     # if there is a color aesthetic and median_symbol is TRUE, represent the
     # median with the corresponding symbol and color. otherwise, represent the
     # median with a line segment.
-    if ( length(data$ncolours) > 0 && isTRUE(median_symbol) ){
+    if ( length(data$ncolours) > 0 ){
       ggplot2:::ggname(
         "geom_boxplot2",
         grid::grobTree(
           outliers_grob,
           ggplot2::GeomSegment$draw_panel(whiskers, panel_params, coord),
-          GeomCrossbar2$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
+          GeomCrossbar2$draw_panel(
+            box,
+            median_symbol = median_symbol,
+            fatten = fatten,
+            panel_params,
+            coord,
+            flipped_aes = flipped_aes
+          )
         )
       )
     } else {
@@ -362,7 +367,13 @@ GeomBoxplot2 <- ggplot2::ggproto(
         grid::grobTree(
           outliers_grob,
           ggplot2::GeomSegment$draw_panel(whiskers, panel_params, coord),
-          ggplot2::GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
+          ggplot2::GeomCrossbar$draw_panel(
+            box,
+            fatten = fatten,
+            panel_params,
+            coord,
+            flipped_aes = flipped_aes
+          )
         )
       )
     }

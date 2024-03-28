@@ -7,6 +7,9 @@
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "crossbar2")
 #'
+#' @param median_symbol a logical value indicating whether to use a symbol
+#'   (\code{TRUE}) or a line (\code{FALSE}) to represent the median when a color
+#'   aesthetic is used.
 #' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in \code{\link[ggplot2]{geom_crossbar}} and the middle point in
 #'   \code{\link[ggplot2]{geom_pointrange}}.
@@ -39,6 +42,7 @@ geom_crossbar2 <- function(
   stat = "identity",
   position = "identity",
   ...,
+  median_symbol = TRUE,
   fatten = 2.5,
   na.rm = FALSE,
   orientation = NA,
@@ -53,6 +57,7 @@ geom_crossbar2 <- function(
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      median_symbol = median_symbol,
       fatten = fatten,
       na.rm = na.rm,
       orientation = orientation,
@@ -81,10 +86,15 @@ GeomCrossbar2 <- ggplot2::ggproto(
     ggplot2::GeomErrorbar$setup_data(data, params)
   },
 
-  draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL, flipped_aes = FALSE) {
+  draw_panel = function(data, panel_params, coord, median_symbol = TRUE, fatten = 2.5, width = NULL, flipped_aes = FALSE) {
     data <- ggplot2::flip_data(data, flipped_aes)
 
-    middle <- transform(data, x = 0.5*(xmax+xmin), size = size * fatten, alpha = NA)
+    if(isTRUE(median_symbol)) {
+      middle <- transform(data, x = 0.5*(xmax+xmin), size = size * fatten, alpha = NA)
+    } else {
+      # median line style
+      middle <- transform(data, x = xmin, xend = xmax, yend = y, linewidth = size * fatten, alpha = NA)
+    }
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
       !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
@@ -94,6 +104,11 @@ GeomCrossbar2 <- ggplot2::ggproto(
         message("notch went outside hinges. Try setting notch=FALSE.")
 
       notchindent <- (1 - data$notchwidth) * (data$xmax - data$xmin) / 2
+
+      if(isFALSE(median_symbol)) {
+        middle$x <- middle$x + notchindent
+        middle$xend <- middle$xend - notchindent
+      }
 
       box <- vctrs::data_frame(!!!list(
         x = c(
@@ -138,7 +153,11 @@ GeomCrossbar2 <- ggplot2::ggproto(
       grid::gTree(
         children = grid::gList(
           GeomPolygon$draw_panel(box, panel_params, coord),
-          GeomPoint$draw_panel(middle, panel_params, coord)
+          if(isTRUE(median_symbol)) {
+            GeomPoint$draw_panel(middle, panel_params, coord)
+          } else {
+            GeomSegment$draw_panel(middle, panel_params, coord)
+          }
         )
       )
     )
