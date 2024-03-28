@@ -26,7 +26,7 @@ bin2 stat) and the label aesthetic to after_stat(density_label)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggcognigen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.1</span>
       </span>
     </div>
 
@@ -123,10 +123,10 @@ represented by each bar.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mapping</dt>
-<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> or
-<code><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>. If specified and
+<code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping
+at the top level of the plot. You must supply <code>mapping</code> if there is no plot
+mapping.</p></dd>
 
 
 <dt>data</dt>
@@ -144,8 +144,10 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
 
 
 <dt>position</dt>
-<dd><p>Position adjustment, either as a string, or the result of
-a call to a position adjustment function.</p></dd>
+<dd><p>Position adjustment, either as a string naming the adjustment
+(e.g. <code>"jitter"</code> to use <code>position_jitter</code>), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.</p></dd>
 
 
 <dt>...</dt>
@@ -211,19 +213,7 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
 <code>geom_histcount</code> and <code>stat_histcount</code>.</p></dd>
 
 
-<dt>center</dt>
-<dd><p>bin position specifiers. Only one, <code>center</code> or
-<code>boundary</code>, may be specified for a single plot. <code>center</code> specifies the
-center of one of the bins. <code>boundary</code> specifies the boundary between two
-bins. Note that if either is above or below the range of the data, things
-will be shifted by the appropriate integer multiple of <code>binwidth</code>.
-For example, to center on integers use <code>binwidth = 1</code> and <code>center = 0</code>, even
-if <code>0</code> is outside the range of the data. Alternatively, this same alignment
-can be specified with <code>binwidth = 1</code> and <code>boundary = 0.5</code>, even if <code>0.5</code> is
-outside the range of the data.</p></dd>
-
-
-<dt>boundary</dt>
+<dt>center, boundary</dt>
 <dd><p>bin position specifiers. Only one, <code>center</code> or
 <code>boundary</code>, may be specified for a single plot. <code>center</code> specifies the
 center of one of the bins. <code>boundary</code> specifies the boundary between two
@@ -274,7 +264,7 @@ frequency polygons touch 0. Defaults to <code>FALSE</code>.</p></dd>
 <li><p><code>lineheight</code></p></li>
 <li><p><code>size</code></p></li>
 <li><p><code>vjust</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html" class="external-link">vignette("ggplot2-specs")</a></code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -283,40 +273,51 @@ frequency polygons touch 0. Defaults to <code>FALSE</code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Histogram for continuous variable count</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin2()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-plt img"><img src="geom_histcount-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Map class to y instead to flip the orientation</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin2()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-plt img"><img src="geom_histcount-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Histogram with a fill aesthetic</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin2()` using `bins = 30`. Pick better value with `binwidth`.</span>
+<span class="r-plt img"><img src="geom_histcount-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Histogram for continuous variable density</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">'bin2'</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density_label</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">'bin2'</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">density_label</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_histcount-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Histogram for continuous variable percentage using the bin2 stat</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">percent</span><span class="op">)</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">'bin2'</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">percent</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">percent_label</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">'percent (%)'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">percent</span><span class="op">)</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">'bin2'</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_histcount</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">percent</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">percent_label</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">'percent (%)'</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_histcount-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

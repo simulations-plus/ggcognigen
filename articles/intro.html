@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggcognigen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.1</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@ workflow based upon the <code>ggplot2</code> package.</p>
 the respective .tar.gz file from the <a href="https://github.com/simulations-plus/ggcognigen/tree/main/builds" class="external-link">builds/</a>
 directory, then install from source. For instance:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'ggcognigen_1.2.0.9000.tar.gz'</span>, type <span class="op">=</span> <span class="st">'source'</span><span class="op">)</span>  </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'ggcognigen_1.2.1.tar.gz'</span>, type <span class="op">=</span> <span class="st">'source'</span><span class="op">)</span>  </span></code></pre></div>
 <p>Or install the latest version:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"simulations-plus/ggcognigen"</span><span class="op">)</span></span></code></pre></div>
@@ -130,7 +130,7 @@ validate <code>ggcognigen</code>.</p>
 command:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://simulations-plus.github.io/ggcognigen/" class="external-link">ggcognigen</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading ggcognigen Version 1.2.0.9000</span></span>
+<span><span class="co">#&gt; Loading ggcognigen Version 1.2.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Default style set to `cognigen_style()`</span></span>
 <span><span class="co">#&gt; Default theme set to `theme_cognigen()`</span></span></code></pre></div>
@@ -603,7 +603,7 @@ based upon <code>coef</code> x IQR as in
 <span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
@@ -618,7 +618,7 @@ based upon <code>coef</code> x IQR as in
 <span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
-<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
@@ -630,7 +630,7 @@ based upon <code>coef</code> x IQR as in
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boxdata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">GROUP</span>, y <span class="op">=</span> <span class="va">CONTINUOUS</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot2.html">geom_boxplot2</a></span><span class="op">(</span>whisker.cap <span class="op">=</span> <span class="cn">TRUE</span>, outlier.position <span class="op">=</span> <span class="st">'identity'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
@@ -658,17 +658,17 @@ The display and position of the outliers are controlled by the
 <span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">3</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
 <span><span class="co">#&gt;   variable into a factor?</span></span>
-<span><span class="co">#&gt; The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
 <span><span class="co">#&gt;   variable into a factor?</span></span>
-<span><span class="co">#&gt; The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
@@ -690,7 +690,9 @@ or design.</li>
 <li>Medians: with <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">ggplot2::geom_boxplot()</a></code>, medians are
 always represented by a horizontal line inside the box. This is also
 true with <code><a href="../reference/geom_boxplot2.html">geom_boxplot2()</a></code> in absence of any aesthetics;
-otherwise, medians are represented by symbols. Therefore, it is
+otherwise, medians are controlled by the <code>median_symbol</code>
+argument. When <code>median_symbol = TRUE</code> and a color aesthetic
+is used, medians are represented by symbols. Therefore, it is
 recommended to always set both <code>color</code> and <code>shape</code>
 aesthetics with <code><a href="../reference/geom_boxplot2.html">geom_boxplot2()</a></code>.</li>
 <li>Legend: with <code><a href="../reference/geom_boxplot2.html">geom_boxplot2()</a></code>, the legend will shown the
@@ -737,7 +739,7 @@ controls the shape of the outliers.</li>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
@@ -768,7 +770,7 @@ by each box and whiskers.</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">'boxplot'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
@@ -783,7 +785,7 @@ the wrong locations.</p>
 <span>  <span class="fu"><a href="../reference/geom_boxplot2.html">geom_boxplot2</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxcount.html">geom_boxcount</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">'log10'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span></span></span>
+<span><span class="co">#&gt; Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">#&gt;   the data.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
@@ -896,10 +898,7 @@ represented by each bar. Note that any non-default argument set in the
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">RANDOM</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histcount.html">geom_histcount</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">'histogram'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Computation failed in `stat_histcount()`</span></span>
-<span><span class="co">#&gt; Caused by error in `FUN()`:</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> unused argument (width = NULL)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">'histogram'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="intro_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
 <p>To display the data distribution as density or percentages, we
 suggest that you use the <code>bin2</code> stat and set the
@@ -925,19 +924,7 @@ aesthetic to <code>after_stat(density_label)</code> or
 <span>    <span class="fu"><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">'histogram'</span><span class="op">)</span>,</span>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Computation failed in `stat_bin2()`</span></span>
-<span><span class="co">#&gt; Caused by error in `fun()`:</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> unused argument (width = width)</span></span>
-<span><span class="co">#&gt; Warning: Computation failed in `stat_histcount()`</span></span>
-<span><span class="co">#&gt; Caused by error in `FUN()`:</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> unused argument (width = NULL)</span></span>
-<span><span class="co">#&gt; Warning: Computation failed in `stat_bin2()`</span></span>
-<span><span class="co">#&gt; Caused by error in `fun()`:</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> unused argument (width = width)</span></span>
-<span><span class="co">#&gt; Warning: Computation failed in `stat_histcount()`</span></span>
-<span><span class="co">#&gt; Caused by error in `FUN()`:</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> unused argument (width = NULL)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="intro_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
 <p>While <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram()</a></code> can be called using a continuous
 or categorical <code>x</code> aesthetic variable,

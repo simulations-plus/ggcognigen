@@ -20,7 +20,7 @@ x and/or y aesthetics are provided."><!-- mathjax --><script src="https://cdnjs.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggcognigen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.1</span>
       </span>
     </div>
 
@@ -106,10 +106,10 @@ by each bar. Like <code><a href="https://ggplot2.tidyverse.org/reference/geom_ba
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mapping</dt>
-<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> or
-<code><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>. If specified and
+<code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping
+at the top level of the plot. You must supply <code>mapping</code> if there is no plot
+mapping.</p></dd>
 
 
 <dt>data</dt>
@@ -127,8 +127,10 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
 
 
 <dt>position</dt>
-<dd><p>Position adjustment, either as a string, or the result of
-a call to a position adjustment function.</p></dd>
+<dd><p>Position adjustment, either as a string naming the adjustment
+(e.g. <code>"jitter"</code> to use <code>position_jitter</code>), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.</p></dd>
 
 
 <dt>...</dt>
@@ -151,7 +153,8 @@ integers.</p></dd>
 
 
 <dt>width</dt>
-<dd><p>Bar width. By default, set to 90% of the resolution of the data.</p></dd>
+<dd><p>Bar width. By default, set to 90% of the <code><a href="https://ggplot2.tidyverse.org/reference/resolution.html" class="external-link">resolution()</a></code> of the
+data.</p></dd>
 
 
 <dt>na.rm</dt>
@@ -209,7 +212,7 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
 <li><p><code>lineheight</code></p></li>
 <li><p><code>size</code></p></li>
 <li><p><code>vjust</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html" class="external-link">vignette("ggplot2-specs")</a></code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -218,45 +221,51 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_barcount-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Map class to y instead to flip the orientation</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">class</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_barcount-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For stacked position</span></span></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">color</span>, fill <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">color</span>, fill <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_bar</span><span class="op">(</span>position <span class="op">=</span> <span class="st">'stack'</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">'stack'</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_barcount-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_bar</span><span class="op">(</span>position <span class="op">=</span> <span class="st">'stack'</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">'stack'</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span>overall.stack <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_barcount-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For dodged position</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_bar</span><span class="op">(</span>position <span class="op">=</span> <span class="st">'dodge'</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span>position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">'dodge'</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_barcount-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For fill position</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_bar</span><span class="op">(</span>position <span class="op">=</span> <span class="st">'fill'</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span>position <span class="op">=</span> <span class="fu">position_fill</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">'fill'</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html" class="external-link">position_fill</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_barcount-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For fillpercent position</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_bar</span><span class="op">(</span>position <span class="op">=</span> <span class="st">'fillpercent'</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">'fillpercent'</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_barcount</span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="position_fillpercent.html">position_fillpercent</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">'count (%)'</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">'count (%)'</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_barcount-7.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

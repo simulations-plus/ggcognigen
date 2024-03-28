@@ -23,7 +23,7 @@ provides slightly different graphical styles when grouping/coloring is used.'><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggcognigen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.1</span>
       </span>
     </div>
 
@@ -84,6 +84,7 @@ provides slightly different graphical styles when grouping/coloring is used.</p>
 <span>  stat <span class="op">=</span> <span class="st">"boxplot2"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"dodge2"</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  median_symbol <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  outlier.position <span class="op">=</span> <span class="st">"jitter"</span>,</span>
 <span>  outlier.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  outlier.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -119,10 +120,10 @@ provides slightly different graphical styles when grouping/coloring is used.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mapping</dt>
-<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> or
-<code><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>. If specified and
+<code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping
+at the top level of the plot. You must supply <code>mapping</code> if there is no plot
+mapping.</p></dd>
 
 
 <dt>data</dt>
@@ -140,8 +141,10 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
 
 
 <dt>position</dt>
-<dd><p>Position adjustment, either as a string, or the result of
-a call to a position adjustment function.</p></dd>
+<dd><p>Position adjustment, either as a string naming the adjustment
+(e.g. <code>"jitter"</code> to use <code>position_jitter</code>), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.</p></dd>
 
 
 <dt>...</dt>
@@ -149,6 +152,12 @@ a call to a position adjustment function.</p></dd>
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></dd>
+
+
+<dt>median_symbol</dt>
+<dd><p>a logical value indicating whether to use a symbol
+(<code>TRUE</code>) or a line (<code>FALSE</code>) to represent the median when a color
+aesthetic is used.</p></dd>
 
 
 <dt>outlier.position</dt>
@@ -280,7 +289,7 @@ al. (1978) for more details.</p>
 <li><p><code>size</code></p></li>
 <li><p><code>stroke</code></p></li>
 <li><p><code>weight</code></p></li>
-</ul><p>Learn more about setting these aesthetics in <code>vignette("ggplot2-specs")</code>.</p>
+</ul><p>Learn more about setting these aesthetics in <code><a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html" class="external-link">vignette("ggplot2-specs")</a></code>.</p>
     </div>
     <div id="computed-variables">
     <h2>Computed variables</h2>
@@ -327,30 +336,116 @@ al. (1978) for more details.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">mpg</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">class</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span>outlier.position <span class="op">=</span> <span class="st">'identity'</span>, coef <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># Orientation follows the discrete axis</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">mpg</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">hwy</span>, <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">hwy</span>, <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">x</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span>notch <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Notch went outside hinges</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Do you want `notch = FALSE`?</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Notch went outside hinges</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Do you want `notch = FALSE`?</span>
+<span class="r-plt img"><img src="geom_boxplot2-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span>whisker.cap <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span>varwidth <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="st">"#3366FF"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Boxplots are automatically dodged when any aesthetic is a factor</span></span></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Using the `size` aesthetic with geom_polygon was deprecated in ggplot2 3.4.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use the `linewidth` aesthetic instead.</span>
+<span class="r-plt img"><img src="geom_boxplot2-8.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use the median_symbol argument to control how the median is drawn</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">drv</span><span class="op">)</span><span class="op">)</span>, median_symbol <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># You can also use boxplots with continuous x, as long as you supply</span></span></span>
 <span class="r-in"><span><span class="co"># a grouping variable. cut_width is particularly useful</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="fu">cut_width</span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Continuous x aesthetic -- did you forget aes(group=...)?</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-10.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html" class="external-link">cut_width</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-plt img"><img src="geom_boxplot2-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># Adjust the transparency of outliers using outlier.alpha</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="fu">cut_width</span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>, outlier.alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_boxplot2</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html" class="external-link">cut_width</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span>, outlier.alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">y</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   the data.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   variable into a factor?</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The following arguments are not used in geom_boxplot2:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   outlier.colour, outlier.color, outlier.fill, outlier.shape,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   outlier.size, outlier.stroke, and outlier.alpha</span>
+<span class="r-plt img"><img src="geom_boxplot2-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># It's possible to draw a boxplot with your own computations if you</span></span></span>
 <span class="r-in"><span><span class="co"># use stat = "identity":</span></span></span>
@@ -363,12 +458,12 @@ al. (1978) for more details.</p>
 <span class="r-in"><span>  y75 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">0.75</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  y100 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_boxplot2</span><span class="op">(</span></span></span>
-<span class="r-in"><span>   <span class="fu">aes</span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">y0</span>, lower <span class="op">=</span> <span class="va">y25</span>, middle <span class="op">=</span> <span class="va">y50</span>, upper <span class="op">=</span> <span class="va">y75</span>, ymax <span class="op">=</span> <span class="va">y100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">y0</span>, lower <span class="op">=</span> <span class="va">y25</span>, middle <span class="op">=</span> <span class="va">y50</span>, upper <span class="op">=</span> <span class="va">y75</span>, ymax <span class="op">=</span> <span class="va">y100</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   stat <span class="op">=</span> <span class="st">"identity"</span></span></span>
 <span class="r-in"><span> <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-plt img"><img src="geom_boxplot2-13.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
