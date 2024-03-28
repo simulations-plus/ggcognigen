@@ -177,7 +177,7 @@ ggsave_multiple <- function(
         warning(
           glue::glue(
             'A non-standard plot layout was applied in plot #{iplot}: {nrow_panels}x{ncol_panels}. ',
-            'Default plot dimensions may not be suitable for this case. Consider providing width and height.',
+            'Default plot dimensions may not be suitable for this case. Consider providing width and height.'
           )
         )
       }
