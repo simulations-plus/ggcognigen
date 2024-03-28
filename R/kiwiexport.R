@@ -493,13 +493,30 @@ make_docx <- function(
     ft <- fts[[ift]]
 
     # Scan content for superscripts (text between @_@) and italic (text between @@_@@) make changes
-    ft_data <- ft$body$content$content$data
+    #
+    # flextable structure updated in version 0.9.5 (no longer has nested 'content' field)
+    if(utils::hasName(ft$body$content, "content")) {
+      ft_data <- ft$body$content$content$data
+    } else if(utils::hasName(ft$body$content, "data")) {
+      ft_data <- ft$body$content$data
+    } else {
+      stop("unknown structure of flextable")
+    }
+
     for (icol in 1:ncol(ft_data)){
       for (irow in 1:nrow(ft_data)){
         ft_data[irow, icol] <- edit_format(ft_data[irow, icol])
       }
     }
-    ft$body$content$content$data <- ft_data
+
+    # make same update to ft object
+    if(utils::hasName(ft$body$content, "content")) {
+      ft$body$content$content$data <- ft_data
+    } else if(utils::hasName(ft$body$content, "data")) {
+      ft$body$content$data <- ft_data
+    } else {
+      stop("unknown structure of flextable")
+    }
 
     # Insert table in document
     if ( ift > 1 ){
