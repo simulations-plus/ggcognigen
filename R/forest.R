@@ -350,7 +350,7 @@ make_gmr_data <- function(
   invalid_rows <- which( is.na(data[, id_var]) | is.na(data[, x_var]) )
 
   if ( length(invalid_rows) > 0 ) {
-    data <- data[ !invalid_rows, ]
+    data <- data[ !(1:nrow(data) %in% invalid_rows), ]
     nrows <- nrow(data)
     if ( !silent ){
       message(
@@ -363,7 +363,7 @@ make_gmr_data <- function(
   invalid_rows <- which( is.na(data[, by]) )
 
   if ( length(invalid_rows) > 0 ) {
-    data <- data[ !invalid_rows, ]
+    data <- data[ !(1:nrow(data) %in% invalid_rows), ]
     nrows <- nrow(data)
     if ( !silent ){
       message(
@@ -398,7 +398,7 @@ make_gmr_data <- function(
   invalid_rows <- which( data[, x_var] <= 0 )
 
   if ( length(invalid_rows) > 0 ) {
-    data <- data[ !invalid_rows, ]
+    data <- data[ !(1:nrow(data) %in% invalid_rows), ]
     nrows <- nrow(data)
     if ( !silent ){
       message(
@@ -755,6 +755,9 @@ make_forestplot <- function(
     is_facet_expression = NULL
 ){
 
+  # set visible bindings
+  .data <- NULL
+
   # Functions
   check_title <- function(x){
     is.character(x) | is.expression(x) | is.null(x)
@@ -974,20 +977,20 @@ make_forestplot <- function(
 
   # Create main plot components
   p <- ggplot2::ggplot(data = data) +
-    ggplot2::aes_string(y = y_mod, x = x, xmin = xmin, xmax = xmax, group = y_mod_group)
+    ggplot2::aes(y = .data[[y_mod]], x = .data[[x]], xmin = .data[[xmin]], xmax = .data[[xmax]], group = .data[[y_mod_group]])
   if ( length(reference) > 0 ){
     p <- p +
-      ggplot2::aes_string(pch = reference, fill = reference)
+      ggplot2::aes(pch = .data[[reference]], fill = .data[[reference]])
   }
   p <- p +
-    ggplot2::geom_vline(xintercept = vline_primary, size = 0.5) +
-    ggplot2::geom_vline(xintercept = vline_secondary, lty = 'dashed', size = 0.5)
+    ggplot2::geom_vline(xintercept = vline_primary, linewidth = 0.5) +
+    ggplot2::geom_vline(xintercept = vline_secondary, lty = 'dashed', linewidth = 0.5)
 
   if ( length(color) == 0 ){
     p <- p + ggplot2::geom_pointrange(fatten = fatten[1])
   } else {
     p <- p + ggplot2::geom_pointrange(
-      ggplot2::aes_string(group = y_mod_group, color = color),
+      ggplot2::aes(group = .data[[y_mod_group]], color = .data[[color]]),
       position = ggplot2::position_dodge(width = 0.9),
       fatten = fatten[1]
     )

@@ -6,18 +6,25 @@
 #' aesthetics or group.
 #'
 #' @inheritParams ggplot2::stat_bin
+#' @param geom Use to override the default connection between
+#'   \code{\link[ggplot2]{geom_histogram}}/\code{\link{geom_histcount}} and
+#'   \code{\link{stat_bin2}}.
+#'
 #' @seealso \code{\link[ggplot2]{stat_bin}}
+#'
+#' @export
+#' @rdname stat_bin2
+#'
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' # Count
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram()
+#'
 #' # Percent
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram(aes(y = after_stat(percent)), stat = 'bin2')
-#' }
-#' @export
-#' @rdname stat_bin2
 
 stat_bin2 <- function(
   mapping = NULL,
@@ -69,7 +76,7 @@ stat_bin2 <- function(
 StatBin2 <- ggplot2::ggproto(
   "StatBin2",
   ggplot2::StatBin,
-  setup_params = function(data, params){
+  setup_params = function(self, data, params){
     local_params <- params
     local_params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
     tmp <- ggplot2::flipped_names(local_params$flipped_aes)
@@ -81,7 +88,7 @@ StatBin2 <- ggplot2::ggproto(
           "Perhaps you want stat=\"count2\"?"))
     }
     fun <- ggplot2:::fetch_ggproto(ggplot2::StatBin, 'setup_params')
-    fun(data = data, params = params)
+    fun(self = self, data = data, params = params)
   },
   setup_data = function(data, params){
     data <- flip_data(data, params$flipped_aes)
@@ -110,8 +117,7 @@ StatBin2 <- ggplot2::ggproto(
       center = center, boundary = boundary,
       closed = closed, pad = pad,
       breaks = breaks, flipped_aes = flipped_aes,
-      origin = origin, right = right, drop = drop,
-      width = width
+      origin = origin, right = right, drop = drop
     )
     bins$percent <- 100 * bins$count / data$nrow_total_[1]
     bins
@@ -124,6 +130,10 @@ StatBin2 <- ggplot2::ggproto(
 #' from the ggplot2 package
 #'
 #' @inheritParams ggplot2::stat_count
+#' @param geom Use to override the default connection between
+#'   \code{\link[ggplot2]{geom_bar}}/\code{\link{geom_barcount}} and
+#'   \code{\link{stat_count2}}.
+#'
 #' @seealso \code{\link[ggplot2]{stat_count}}
 #' @section Computed variables:
 #' \describe{
@@ -137,18 +147,19 @@ StatBin2 <- ggplot2::ggproto(
 #'   \code{\link{stat_bin2}} requires continuous \code{x} data, whereas
 #'   \code{stat_count2} can be used for both discrete and continuous \code{x} data.
 #'
+#' @export
+#' @rdname stat_count2
+#'
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' # Count
 #' ggplot(diamonds, aes(clarity)) +
 #'   geom_bar()
+#'
 #' # Percent
 #' ggplot(diamonds, aes(clarity)) +
 #'   geom_bar(aes(y = after_stat(percent)), stat = 'count2')
-#' }
-#'
-#' @export
-#' @rdname stat_count2
 
 stat_count2 <- function(
   mapping = NULL,

@@ -10,7 +10,8 @@
 #' @return A named \code{numeric} vector of width and height
 #' @export
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' dims <- get_device_size(nplots = 4,
 #'                         units = 'in',
 #'                         dpi = 300)
@@ -25,7 +26,6 @@
 #'        height = dims['height'],
 #'        units = 'in',
 #'        dpi = 300)
-#' }
 get_device_size <- function(
   nplots = 1,
   layout = 'portrait',
@@ -44,7 +44,7 @@ get_device_size <- function(
   if ( nplots > 8 ) nplots <- 8
 
   if ( ! (is.character(layout) && layout[1] %in% c('portrait', 'landscape')) )
-    stop('layout must be \'portait\' or \'landscape\'.')
+    stop('layout must be \'portrait\' or \'landscape\'.')
 
   layout <- layout[1]
 
@@ -63,7 +63,7 @@ get_device_size <- function(
     nplots,
     c(width, height*0.5),
     c(width, height),
-    c(width, height),
+    c(width, height*0.5),
     c(width, height*0.5),
     c(width, height*0.75),
     c(width, height*0.75),

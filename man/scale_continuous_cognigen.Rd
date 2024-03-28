@@ -27,7 +27,8 @@ colour bar, or \code{"legend"} for discrete colour legend.}
 Continuous scale for color and fill aesthetics with a purple gradient
 }
 \examples{
-\dontrun{
+library(ggplot2)
+
 df <- data.frame(
   value = seq(1, 100),
   x = runif(100),
@@ -44,5 +45,4 @@ ggplot(df, aes(x = x, y = y)) +
 ggplot(df, aes(x = value, y = y)) +
   geom_bar(aes(fill = z), stat = "identity") +
   scale_continuous_cognigen()
-}
 }

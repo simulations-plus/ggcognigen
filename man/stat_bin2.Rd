@@ -24,10 +24,10 @@ stat_bin2(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
-\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -45,10 +45,13 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{geom}{Use to override the default connection between
-\code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
+\code{\link[ggplot2]{geom_histogram}}/\code{\link{geom_histcount}} and
+\code{\link{stat_bin2}}.}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -70,17 +73,7 @@ bin width of a time variable is the number of seconds.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{center}{bin position specifiers. Only one, \code{center} or
-\code{boundary}, may be specified for a single plot. \code{center} specifies the
-center of one of the bins. \code{boundary} specifies the boundary between two
-bins. Note that if either is above or below the range of the data, things
-will be shifted by the appropriate integer multiple of \code{binwidth}.
-For example, to center on integers use \code{binwidth = 1} and \code{center = 0}, even
-if \code{0} is outside the range of the data. Alternatively, this same alignment
-can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
-outside the range of the data.}
-
-\item{boundary}{bin position specifiers. Only one, \code{center} or
+\item{center, boundary}{bin position specifiers. Only one, \code{center} or
 \code{boundary}, may be specified for a single plot. \code{center} specifies the
 center of one of the bins. \code{boundary} specifies the boundary between two
 bins. Note that if either is above or below the range of the data, things
@@ -126,14 +119,15 @@ represents the percentage of data in the overall data set, regardless of
 aesthetics or group.
 }
 \examples{
-\dontrun{
+library(ggplot2)
+
 # Count
 ggplot(diamonds, aes(carat)) +
   geom_histogram()
+
 # Percent
 ggplot(diamonds, aes(carat)) +
   geom_histogram(aes(y = after_stat(percent)), stat = 'bin2')
-}
 }
 \seealso{
 \code{\link[ggplot2]{stat_bin}}

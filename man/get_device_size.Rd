@@ -37,7 +37,8 @@ page
 Generate width and height in pixels of a device based upon a given number of plots per page
 }
 \examples{
-\dontrun{
+library(ggplot2)
+
 dims <- get_device_size(nplots = 4,
                         units = 'in',
                         dpi = 300)
@@ -52,5 +53,4 @@ ggsave(filename = 'plot.png',
        height = dims['height'],
        units = 'in',
        dpi = 300)
-}
 }

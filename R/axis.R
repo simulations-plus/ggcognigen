@@ -16,7 +16,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' min <- -5000
 #' max <- 5000
 #' set.seed(123)
@@ -44,7 +45,6 @@
 #'   geom_point() +
 #'   theme_cognigen_grid(minor.x = TRUE, minor.y = TRUE) +
 #'   scale_y_log10(minor_breaks = minor_breaks_log, labels = format_continuous_cognigen)
-#'}
 format_continuous_cognigen <- function(x){
 
   sciNot.expression <- function(x, digits = 5){

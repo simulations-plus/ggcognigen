@@ -23,7 +23,8 @@
 #' @seealso \code{\link[ggplot2]{geom_bar}}
 #' @export
 #' @examples
-#' \dontrun{
+#' library(ggplot2)
+#'
 #' p <- ggplot(mpg)
 #' p +
 #'   aes(x = class) +
@@ -60,8 +61,6 @@
 #'   geom_bar(position = 'fillpercent') +
 #'   geom_barcount(position = position_fillpercent()) +
 #'   ylab('count (%)')
-#'
-#' }
 
 geom_barcount <- function(
   mapping = NULL,

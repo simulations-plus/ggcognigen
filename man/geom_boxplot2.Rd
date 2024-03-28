@@ -11,6 +11,7 @@ geom_boxplot2(
   stat = "boxplot2",
   position = "dodge2",
   ...,
+  median_symbol = TRUE,
   outlier.position = "jitter",
   outlier.colour = NULL,
   outlier.color = NULL,
@@ -43,10 +44,10 @@ stat_boxplot2(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
-\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -63,13 +64,19 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{median_symbol}{a logical value indicating whether to use a symbol
+(\code{TRUE}) or a line (\code{FALSE}) to represent the median when a color
+aesthetic is used.}
 
 \item{outlier.position}{By default, outliers are displayed with a small degree of jitter. Sometimes
 it can be useful to hide the outliers, for example when overlaying the raw
@@ -206,7 +213,8 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
-\dontrun{
+library(ggplot2)
+
 p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot2()
 p + geom_boxplot2(outlier.position = 'identity', coef = 90)
@@ -219,7 +227,10 @@ p + geom_boxplot2(varwidth = TRUE)
 p + geom_boxplot2(fill = "white", colour = "#3366FF")
 
 # Boxplots are automatically dodged when any aesthetic is a factor
-p + geom_boxplot2(aes(colour = drv))
+p + geom_boxplot2(aes(colour = factor(drv)))
+
+# Use the median_symbol argument to control how the median is drawn
+p + geom_boxplot2(aes(colour = factor(drv)), median_symbol = FALSE)
 
 # You can also use boxplots with continuous x, as long as you supply
 # a grouping variable. cut_width is particularly useful
@@ -247,7 +258,6 @@ ggplot(df, aes(x)) +
    aes(ymin = y0, lower = y25, middle = y50, upper = y75, ymax = y100),
    stat = "identity"
  )
-}
 }
 \references{
 McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of

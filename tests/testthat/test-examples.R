@@ -2,6 +2,7 @@ library(ggplot2)
 
 # example(s) from: man/format_continuous_cognigen.Rd
 
+library(ggplot2)
 
 min <- -5000
 max <- 5000
@@ -31,9 +32,9 @@ ggplot(data, aes(x = x, y = y)) +
   theme_cognigen_grid(minor.x = TRUE, minor.y = TRUE) +
   scale_y_log10(minor_breaks = minor_breaks_log, labels = format_continuous_cognigen)
 
-
 # example(s) from: man/geom_barcount.Rd
 
+library(ggplot2)
 
 p <- ggplot(mpg)
 p +
@@ -72,10 +73,9 @@ p +
   geom_barcount(position = position_fillpercent()) +
   ylab('count (%)')
 
-
-
 # example(s) from: man/geom_boxcount.Rd
 
+library(ggplot2)
 
 p <- ggplot(mpg, aes(class, hwy))
 p +
@@ -89,9 +89,9 @@ p +
   geom_boxcount() +
   scale_y_continuous(trans = 'log10')
 
-
 # example(s) from: man/geom_boxplot2.Rd
 
+library(ggplot2)
 
 p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot2()
@@ -105,7 +105,10 @@ p + geom_boxplot2(varwidth = TRUE)
 p + geom_boxplot2(fill = "white", colour = "#3366FF")
 
 # Boxplots are automatically dodged when any aesthetic is a factor
-p + geom_boxplot2(aes(colour = drv))
+p + geom_boxplot2(aes(colour = factor(drv)))
+
+# Use the median_symbol argument to control how the median is drawn
+p + geom_boxplot2(aes(colour = factor(drv)), median_symbol = FALSE)
 
 # You can also use boxplots with continuous x, as long as you supply
 # a grouping variable. cut_width is particularly useful
@@ -134,9 +137,9 @@ ggplot(df, aes(x)) +
    stat = "identity"
  )
 
-
 # example(s) from: man/geom_crossbar2.Rd
 
+library(ggplot2)
 
 # Create a simple example dataset
 df <- data.frame(
@@ -150,9 +153,9 @@ df <- data.frame(
 p <- ggplot(df, aes(trt, resp, colour = group))
 p + geom_crossbar2(aes(ymin = lower, ymax = upper), width = 0.2)
 
-
 # example(s) from: man/geom_histcount.Rd
 
+library(ggplot2)
 
 p <- ggplot(diamonds)
 
@@ -187,9 +190,9 @@ p +
   geom_histcount(aes(y = after_stat(percent), label = after_stat(percent_label)), bins = 15) +
   ylab('percent (%)')
 
-
 # example(s) from: man/get_device_size.Rd
 
+library(ggplot2)
 
 dims <- get_device_size(nplots = 4,
                         units = 'in',
@@ -206,7 +209,6 @@ ggsave(filename = 'plot.png',
        units = 'in',
        dpi = 300)
 
-
 # example(s) from: man/get_style_colors.Rd
 
 get_style_colors()
@@ -214,7 +216,6 @@ get_style_colors(element = 'bar')
 get_style_colors(style = cognigen_purple_style())
 
 # example(s) from: man/ggsave_multiple.Rd
-
 
 library(ggplot2)
 library(ggforce)
@@ -248,9 +249,6 @@ ggsave_multiple(
   plots = list(g1, g2, g3, gs),
   path = tempdir()
 )
-
-
-
 
 # example(s) from: man/make_forestplot.Rd
 
@@ -393,6 +391,7 @@ make_gmr_table(
 
 # example(s) from: man/scale_continuous_cognigen.Rd
 
+library(ggplot2)
 
 df <- data.frame(
   value = seq(1, 100),
@@ -411,9 +410,9 @@ ggplot(df, aes(x = value, y = y)) +
   geom_bar(aes(fill = z), stat = "identity") +
   scale_continuous_cognigen()
 
-
 # example(s) from: man/scale_discrete_cognigen.Rd
 
+library(ggplot2)
 
 # Use the xydata dataset provided in the ggcognigen package
 
@@ -461,9 +460,6 @@ ggplot(data = boxdata) +
     notch = TRUE,
     coef = 90,
     fill = 'white',
-    #outlier.colour = NA,
-    outlier.jitter = TRUE,
-    outlier.size = 3,
     position = position_dodge(width = 0.9),
     na.rm = TRUE
   ) +
@@ -480,57 +476,57 @@ ggplot(data = boxdata) +
     notch = TRUE,
     coef = 90,
     fill = 'white',
-    outlier.jitter = TRUE,
-    outlier.size = 3,
     position = position_dodge(width = 0.9),
     na.rm = TRUE
   ) +
   theme_cognigen() +
   scale_discrete_cognigen(10)
 
-# Histogram
-
-
-
 # example(s) from: man/set_default_style.Rd
 
+library(ggplot2)
 
+# set the style to ggcognigen style
 set_default_style()
 
 ggplot(mpg, aes(class, hwy)) +
   geom_point()
 
+# revert back to ggplot2 style
 set_default_style(style = 'ggplot2')
 ggplot(mpg, aes(class, hwy)) +
   geom_point()
 
-
+# again, set the style to ggcognigen style
+set_default_style()
 
 # example(s) from: man/stat_bin2.Rd
 
+library(ggplot2)
 
 # Count
 ggplot(diamonds, aes(carat)) +
   geom_histogram()
+
 # Percent
 ggplot(diamonds, aes(carat)) +
   geom_histogram(aes(y = after_stat(percent)), stat = 'bin2')
 
-
 # example(s) from: man/stat_count2.Rd
 
+library(ggplot2)
 
 # Count
 ggplot(diamonds, aes(clarity)) +
   geom_bar()
+
 # Percent
 ggplot(diamonds, aes(clarity)) +
   geom_bar(aes(y = after_stat(percent)), stat = 'count2')
 
-
-
 # example(s) from: man/theme_cognigen.Rd
 
+library(ggplot2)
 
 p <- ggplot(mpg, aes(class, hwy)) +
   geom_point()
@@ -538,5 +534,4 @@ p <- ggplot(mpg, aes(class, hwy)) +
 p + theme_cognigen()
 
 p + theme_cognigen_grid()
-
 
