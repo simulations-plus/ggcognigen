@@ -193,7 +193,7 @@ GeomBoxplot2 <- ggplot2::ggproto(
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = ggplot2::aes(
     weight = 1, colour = "grey20", fill = "transparent", size = 0.5,
-    alpha = NA, shape = 21, linetype = "solid", stroke = 0.5
+    alpha = NA, shape = 21, linetype = "solid", linewidth = 0.5, stroke = 0.5
   ),
 
   # need to declare `width` here in case this geom is used with a stat that
@@ -248,6 +248,7 @@ GeomBoxplot2 <- ggplot2::ggproto(
     common <- list(
       colour = data$colour,
       size = data$size,
+      linewidth = data$linewidth,
       linetype = data$linetype,
       fill = alpha(data$fill, data$alpha),
       group = data$group,
