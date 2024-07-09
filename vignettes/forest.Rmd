@@ -2,7 +2,7 @@
 title: "Forest plot creation with ggcognigen"
 author:
   - name: "Sebastien Bihorel"
-  - name: "for Cognigen Division of Simulations Plus"
+  - name: "for the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc"
 output: 
   html_document:
     code_folding: hide

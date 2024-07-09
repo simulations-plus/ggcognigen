@@ -1,4 +1,4 @@
-#' Cognigen ggplot2 themes. Run by default at startup of \code{ggcognigen}
+#' CPP ggplot2 themes. Run by default at startup of \code{ggcognigen}
 #'
 #' @param smaller \code{logical} indicating whether to use smaller font size
 #' @param ... additional theme elements to override defaults. See

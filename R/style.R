@@ -12,7 +12,7 @@ get.structure <- function(x){
   }
 }
 
-#' Cognigen ggplot2 style (default graphical style)
+#' CPP ggplot2 style (default graphical style)
 #'
 #' @return \code{list} of style elements
 #' @export
@@ -399,8 +399,8 @@ cognigen_style <- function(){
 
 }
 
-#' An alternative Cognigen ggplot2 style using a purple-hue ramp. It is
-#' primarily intended to be used for order
+#' An alternative ggplot2 style using a purple-hue ramp. It is primarily
+#' intended to be used for order
 #'
 #' @inheritParams scale_discrete_cognigen
 #' @param gray.first \code{logical} indicating whether the first group

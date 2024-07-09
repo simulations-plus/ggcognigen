@@ -1,6 +1,6 @@
 # ggcognigen
 
-`ggcognigen` provides geoms, themes, styles, and helper functions for {ggplot2} at Cognigen.
+`ggcognigen` provides geoms, themes, styles, and helper functions for {ggplot2} at the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc.
 
 Load it with:
 ```r
@@ -11,9 +11,9 @@ library(ggcognigen)
 
 ## Themes
 
-Cognigen themes are based on `ggplot2::theme_bw()`. Additional `theme()` inputs can be passed to `...` for further customization.
+CPP themes are based on `ggplot2::theme_bw()`. Additional `theme()` inputs can be passed to `...` for further customization.
 
-- `theme_cognigen()`: simple theme for Cognigen plots (without grid lines).
+- `theme_cognigen()`: simple theme for CPP plots (without grid lines).
 - `theme_cognigen_grid()`: similar to `theme_cognigen()` but displaying grid lines in the background.
 
 ## Geoms

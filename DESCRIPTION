@@ -1,14 +1,14 @@
 Package: ggcognigen
 Type: Package
-Title: Cognigen ggplot2 Functions
-Version: 1.2.1.9000
+Title: ggplot2 functions for the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc
+Version: 1.2.2
 Date: $date$
 Authors@R: c(person("Sebastien","Bihorel",role=c("aut")),
              person("Nash","Delcamp",role=c("aut","cre"),email="nash.delcamp@simulations-plus.com"),
-             person("Cognigen Division of Simulations Plus, Inc",role="cph"))
+             person("Simulations Plus",role="cph"))
 URL: https://simulations-plus.github.io/ggcognigen/, https://github.com/simulations-plus/ggcognigen
 BugReports: https://github.com/simulations-plus/ggcognigen/issues
-Description: Geoms, themes, styles, and helper functions for ggplot2 at Cognigen.
+Description: Geoms, themes, styles, and helper functions for ggplot2 at the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

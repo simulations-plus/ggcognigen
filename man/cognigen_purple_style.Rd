@@ -2,8 +2,8 @@
 % Please edit documentation in R/style.R
 \name{cognigen_purple_style}
 \alias{cognigen_purple_style}
-\title{An alternative Cognigen ggplot2 style using a purple-hue ramp. It is
-primarily intended to be used for order}
+\title{An alternative ggplot2 style using a purple-hue ramp. It is primarily
+intended to be used for order}
 \usage{
 cognigen_purple_style(n = 10, gray.first = FALSE)
 }
@@ -17,6 +17,6 @@ of the discrete scale should be represented using a gray color}
 \code{list} of style elements
 }
 \description{
-An alternative Cognigen ggplot2 style using a purple-hue ramp. It is
-primarily intended to be used for order
+An alternative ggplot2 style using a purple-hue ramp. It is primarily
+intended to be used for order
 }
