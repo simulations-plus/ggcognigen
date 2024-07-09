@@ -256,7 +256,7 @@ print.gg <- function(x, ...) {
 
   if(inherits(x$facet, c('FacetWrapPaginate', 'FacetGridPaginate'))) {
     class(x) <- c('ggcognigen', class(x))
-    print(x)
+    print(x, ...)
   } else {
     NextMethod()
   }

@@ -2,7 +2,7 @@
 title: "Introduction to ggcognigen"
 author:
   - name: "Nash Delcamp, Sebastien Bihorel"
-  - name: "for Cognigen Division of Simulations Plus"
+  - name: "for the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc"
 output: 
   html_document:
     toc: true
@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 
 <br>
 
-`ggcognigen` is a package intended to provide graphical standards for the creation of plots at Cognigen using a plotting workflow based upon the `ggplot2` package.
+`ggcognigen` is a package intended to provide graphical standards for the creation of plots at CPP using a plotting workflow based upon the `ggplot2` package.
 
 # Installing `ggcognigen`
 
@@ -56,7 +56,7 @@ remotes::install_github("simulations-plus/ggcognigen")
 
 Dependencies of the `ggcognigen` package are listed in the package DESCRIPTION file.
 
-Outside of Cognigen, it is the responsibility of the user to test and validate `ggcognigen`.
+Outside of CPP, it is the responsibility of the user to test and validate `ggcognigen`.
 
 # Loading `ggcognigen`
 
@@ -71,7 +71,7 @@ set_default_style(style = 'ggplot2')
 
 # Using `ggcognigen` themes {#theme}
 
-A plain, Cognigen-specific theme, is applied by default when the `ggcognigen` package is loaded.
+A plain, CPP-specific theme, is applied by default when the `ggcognigen` package is loaded.
 
 ```{r, fig.dim = c(6, 3.5)}
 library(ggplot2)
@@ -81,7 +81,7 @@ ggplot(data = diamonds) +
   facet_wrap(vars(clarity))
 ```
 
-If a different default theme has been applied (for instance, using `ggplot2::reset_theme_settings()`), the Cognigen theme can be explicitly applied by including `theme_cognigen()` in your ggplot calls.
+If a different default theme has been applied (for instance, using `ggplot2::reset_theme_settings()`), the CPP theme can be explicitly applied by including `theme_cognigen()` in your ggplot calls.
 
 ```{r, fig.dim = c(8, 3.5)}
 ggplot2::reset_theme_settings()
@@ -94,7 +94,7 @@ ggpubr::ggarrange(
     aes(x = GROUP, y = CONTINUOUS) +
     geom_boxplot() +
     theme_cognigen() +
-    ggtitle('Cognigen theme'),
+    ggtitle('CPP theme'),
   nrow = 1,
   ncol = 2
 )
@@ -110,7 +110,7 @@ ggplot(data = diamonds) +
   theme_cognigen_grid()
 ```
 
-If needed, the Cognigen-specific themes can be set to default using the following call:
+If needed, the CPP-specific themes can be set to default using the following call:
 
 ```{r}
 ggplot2::theme_set(theme_cognigen())
@@ -120,7 +120,7 @@ ggplot2::theme_set(theme_cognigen())
 
 ## `set_default_style()`
 
-When data are not stratified by any aesthetics within a panel, default geom styling applies. When `ggcognigen` is loaded, `set_default_style()` is automatically called in order to apply the default Cognigen graphical style. This function applies the Cognigen styling to all types of geoms (note that outlier styling in `geom_boxplot()` is not controlled by aesthetics and should be changed manually; alternatively, use `geom_boxplot2()`):
+When data are not stratified by any aesthetics within a panel, default geom styling applies. When `ggcognigen` is loaded, `set_default_style()` is automatically called in order to apply the default CPP graphical style. This function applies the CPP styling to all types of geoms (note that outlier styling in `geom_boxplot()` is not controlled by aesthetics and should be changed manually; alternatively, use `geom_boxplot2()`):
 
 ```{r, echo = FALSE}
 #xydata <- subset(xydata, REP == 1)
@@ -158,7 +158,7 @@ set_default_style(style = read_style('/path/to/my/style.json'))
 
 ## `scale_discrete_cognigen()`
 
-When data are stratified within a panel, `scale_discrete_cognigen()` can be added to `ggplot2` object in order to apply the colors, symbols, and line styles from the default Cognigen graphical style. This function accepts a `geom` argument which should be aligned with the type of geom being plotted, if it is not a `geom_point()` (as this is the default geom used in `scale_discrete_cognigen()`)
+When data are stratified within a panel, `scale_discrete_cognigen()` can be added to `ggplot2` object in order to apply the colors, symbols, and line styles from the default CPP graphical style. This function accepts a `geom` argument which should be aligned with the type of geom being plotted, if it is not a `geom_point()` (as this is the default geom used in `scale_discrete_cognigen()`)
 
 ```{r, fig.dim = c(8, 6.5)}
 ggpubr::ggarrange(
@@ -210,7 +210,7 @@ ggpubr::ggarrange(
 
 ## `cognigen_style()`
 
-By default, the `style` argument of `scale_discrete_cognigen()` is set to `cognigen_style()`. `cognigen_style()` returns a large list object which contains all the settings defining the Cognigen graphical standards and which has the following structure:
+By default, the `style` argument of `scale_discrete_cognigen()` is set to `cognigen_style()`. `cognigen_style()` returns a large list object which contains all the settings defining the CPP graphical standards and which has the following structure:
 
 ```{r}
 str(cognigen_style())
@@ -224,7 +224,7 @@ style$scatter$color$lty
 style$bar$grayscale$col
 ```
 
-This collection of settings was initially designed for the graphing workflows implemented in the [Cognigen KIWI platform for modeling & simulation](https://www.simulations-plus.com/software/kiwi/) and contains information that is relevant to a `ggplot2`-based workflow and some that is not. Relevant information is automatically extracted by `scale_discrete_cognigen()`.
+This collection of settings was initially designed for the graphing workflows implemented in the [CPP KIWI platform for modeling & simulation](https://www.simulations-plus.com/software/kiwi/) and contains information that is relevant to a `ggplot2`-based workflow and some that is not. Relevant information is automatically extracted by `scale_discrete_cognigen()`.
 
 ## `cognigen_purple_style()`
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/style.R
 \name{cognigen_style}
 \alias{cognigen_style}
-\title{Cognigen ggplot2 style (default graphical style)}
+\title{CPP ggplot2 style (default graphical style)}
 \usage{
 cognigen_style()
 }
@@ -10,5 +10,5 @@ cognigen_style()
 \code{list} of style elements
 }
 \description{
-Cognigen ggplot2 style (default graphical style)
+CPP ggplot2 style (default graphical style)
 }

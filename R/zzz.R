@@ -8,10 +8,10 @@
     )
   )
 
-  # Apply default Cognigen styling and theme for ggplot2
+  # Apply default styling and theme for ggplot2
   set_default_style()
 
-  # Apply default Cognigen theme
+  # Apply default theme
   ggplot2::theme_set(theme_cognigen())
 
   packageStartupMessage(

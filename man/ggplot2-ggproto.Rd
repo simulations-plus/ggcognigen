@@ -18,7 +18,7 @@
 \alias{StatBoxcount}
 \alias{StatBoxplot2}
 \alias{StatHistcount}
-\title{Cognigen ggproto classes for ggplot2}
+\title{ggcognigen ggproto classes for ggplot2}
 \description{
 If you are creating a new geom, stat, position, or scale in another package,
 you'll need to extend from `ggplot2::Geom`, `ggplot2::Stat`,

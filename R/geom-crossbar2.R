@@ -75,8 +75,8 @@ GeomCrossbar2 <- ggplot2::ggproto(
   ggplot2::Geom,
   required_aes = c("x", "y", "ymin|xmin", "ymax|xmax"),
   non_missing_aes = c("size", "shape", "colour"),
-  default_aes = ggplot2::aes(colour = "black", fill = NA, size = 0.5, linetype = 1, shape = 19,
-                             alpha = NA, stroke = 0.5),
+  default_aes = ggplot2::aes(colour = "black", fill = NA, linetype = 1, linewidth = 0.5, size = 0.5,
+                             shape = 19, alpha = NA, stroke = 0.5),
   extra_params = c("na.rm", "orientation"),
 
   setup_params = function(data, params) {
@@ -93,7 +93,7 @@ GeomCrossbar2 <- ggplot2::ggproto(
       middle <- transform(data, x = 0.5*(xmax+xmin), size = size * fatten, alpha = NA)
     } else {
       # median line style
-      middle <- transform(data, x = xmin, xend = xmax, yend = y, linewidth = size * fatten, alpha = NA)
+      middle <- transform(data, x = xmin, xend = xmax, yend = y, linewidth = linewidth * fatten, alpha = NA)
     }
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -123,7 +123,7 @@ GeomCrossbar2 <- ggplot2::ggproto(
         ),
         alpha = rep(data$alpha, 11),
         colour = rep(data$colour, 11),
-        size = rep(data$size, 11),
+        linewidth = rep(data$linewidth, 11),
         linetype = rep(data$linetype, 11),
         fill = rep('white', nrow(data) * 11), #data$fill, 11),
         group = rep(seq_len(nrow(data)), 11)
@@ -137,7 +137,7 @@ GeomCrossbar2 <- ggplot2::ggproto(
         y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
         alpha = rep(data$alpha, 5),
         colour = rep(data$colour, 5),
-        size = rep(data$size, 5),
+        linewidth = rep(data$linewidth, 5),
         linetype = rep(data$linetype, 5),
         fill = rep('white', nrow(data) * 5), #rep(data$fill, 5),
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
@@ -170,7 +170,7 @@ GeomCrossbar2 <- ggplot2::ggproto(
       gp = grid::gpar(
         col = data$colour %||% "grey20",
         fill = alpha("white", data$alpha),
-        lwd = (data$size %||% 0.5) * .pt,
+        lwd = (data$linewidth %||% 0.5) * .pt,
         lty = data$linetype %||% 1
       )
     )

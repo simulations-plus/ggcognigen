@@ -3,7 +3,7 @@
 \name{theme_cognigen}
 \alias{theme_cognigen}
 \alias{theme_cognigen_grid}
-\title{Cognigen ggplot2 themes. Run by default at startup of \code{ggcognigen}}
+\title{CPP ggplot2 themes. Run by default at startup of \code{ggcognigen}}
 \usage{
 theme_cognigen(smaller = FALSE, ...)
 
@@ -26,7 +26,7 @@ theme_cognigen_grid(
 draw major/minor grid lines on the respective axis}
 }
 \description{
-Cognigen ggplot2 themes. Run by default at startup of \code{ggcognigen}
+CPP ggplot2 themes. Run by default at startup of \code{ggcognigen}
 }
 \examples{
 library(ggplot2)

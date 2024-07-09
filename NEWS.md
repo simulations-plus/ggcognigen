@@ -1,3 +1,7 @@
+# ggcognigen 1.2.2
+
+* Updates based on changes to ggplot2 behavior related to linewidth and size aesthetics.
+
 # ggcognigen 1.2.1
 
 * Added `median_symbol` argument to `geom_boxplot2` to allow for a median line to be used instead of the symbol.
