@@ -1,4 +1,6 @@
-# ggcognigen (development version)
+# ggcognigen 1.2.2
+
+* Updates based on changes to ggplot2 behavior related to linewidth and size aesthetics.
 
 # ggcognigen 1.2.1
 
