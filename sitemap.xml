@@ -1,126 +1,44 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/forest.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/intro.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/bardata.html</loc>
-  </url>
-  <url>
-    <loc>/reference/boxdata.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cognigen_purple_style.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cognigen_style.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expo.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_continuous_cognigen.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_barcount.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_boxcount.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_boxplot2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_crossbar2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geom_histcount.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_device_size.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_style_colors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ggplot2-ggproto.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ggsave_multiple.html</loc>
-  </url>
-  <url>
-    <loc>/reference/histdata.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kiwiexport_make.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kiwiexport_theme_border.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_forestplot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_gmr_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_gmr_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/merge_repeated_cells.html</loc>
-  </url>
-  <url>
-    <loc>/reference/position_fillpercent.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_style.html</loc>
-  </url>
-  <url>
-    <loc>/reference/scale_continuous_cognigen.html</loc>
-  </url>
-  <url>
-    <loc>/reference/scale_discrete_cognigen.html</loc>
-  </url>
-  <url>
-    <loc>/reference/set_default_style.html</loc>
-  </url>
-  <url>
-    <loc>/reference/stat_bin2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/stat_count2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/theme_cognigen.html</loc>
-  </url>
-  <url>
-    <loc>/reference/xydata.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/forest.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/intro.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/bardata.html</loc></url>
+<url><loc>/reference/boxdata.html</loc></url>
+<url><loc>/reference/cognigen_purple_style.html</loc></url>
+<url><loc>/reference/cognigen_style.html</loc></url>
+<url><loc>/reference/expo.html</loc></url>
+<url><loc>/reference/format_continuous_cognigen.html</loc></url>
+<url><loc>/reference/geom_barcount.html</loc></url>
+<url><loc>/reference/geom_boxcount.html</loc></url>
+<url><loc>/reference/geom_boxplot2.html</loc></url>
+<url><loc>/reference/geom_crossbar2.html</loc></url>
+<url><loc>/reference/geom_histcount.html</loc></url>
+<url><loc>/reference/get_device_size.html</loc></url>
+<url><loc>/reference/get_style_colors.html</loc></url>
+<url><loc>/reference/ggplot2-ggproto.html</loc></url>
+<url><loc>/reference/ggsave_multiple.html</loc></url>
+<url><loc>/reference/histdata.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/kiwiexport_make.html</loc></url>
+<url><loc>/reference/kiwiexport_theme_border.html</loc></url>
+<url><loc>/reference/make_forestplot.html</loc></url>
+<url><loc>/reference/make_gmr_data.html</loc></url>
+<url><loc>/reference/make_gmr_table.html</loc></url>
+<url><loc>/reference/merge_repeated_cells.html</loc></url>
+<url><loc>/reference/position_fillpercent.html</loc></url>
+<url><loc>/reference/read_style.html</loc></url>
+<url><loc>/reference/scale_continuous_cognigen.html</loc></url>
+<url><loc>/reference/scale_discrete_cognigen.html</loc></url>
+<url><loc>/reference/set_default_style.html</loc></url>
+<url><loc>/reference/stat_bin2.html</loc></url>
+<url><loc>/reference/stat_count2.html</loc></url>
+<url><loc>/reference/theme_cognigen.html</loc></url>
+<url><loc>/reference/xydata.html</loc></url>
 </urlset>
+
