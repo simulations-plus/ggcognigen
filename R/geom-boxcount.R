@@ -50,7 +50,7 @@ geom_boxcount <- function(
     show.legend = FALSE,
     inherit.aes = TRUE) {
 
-  #position <- ggplot2:::check_subclass(position, "Position", env = parent.frame())
+  #position <- ggplot2:::validate_subclass(position, "Position", env = parent.frame())
 
   ggplot2::layer(
     data = data,

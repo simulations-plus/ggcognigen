@@ -425,6 +425,7 @@ ggplot(data = bardata) +
 ```
 
 Alternatively, you can request the display of values associated with each bar components:
+
 ```{r, fig.dim = c(8, 3.5)}
 ggplot(data = bardata) +
   aes(x = STUDY, y = COUNT, fill = GROUP) +

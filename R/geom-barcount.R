@@ -17,6 +17,7 @@
 #' @param digits Integer indicating the number of significant digits to be used.
 #'   Recognized values are \code{0..22}. Use \code{digits = 0} to display as
 #'   integers.
+#' @param width Numeric value defining the width of the bars.
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_barcount} and \code{stat_barcount}.
 #'

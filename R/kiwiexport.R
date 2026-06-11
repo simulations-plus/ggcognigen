@@ -202,9 +202,9 @@ theme_border <- function(ht, bold_rows = 1, bold_cols = 1, position = 'left', fo
     huxtable::everywhere,
     value = ifelse( format == 'html', grDevices::rgb(204/256, 204/256, 204/256, 1), 'black')
   )
-  ht <- huxtable::set_left_border(ht, nrow(ht), huxtable::everywhere, FALSE)
-  ht <- huxtable::set_right_border(ht, nrow(ht), huxtable::everywhere, FALSE)
-  ht <- huxtable::set_bottom_border(ht, nrow(ht), huxtable::everywhere, FALSE)
+  ht <- huxtable::set_left_border(ht, nrow(ht), huxtable::everywhere, 0)
+  ht <- huxtable::set_right_border(ht, nrow(ht), huxtable::everywhere, 0)
+  ht <- huxtable::set_bottom_border(ht, nrow(ht), huxtable::everywhere, 0)
   ht <- huxtable::set_bold(ht, bold_rows, huxtable::everywhere, TRUE)
   ht <- huxtable::set_bold(ht, huxtable::everywhere, bold_cols, TRUE)
   if ( format == 'html' ){

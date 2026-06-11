@@ -1,3 +1,7 @@
+# ggcognigen 1.2.3
+
+* Updates to support ggplot2 4.0.0. `ggcognigen` now requires `ggplot2 (>= 4.0.0)`.
+
 # ggcognigen 1.2.2
 
 * Updates based on changes to ggplot2 behavior related to linewidth and size aesthetics.

@@ -22,7 +22,7 @@ stat_histcount <- function(
   inherit.aes = TRUE
 ) {
 
-  position <- ggplot2:::check_subclass(position, 'Position', env = parent.frame())
+  position <- ggplot2:::validate_subclass(position, 'Position', env = parent.frame())
 
   if ( !inherits(position, 'PositionStack') ) {
     rlang::abort("stat_histcount() is only compatible with position_stack().")
@@ -92,10 +92,7 @@ StatHistcount <- ggplot2::ggproto(
     pad = FALSE,
     breaks = NULL,
     flipped_aes = FALSE,
-    origin = NULL,
-    right = NULL,
-    drop = NULL,
-    width = NULL
+    drop = NULL
   ) {
 
     fun <- ggplot2:::fetch_ggproto(ggplot2::StatBin, 'compute_group')
@@ -111,8 +108,7 @@ StatHistcount <- ggplot2::ggproto(
       scales = scales, binwidth = binwidth, bins = bins,
       center = center, boundary = boundary,
       closed = closed, pad = pad, breaks = breaks,
-      flipped_aes = flipped_aes, origin = origin,
-      right = right, drop = drop
+      flipped_aes = flipped_aes, drop = drop
     )
     bins <- tmp[[1]]
     bins$count <- bins$ncount <- bins$density <- bins$ndensity <- 0

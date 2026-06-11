@@ -250,19 +250,6 @@ ggsave_multiple <- function(
 }
 
 
-# intercept print method
-#' @export
-print.gg <- function(x, ...) {
-
-  if(inherits(x$facet, c('FacetWrapPaginate', 'FacetGridPaginate'))) {
-    class(x) <- c('ggcognigen', class(x))
-    print(x, ...)
-  } else {
-    NextMethod()
-  }
-
-}
-
 # Adapted from https://github.com/tidyverse/ggplot2/issues/86
 # Author of reference function: Benjamin Guiastrennec
 #' @export
@@ -274,11 +261,16 @@ print.ggcognigen <- function(x, ...) {
   # Prevent issue with repair_facet when page = NULL
   x$facet$params$page <- pages
 
+  # Render each page with ggplot2's own print method. Dispatching through the
+  # generic print() would recurse back into print.ggcognigen (repair_facet()
+  # keeps the 'ggcognigen' class). In ggplot2 (>= 4.0.0) ggplot objects are S7
+  # and the former ggplot2:::print.ggplot is registered as `print.ggplot2::ggplot`.
+  print_ggplot <- utils::getS3method("print", "ggplot2::ggplot")
+
   # Print all pages
   for (p in seq_along(pages)) {
     x$facet$params$page <- pages[p]
-    ggplot2:::print.ggplot(x = repair_facet(x), ...)
-
+    print_ggplot(repair_facet(x), ...)
   }
 
   # Prevent ggforce from dropping multiple pages value

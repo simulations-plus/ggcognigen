@@ -1,7 +1,7 @@
 Package: ggcognigen
 Type: Package
 Title: ggplot2 functions for the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc
-Version: 1.2.2
+Version: 1.2.3
 Date: $date$
 Authors@R: c(person("Sebastien","Bihorel",role=c("aut")),
              person("Nash","Delcamp",role=c("aut","cre"),email="nash.delcamp@simulations-plus.com"),
@@ -13,7 +13,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    ggplot2 (>= 3.3.1),
+    ggplot2 (>= 4.0.0),
     rlang (>= 0.4.6),
     grid (>= 3.6.1),
     jsonlite (>= 1.6.1),
@@ -27,7 +27,7 @@ Imports:
     flextable,
     assertthat,
     vctrs
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
 Suggests: 
     knitr (>= 1.28),
     rmarkdown (>= 2.2),

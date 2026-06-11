@@ -61,7 +61,7 @@ StatBarcount <- ggplot2::ggproto(
   },
   compute_panel = function(data, scales, position, overall.stack = TRUE, digits = 3, width = NULL, flipped_aes = FALSE) {
 
-    position <- ggplot2:::check_subclass(position, 'Position', env = parent.frame())
+    position <- ggplot2:::validate_subclass(position, 'Position', env = parent.frame())
     position_class <- class(position)[1]
     reverse <- position$reverse
 

@@ -106,10 +106,7 @@ StatBin2 <- ggplot2::ggproto(
     pad = FALSE,
     breaks = NULL,
     flipped_aes = FALSE,
-    origin = NULL,
-    right = NULL,
-    drop = NULL,
-    width = NULL
+    drop = NULL
   ) {
     fun <- ggplot2:::fetch_ggproto(ggplot2::StatBin, 'compute_group')
     bins <- fun(
@@ -117,7 +114,7 @@ StatBin2 <- ggplot2::ggproto(
       center = center, boundary = boundary,
       closed = closed, pad = pad,
       breaks = breaks, flipped_aes = flipped_aes,
-      origin = origin, right = right, drop = drop
+      drop = drop
     )
     bins$percent <- 100 * bins$count / data$nrow_total_[1]
     bins
@@ -130,6 +127,7 @@ StatBin2 <- ggplot2::ggproto(
 #' from the ggplot2 package
 #'
 #' @inheritParams ggplot2::stat_count
+#' @param width Use to override the default width.
 #' @param geom Use to override the default connection between
 #'   \code{\link[ggplot2]{geom_bar}}/\code{\link{geom_barcount}} and
 #'   \code{\link{stat_count2}}.

@@ -77,7 +77,7 @@ geom_histcount <- function(
   inherit.aes = TRUE
 ) {
 
-  position <- ggplot2:::check_subclass(position, 'Position', env = parent.frame())
+  position <- ggplot2:::validate_subclass(position, 'Position', env = parent.frame())
 
   if ( !inherits(position, 'PositionStack') ) {
     rlang::abort("stat_histcount() is only compatible with position_stack().")
