@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggcognigen</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.3</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@ based upon the <code>ggplot2</code> package.</p>
 the respective .tar.gz file from the <a href="https://github.com/simulations-plus/ggcognigen/tree/main/builds" class="external-link">builds/</a>
 directory, then install from source. For instance:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'ggcognigen_1.2.2.tar.gz'</span>, type <span class="op">=</span> <span class="st">'source'</span><span class="op">)</span>  </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'ggcognigen_1.2.3.tar.gz'</span>, type <span class="op">=</span> <span class="st">'source'</span><span class="op">)</span>  </span></code></pre></div>
 <p>Or install the latest version:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"simulations-plus/ggcognigen"</span><span class="op">)</span></span></code></pre></div>
@@ -130,7 +130,7 @@ validate <code>ggcognigen</code>.</p>
 command:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://simulations-plus.github.io/ggcognigen/" class="external-link">ggcognigen</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading ggcognigen Version 1.2.2</span></span>
+<span><span class="co">#&gt; Loading ggcognigen Version 1.2.3</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Default style set to `cognigen_style()`</span></span>
 <span><span class="co">#&gt; Default theme set to `theme_cognigen()`</span></span></code></pre></div>
@@ -146,7 +146,7 @@ command:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">clarity</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="576"></p>
 <p>If a different default theme has been applied (for instance, using
 <code><a href="https://ggplot2.tidyverse.org/reference/register_theme_elements.html" class="external-link">ggplot2::reset_theme_settings()</a></code>), the CPP theme can be
 explicitly applied by including <code><a href="../reference/theme_cognigen.html">theme_cognigen()</a></code> in your
@@ -166,7 +166,7 @@ ggplot calls.</p>
 <span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="768"></p>
 <p>To add grid lines in the background of the plot panel, use
 <code><a href="../reference/theme_cognigen.html">theme_cognigen_grid()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -175,11 +175,11 @@ ggplot calls.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">clarity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_cognigen.html">theme_cognigen_grid</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="576"></p>
 <p>If needed, the CPP-specific themes can be set to default using the
 following call:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="../reference/theme_cognigen.html">theme_cognigen</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="../reference/theme_cognigen.html">theme_cognigen</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="using-the-ggcognigen-graphical-style">Using the <code>ggcognigen</code> graphical style<a class="anchor" aria-label="anchor" href="#using-the-ggcognigen-graphical-style"></a>
@@ -207,7 +207,7 @@ be changed manually; alternatively, use
 <span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="768"></p>
 <p>One can revert to <code>ggplot2</code> default styling by calling
 <code><a href="../reference/set_default_style.html">set_default_style()</a></code> as follows (note that this call was
 made in the background for the purpose of creation of plots in the <a href="#theme">theme</a> section above):</p>
@@ -249,7 +249,7 @@ the default geom used in <code><a href="../reference/scale_discrete_cognigen.htm
 <span>  ncol <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="768"></p>
 <p><code><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen()</a></code> accepts multiple
 arguments:<br>
 - <code>n</code>: defines the number of distinct data groups in the
@@ -287,7 +287,7 @@ distinguishable when the plot is printed in black and white.</p>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-15-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level3">
 <h3 id="cognigen_style">
@@ -506,7 +506,7 @@ the change in a ordered series of categories.</p>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-18-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="768"></p>
 <p><code><a href="../reference/cognigen_purple_style.html">cognigen_purple_style()</a></code> accepts 2 arguments:</p>
 <ul>
 <li>
@@ -540,7 +540,7 @@ from all the other (for example, placebo vs multiple active dose).</li>
 <span><span class="co">#&gt; Warning: n argument (10) was coerced to 9.</span></span>
 <span><span class="co">#&gt; n argument (10) was coerced to 9.</span></span>
 <span><span class="co">#&gt; `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-19-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level3">
 <h3 id="read_style">
@@ -554,7 +554,7 @@ For this purpose, one could save the output of
 (but not its structure), then call <code>scale_discrete_cognigen</code>
 and set the <code>style</code> argument to the custom style list.</p>
 <p>Alternatively, if this custom style list must be re-used, it can be
-saved as a JSON file (see <code><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">?jsonlite::write_json</a></code>). Later,
+saved as a JSON file (see <code><a href="https://jeroen.r-universe.dev/jsonlite/reference/read_json.html" class="external-link">?jsonlite::write_json</a></code>). Later,
 one can use <code><a href="../reference/read_style.html">read_style()</a></code> to read the content of the JSON
 file and re-construct the appropriate style object.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -603,14 +603,14 @@ confidence interval. By default, <code>coef</code> is set to 1.5 as in
 <span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-21-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="768"></p>
 <p>Caps can also be displayed at the end of the whiskers using the
 <code>whisker.cap</code> argument.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">boxdata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">GROUP</span>, y <span class="op">=</span> <span class="va">CONTINUOUS</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_boxplot2.html">geom_boxplot2</a></span><span class="op">(</span>whisker.cap <span class="op">=</span> <span class="cn">TRUE</span>, outlier.position <span class="op">=</span> <span class="st">'identity'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-22-1.png" width="384"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="" width="384"></p>
 <p><strong>Controlling outlier positioning</strong></p>
 <p>By default, data points located beyond the limits of the whiskers are
 deemed outliers and are displaying by default with some random jitter.
@@ -633,7 +633,7 @@ The display and position of the outliers are controlled by the
 <span>  nrow <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-23-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="768"></p>
 <p><strong>Differences between <code><a href="../reference/geom_boxplot2.html">geom_boxplot2()</a></code> and
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">ggplot2::geom_boxplot()</a></code> styling</strong></p>
 <p>As described above, <code><a href="../reference/geom_boxplot2.html">geom_boxplot2()</a></code> and
@@ -699,7 +699,7 @@ controls the shape of the outliers.</li>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-24-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-24-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level3">
 <h3 id="geom_boxcount">
@@ -720,7 +720,7 @@ by each box and whiskers.</p>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">'boxplot'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-25-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-25-1.png" class="r-plt" alt="" width="768"></p>
 <p>When <code><a href="../reference/geom_boxcount.html">geom_boxcount()</a></code> is used, log axis scale display
 should be implemented using <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">ggplot2::scale_y_continuous</a></code>.
 Using <code>coord_trans(y ='log10')</code> would display the counts at
@@ -731,7 +731,7 @@ the wrong locations.</p>
 <span>  <span class="fu"><a href="../reference/geom_boxcount.html">geom_boxcount</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">'log10'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Width not defined. Set with `position_dodge2(width = ...)`</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-26-1.png" class="r-plt" alt="" width="576"></p>
 <p>See <code><a href="../reference/geom_boxcount.html">?geom_boxcount</a></code> for more information about the
 <code>spacing</code> argument that controls the amount of margin used
 between the boxplot whisker limits or maximum outlier values and the
@@ -752,7 +752,7 @@ in the <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" cla
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'identity'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_barcount.html">geom_barcount</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">'bar'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-27-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-27-1.png" class="r-plt" alt="" width="768"></p>
 <p>Alternatively, you can request the display of values associated with
 each bar components:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
@@ -761,7 +761,7 @@ each bar components:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'identity'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_barcount.html">geom_barcount</a></span><span class="op">(</span>overall.stack <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">'bar'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-28-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" alt="" width="768"></p>
 <p>This function also works with the <code>dodge</code>,
 <code>fill</code>, and <code>fillpercent</code> positions:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
@@ -796,7 +796,7 @@ each bar components:</p>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-29-1.png" width="768"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-29-1.png" class="r-plt" alt="" width="768"></p>
 <p>Use the <code>digits</code> argument to control significant
 digits:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -822,7 +822,7 @@ digits:</p>
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-30-1.png" width="576"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="geom_histcount">
@@ -839,7 +839,7 @@ represented by each bar. Note that any non-default argument set in the
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_histcount.html">geom_histcount</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_discrete_cognigen.html">scale_discrete_cognigen</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">'histogram'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-31-1.png" class="r-plt" alt="" width="576"></p>
 <p>To display the data distribution as density or percentages, we
 suggest that you use the <code>bin2</code> stat and set the
 <code>y</code> aesthetic to either <code>after_stat(density)</code> and
@@ -865,7 +865,7 @@ aesthetic to <code>after_stat(density_label)</code> or
 <span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" alt="" width="576"></p>
 <p>While <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram()</a></code> can be called using a continuous
 or categorical <code>x</code> aesthetic variable,
 <code><a href="../reference/geom_histcount.html">geom_histcount()</a></code> is not compatible with categorical
@@ -878,8 +878,8 @@ percentages based upon unmodified data</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'count'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_barcount.html">geom_barcount</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in geom_histogram(stat = "count"): Ignoring unknown parameters:</span></span>
-<span><span class="co">#&gt; `binwidth`, `bins`, and `pad`</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-33-1.png" width="576"></p>
+<span><span class="co">#&gt; `binwidth` and `bins`</span></span></code></pre></div>
+<p><img src="intro_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" alt="" width="576"></p>
 <!--
 # Using `ggcognigen` stats
 
@@ -924,7 +924,7 @@ for logarithmic scale axis.</p>
 <span>    minor_breaks <span class="op">=</span> <span class="va">minor_breaks_log</span>,</span>
 <span>    labels <span class="op">=</span> <span class="va">format_continuous_cognigen</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="intro_files/figure-html/unnamed-chunk-34-1.png" width="700"></p>
+<p><img src="intro_files/figure-html/unnamed-chunk-34-1.png" class="r-plt" alt="" width="700"></p>
 </div>
   </div>
 
@@ -943,7 +943,7 @@ for logarithmic scale axis.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>
